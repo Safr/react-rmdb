@@ -1,0 +1,24 @@
+{
+  "eslint.validate":  [
+    "javascript",
+    "javascriptreact",
+    {"language":  "typescript",  "autoFix":  true  },
+    {"language":  "typescriptreact",  "autoFix":  true  }
+  ],
+  "editor.formatOnSave": false,
+  "javascript.format.enable": false,
+  "prettier.eslintIntegration": true,
+  "eslint.autoFixOnSave": true,
+  "[javascript]":  {
+    "editor.formatOnSave":  false,
+  },
+  "[javascriptreact]":  {
+    "editor.formatOnSave":  false,
+  },
+  "[typescript]":  {
+    "editor.formatOnSave":  false,
+  },
+  "[typescriptreact]":  {
+    "editor.formatOnSave":  false,
+  }
+}
