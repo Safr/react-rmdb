@@ -42,11 +42,13 @@ const Footer = () => {
 export default Footer;
 
 const Wrapper = styled.div`
-  display: flex;
+  display: grid;
+  grid-auto-flow: column;
+  grid-gap: 20px;
   justify-content: center;
   align-items: center;
   margin-top: auto; /* Stick to bottom of sidebar */
-  padding: 10px;
+  height: 80px;
   text-align: center;
   color: #fff;
   font-size: 12px;
@@ -55,7 +57,6 @@ const Wrapper = styled.div`
   svg {
     width: 60px;
     height: auto;
-    margin-right: 20px;
 
     & > * :hover {
       fill: #01d277;

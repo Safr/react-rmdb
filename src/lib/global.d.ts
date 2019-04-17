@@ -4,6 +4,7 @@
  */
 
 declare interface IRootState {
+    movies?: any,
     orders?: any;
     user?: any;
     router?: any;
@@ -16,9 +17,17 @@ declare interface IUserState {
 }
 
 declare interface IMoviesState {
-  movies: any[],
+  movies: any | {
+    page: number,
+    total_results: number,
+    total_pages: number
+    results: any[],
+  },
+  // movies: any,
   favorites: any[],
   watchLater: [] | null,
+  loading: boolean,
+  error: boolean,
 }
 
 declare interface IFilterState {

@@ -6,6 +6,7 @@ import { MainRoute } from 'components/Layout/RouteTemplates';
 
 import {
   NotFound,
+  Login,
   // Main
   Dashboard,
   SearchResults,
@@ -15,6 +16,7 @@ import {
 // EXPORTED ROUTES
 const Routes = () => (
   <Switch>
+    <MainRoute exact path="/login" component={Login} />
     <MainRoute exact path="/dashboard" component={Dashboard} />
     <MainRoute path="/search" component={SearchResults} />
     <Redirect exact from="/" to="/dashboard" />

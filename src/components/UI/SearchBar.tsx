@@ -1,41 +1,57 @@
 import * as React from 'react';
+import { Formik, Form, Field, FieldProps } from 'formik';
 import styled from 'styled-components';
 import { MdSearch } from 'react-icons/md';
 
-const { useState } = React;
+interface MyFormValues {
+  movieName: string;
+}
 
-const SearchBar = ({ searchByKeyword }) => {
-  const [searchTerm, setSearch] = useState('');
-
-  const handleSearchSubmit = e => {
-    e.preventDefault();
-    searchByKeyword(searchTerm);
-    setSearch('');
-  };
+const SearchBar: React.FC<{}> = () => {
   return (
-    <Wrapper onSubmit={handleSearchSubmit}>
-      <MdSearch size="25px" />
-      <Input
-        type="text"
-        placeholder="Search movies..."
-        value={searchTerm}
-        onChange={e => setSearch(e.target.value)}
-      />
-    </Wrapper>
+    <Formik
+      initialValues={{ movieName: '' }}
+      onSubmit={(values: MyFormValues, { setSubmitting }) => {
+        console.log('values', values);
+        setSubmitting(false);
+      }}
+      render={({ handleSubmit, isSubmitting }) => (
+        <Wrapper>
+          <Field
+            name="text"
+            render={({ field, form }: FieldProps<MyFormValues>) => (
+              <>
+                <MdSearch size="40px" />
+                <Input
+                  type="movieName"
+                  {...field}
+                  placeholder="Search movies..."
+                />
+                {form.touched.movieName &&
+                  form.errors.movieName &&
+                  form.errors.movieName}
+              </>
+            )}
+          />
+        </Wrapper>
+      )}
+    />
   );
 };
 
 export default SearchBar;
 
-const Wrapper = styled.form`
+const Wrapper = styled(Form)`
   position: relative;
+  width: 100%;
+  height: 100%;
 
   svg {
     position: absolute;
     top: 50%;
     left: 50px;
     transform: translate(-50%, -50%);
-    width: 30px;
+    /* width: 20px; */
     height: auto;
 
     path {
@@ -53,6 +69,7 @@ const Input = styled.input`
   border: 0;
   color: white;
   -webkit-appearance: none;
+  outline: none;
 
   ::placeholder {
     color: rgba(255, 255, 255, 0.5);

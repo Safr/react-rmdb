@@ -4,30 +4,30 @@ import { connect } from 'react-redux';
 import { compose } from 'redux';
 import styled from 'styled-components';
 // DUCKS
-import { effects as ordersEffects } from 'redux/ducks/orders.duck';
+import { effects as moviesEffects } from 'redux/ducks/movies.duck';
 // COMPONENTS
 import Header from './Header';
 import Sidebar from './Sidebar';
 import Footer from './Footer';
 
-// const { useEffect } = React;
+const { useEffect } = React;
 
 // TYPES
 export interface Props {
   children: JSX.Element;
-  fetchOrders: () => void;
+  fetchMovies: () => Promise<void>;
   rest?: Object;
 }
 
 // EXPORTED COMPONENT
 const MainLayout: React.FC<Props & RouteProps> = ({
   children,
-  fetchOrders,
+  fetchMovies,
   ...rest
 }) => {
-  // useEffect(() => {
-  //   fetchOrders();
-  // }, [fetchOrders]);
+  useEffect(() => {
+    fetchMovies();
+  }, [fetchMovies]);
   return (
     <Content>
       <Header {...rest} />
@@ -43,7 +43,7 @@ const MainLayout: React.FC<Props & RouteProps> = ({
 export default compose(
   connect(
     null,
-    { ...ordersEffects },
+    { ...moviesEffects },
   ),
 )(MainLayout);
 

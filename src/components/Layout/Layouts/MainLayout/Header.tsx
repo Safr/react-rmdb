@@ -33,7 +33,8 @@ const Header: React.FC<Props> = ({
   return (
     <Wrapper>
       <Logo>Safr</Logo>
-      <SearchBar searchByKeyword={searchByKeyword} />
+      {/* <SearchBar searchByKeyword={searchByKeyword} /> */}
+      <SearchBar />
       {authenticated ? (
         <div className="user-wrapper">
           {user.photoURL ? (
@@ -67,7 +68,7 @@ const Header: React.FC<Props> = ({
           )}
         </div>
       ) : (
-        <div className="login-tickets-wrapper">
+        <Login>
           <Link className="" to="/login">
             <svg
               className="login-tickets"
@@ -78,7 +79,7 @@ const Header: React.FC<Props> = ({
             </svg>
             <span className="login-tickets-label">Register / Log in</span>
           </Link>
-        </div>
+        </Login>
       )}
     </Wrapper>
   );
@@ -92,14 +93,44 @@ export default compose(
 
 const Wrapper = styled.header`
   display: grid;
-  grid-template-columns: 200px 1fr auto;
+  grid-template-columns: 170px 1fr 140px;
+  justify-items: center;
+  align-items: center
   background-color: #cc343f;
   height: 80px;
-  svg {
+  > svg {
     width: 50px;
   }
 `;
 
-const Logo = styled.div`
-  /* width: 200px; */
+const Logo = styled.h1`
+  font-size: 36px;
+`;
+
+const Login = styled.div`
+  position: relative;
+
+  a {
+    display: grid;
+    width: 100%;
+  }
+
+  svg {
+    width: 50px;
+    fill: #fff;
+  }
+
+  span {
+    width: 90%;
+    margin-top: 8px;
+    font-size: 10px;
+    text-decoration: none;
+    color: #fff;
+    text-transform: uppercase;
+    position: absolute;
+    top: 70%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+  }
 `;
