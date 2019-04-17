@@ -44,4 +44,17 @@ const Wrapper = styled.form`
   }
 `;
 
-const Input = styled.input``;
+const Input = styled.input`
+  width: 100%;
+  height: 100%;
+  padding: 10px 10px 10px 100px;
+  font-size: 20px;
+  background-color: #e53b47;
+  border: 0;
+  color: white;
+  -webkit-appearance: none;
+
+  ::placeholder {
+    color: rgba(255, 255, 255, 0.5);
+  }
+`;

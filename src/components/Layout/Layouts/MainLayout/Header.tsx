@@ -32,7 +32,7 @@ const Header: React.FC<Props> = ({
 
   return (
     <Wrapper>
-      <div>Safr</div>
+      <Logo>Safr</Logo>
       <SearchBar searchByKeyword={searchByKeyword} />
       {authenticated ? (
         <div className="user-wrapper">
@@ -92,10 +92,14 @@ export default compose(
 
 const Wrapper = styled.header`
   display: grid;
-  grid-template-columns: 100px 1fr auto;
+  grid-template-columns: 200px 1fr auto;
   background-color: #cc343f;
-  height: 60px;
+  height: 80px;
   svg {
     width: 50px;
   }
+`;
+
+const Logo = styled.div`
+  /* width: 200px; */
 `;

@@ -7,6 +7,7 @@ import styled from 'styled-components';
 import { effects as ordersEffects } from 'redux/ducks/orders.duck';
 // COMPONENTS
 import Header from './Header';
+import Sidebar from './Sidebar';
 import Footer from './Footer';
 
 // const { useEffect } = React;
@@ -31,6 +32,7 @@ const MainLayout: React.FC<Props & RouteProps> = ({
     <Content>
       <Header {...rest} />
       <Grid>
+        <Sidebar />
         <InnerContent>{React.cloneElement(children, { ...rest })}</InnerContent>
       </Grid>
       <Footer />
@@ -56,13 +58,15 @@ const Content = styled.div`
   min-height: 100vh;
   flex-direction: column;
   position: relative;
+  background-color: #222b31;
+  color: #fff;
 `;
 
 const Grid = styled.div`
   position: relative;
   flex: 1;
-  /* min-height: calc(100vh - 100px); */
   display: grid;
+  grid-template-columns: fit-content(100%) auto;
 `;
 
 const InnerContent = styled.div`
