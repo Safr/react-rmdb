@@ -9,15 +9,15 @@ export const primaryTheme = {
     platinumGrey: '#DADADA',
     darkGrey: '#ababab',
 
-    // PINK
-    pink: '#e40043',
+    // RED
+    red: '#cc343f',
 
     // BLUE
     blue: '#3E80FF',
     transparentBlue: 'rgba(0, 126, 255, 0.1)',
 
     // BLACK
-    black: '#191919',
+    black: '#191c1f',
 
   },
 };

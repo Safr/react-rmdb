@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 
-export const useSetGlobalEventHandler = (globalTarget, eventName, f, cond)  => useEffect(() => {
+export const useSetGlobalEventHandler = (globalTarget, eventName: string, f, cond) => useEffect(() => {
   if (globalTarget && eventName && f) {
     globalTarget.addEventListener(eventName, f);
     return () => {

@@ -3,11 +3,14 @@ import { RouteProps } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
 import styled from 'styled-components';
+// HOCS
+import { withSidebar } from 'components/HOC';
 // DUCKS
 import { effects as moviesEffects } from 'redux/ducks/movies.duck';
 // COMPONENTS
 import Header from './Header';
 import Sidebar from './Sidebar';
+import MobileMenu from './MobileMenu';
 import Footer from './Footer';
 
 const { useEffect } = React;
@@ -15,6 +18,7 @@ const { useEffect } = React;
 // TYPES
 export interface Props {
   children: JSX.Element;
+  sidebarProps: any;
   fetchMovies: () => Promise<void>;
   rest?: Object;
 }
@@ -22,6 +26,7 @@ export interface Props {
 // EXPORTED COMPONENT
 const MainLayout: React.FC<Props & RouteProps> = ({
   children,
+  sidebarProps,
   fetchMovies,
   ...rest
 }) => {
@@ -30,12 +35,14 @@ const MainLayout: React.FC<Props & RouteProps> = ({
   }, [fetchMovies]);
   return (
     <Content>
-      <Header {...rest} />
+      <Header {...sidebarProps} {...rest} />
       <Grid>
         <Sidebar />
+        <MobileMenu {...sidebarProps} />
         <InnerContent>{React.cloneElement(children, { ...rest })}</InnerContent>
       </Grid>
       <Footer />
+  
     </Content>
   );
 };
@@ -45,6 +52,7 @@ export default compose(
     null,
     { ...moviesEffects },
   ),
+  withSidebar,
 )(MainLayout);
 
 const Content = styled.div`
@@ -56,6 +64,7 @@ const Content = styled.div`
 
   display: flex;
   min-height: 100vh;
+  /* min-height: calc(100vh - 160px); */
   flex-direction: column;
   position: relative;
   background-color: #222b31;

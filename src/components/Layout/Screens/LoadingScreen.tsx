@@ -22,10 +22,10 @@ const Content = styled.div`
   z-index: 1000;
   height: 100vh;
   width: 100vw;
-  background: ${({ theme }) => theme.colors.white};
-  > div {
-    height: 100px;
-    width: 100px;
+  background: rgba(243, 255, 255, 0.4);
+  > * {
+    height: 40px;
+    width: 80px;
     position: absolute;
     z-index: 1001;
     top: 50%;

@@ -20,4 +20,4 @@ module.exports = {
     '^.+\\.(ts|tsx)$': './node_modules/ts-jest/preprocessor.js',
   },
   snapshotSerializers: ['enzyme-to-json/serializer'],
-}
+};

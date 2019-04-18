@@ -309,7 +309,7 @@ const FilterLabel = styled.label`
 
 const FiltersReset = styled.button`
   float: right;
-  margin-top: 5px;
+  margin-top: 3px;
   background: transparent;
   border: 0;
   color: #afbdc7;

@@ -4,7 +4,9 @@ import reset from 'styled-reset';
 export const GlobalStyle = createGlobalStyle`
   ${reset}
   #root,
-  #modal-root {
+  #modal-root,
+  #modal-sidebar
+  {
     position: relative;
     z-index: 1050;
   }

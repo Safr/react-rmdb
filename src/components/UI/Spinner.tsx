@@ -1,69 +1,62 @@
 import * as React from 'react';
-import styled from 'styled-components';
+import styled, { keyframes } from 'styled-components';
 
-const Spinner = () => <Loader />;
+const Spinner = () => (
+  <Preloader>
+    <li />
+    <li />
+    <li />
+    <li />
+  </Preloader>
+);
 
 export default Spinner;
 
-const Loader = styled.div`
-  width: 48px;
-  height: 48px;
-  display: inline-block;
-  box-sizing: border-box;
-  position: relative;
-
-  border-radius: 50%;
-  border-top: solid 6px #f56151;
-  border-right: solid 6px transparent;
-  border-bottom: solid 6px transparent;
-  border-left: solid 6px transparent;
-  /* animation: cp-skeleton-animate 1s linear infinite; */
-
-  ::before {
-    border-radius: 50%;
-    content: ' ';
-    width: 48px;
-    height: 48px;
-    display: inline-block;
-    box-sizing: border-box;
-    border-top: solid 6px transparent;
-    border-right: solid 6px transparent;
-    border-bottom: solid 6px transparent;
-    border-left: solid 6px #f56151;
-    position: absolute;
-    top: -6px;
-    left: -6px;
-    transform: rotateZ(-30deg);
+const animate = keyframes`
+  0%,
+  40%,
+  100% {
+    transform: scale(.2);
   }
-
-  ::after {
-    border-radius: 50%;
-    content: ' ';
-    width: 48px;
-    height: 48px;
-    display: inline-block;
-    box-sizing: border-box;
-    border-top: solid 6px transparent;
-    border-right: solid 6px #f56151;
-    border-bottom: solid 6px transparent;
-    border-left: solid 6px transparent;
-    position: absolute;
-    top: -6px;
-    right: -6px;
-    transform: rotateZ(30deg);
+  20% {
+    transform: scale(1);
   }
 `;
 
-// keyframes cp-skeleton-animate {
-//   0% {
-//     transform: rotate(0);
-//     opacity: 1;
-//   }
-//   50%{
-//     opacity: .7;
-//   }
-//   100% {
-//     transform: rotate(360deg);
-//     opacity: 1;
-//   }
-// }
+const Preloader = styled.ul`
+   display: grid;
+  width: 100px;
+  align-items: center;
+  justify-items: center;
+  grid-auto-flow: column;
+  margin: 0;
+  padding: 0;
+  /* height: 30px; */
+  /* margin-top: -40px;
+  padding-right: 29px;
+  padding-left: 29px; */
+  li {
+    width: 2rem;
+    height: 2rem;
+    margin-right: 1rem;
+    background-color: ${({ theme }) => theme.colors.white};
+    border-radius: 50%;
+    animation: ${animate} 1.8s ease-in-out infinite;
+  }
+  li:nth-child(1) {
+    animation-delay: 0.5s;
+    background-color: ${({ theme }) => theme.colors.white};
+  }
+  li:nth-child(2) {
+    animation-delay: 0.8s;
+    background-color: ${({ theme }) => theme.colors.white};
+  }
+  li:nth-child(3) {
+    animation-delay: 1s;
+    background-color: ${({ theme }) => theme.colors.white};
+  }
+  li:nth-child(4) {
+    animation-delay: 1.2s;
+    background-color: ${({ theme }) => theme.colors.white};
+  }
+`;

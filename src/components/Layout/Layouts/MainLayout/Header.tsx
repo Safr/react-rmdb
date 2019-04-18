@@ -3,6 +3,10 @@ import { connect } from 'react-redux';
 import { compose } from 'redux';
 import { Link, withRouter } from 'react-router-dom';
 import styled from 'styled-components';
+import {MdMenu
+} from 'react-icons/md';
+// STYLES
+import { media } from 'lib/styles';
 // HOCS
 import { withAjaxSearch } from 'components/HOC';
 // COMPONENTS
@@ -13,15 +17,19 @@ const { useState } = React;
 
 interface Props {
   authenticated?: boolean;
+  isSidebarOpen: boolean;
+  openSidebar: () => void;
   user?: any;
-  searchByKeyword: () => void;
-  searchKeyword: string;
+  // searchByKeyword: () => void;
+  // searchKeyword: string;
 }
 
 const Header: React.FC<Props> = ({
   authenticated,
-  searchKeyword,
-  searchByKeyword,
+  isSidebarOpen,
+  openSidebar,
+  // searchKeyword,
+  // searchByKeyword,
   user,
 }) => {
   const [userMenuOpen, setUserMenuOpen] = useState(false);
@@ -32,11 +40,11 @@ const Header: React.FC<Props> = ({
 
   return (
     <Wrapper>
-      <Logo>Safr</Logo>
+      {!isSidebarOpen && <Logo>Safr</Logo>}
       {/* <SearchBar searchByKeyword={searchByKeyword} /> */}
       <SearchBar />
       {authenticated ? (
-        <div className="user-wrapper">
+        <UserWrapper>
           {user.photoURL ? (
             <img
               onClick={toggleUserMenu}
@@ -66,7 +74,7 @@ const Header: React.FC<Props> = ({
           ) : (
             <Menu userName={user.email} isOpen={userMenuOpen} />
           )}
-        </div>
+        </UserWrapper>
       ) : (
         <Login>
           <Link className="" to="/login">
@@ -81,6 +89,9 @@ const Header: React.FC<Props> = ({
           </Link>
         </Login>
       )}
+      <HamburgerBlock onClick={openSidebar}>
+          <MdMenu size="32px" />
+        </HamburgerBlock>
     </Wrapper>
   );
 };
@@ -93,11 +104,18 @@ export default compose(
 
 const Wrapper = styled.header`
   display: grid;
-  grid-template-columns: 170px 1fr 140px;
+  grid-template-columns: 200px 1fr 140px;
+  ${media.phone`
+  grid-template-columns: 1fr 50px;
+  background-color: #e53b47;
+  `};
+/* ${media.smallPhone`
+  grid-template-columns: 1fr 50px;
+`}; */
   justify-items: center;
   align-items: center
   background-color: #cc343f;
-  height: 80px;
+  height: 70px;
   > svg {
     width: 50px;
   }
@@ -105,10 +123,16 @@ const Wrapper = styled.header`
 
 const Logo = styled.h1`
   font-size: 36px;
+  ${media.phone`
+    display: none;
+  `};
 `;
 
 const Login = styled.div`
   position: relative;
+  ${media.phone`
+    display: none;
+`};
 
   a {
     display: grid;
@@ -132,5 +156,30 @@ const Login = styled.div`
     left: 50%;
     transform: translate(-50%, -50%);
     text-align: center;
+  }
+`;
+
+
+const UserWrapper = styled.div`
+${media.phone`
+  display: none;
+`};
+
+`;
+
+
+const HamburgerBlock = styled.div`
+  display: none;
+  cursor: pointer;
+  ${media.phone`
+    display: grid;
+  `};
+  svg {
+    color: ${({ theme }) => theme.colors.white};
+  }
+
+  :hover,
+  :active {
+    opacity: 0.8;
   }
 `;

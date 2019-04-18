@@ -1,16 +1,35 @@
 import * as React from 'react';
 import { NavLink } from 'react-router-dom';
+import { MdClose } from 'react-icons/md';
 import styled from 'styled-components';
 // STYLES
 import { media } from 'lib/styles';
 // COMPONENTS
+import Copyright from 'components/Copyright';
 import Filters from 'components/UI/Filters';
+import SidebarPortal from 'components/Layout/Sidebars/SidebarPortal';
 
-const Sidebar = () => {
+
+interface Props {
+  isSidebarOpen: boolean;
+  closeSidebar: () => void;
+}
+
+interface MobileProps {
+  readonly isOpen: boolean;
+}
+
+const MobileMenu: React.FC<Props> = ({ isSidebarOpen, closeSidebar }) => {
   const currentPath = window.location.pathname;
-
+ console.log('issidebaropen', isSidebarOpen);
   return (
-    <Wrapper>
+    <SidebarPortal>
+    <Wrapper isOpen={isSidebarOpen} id="sidebar">
+
+          <MediaHeader>
+          <Logo>Safr</Logo>
+            <MdClose size="30px" color='#fff' onClick={closeSidebar} />
+          </MediaHeader>
       <SidebarMenu>
         <li className="sidebar-menu__item">
           <Link exact to="/dashboard">
@@ -68,26 +87,74 @@ const Sidebar = () => {
         // resetFilters={this.props.resetFilters}
         />
       )}
+      <Copyright />
     </Wrapper>
+    <ContainerBg isOpen={isSidebarOpen} onClick={closeSidebar} />
+    {/* <ContainerBg /> */}
+    </SidebarPortal>
   );
 };
 
-export default Sidebar;
+export default MobileMenu;
 
-const Wrapper = styled.div`
-  position: relative;
+// const Wrapper = styled.div<MobileProps>`
+//   position: fixed;
+//   top: 0;
+//   left: 0;
+//   z-index: 5;
+//   height: 100%;
+//   display: none;
+//   width: 170px;
+//   transform: ${({ isOpen }) =>
+//     !isOpen ? 'translateX(-170px)' : 'translateX(0)'};
+//   transition: all 0.5s;
+//   height: calc(100vh - 160px);
+//   background-color: #191c1f;
+//   overflow-y: auto;
+
+//   ${media.phone`
+//     display: block;
+//   `};
+
+//   li:last-item a {
+//     color: rgba(255, 255, 255, 0.5);
+//   }
+// `;
+const Wrapper = styled.div<MobileProps>`
   width: 200px;
-  height: calc(100vh - 150px);
-  background-color: #191c1f;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1050;
+  height: 100%;
+  display: none;
+  /* opacity: ${({ isOpen }) => (!isOpen ? '0' : '1')}; */
+  transform: ${({ isOpen }) =>
+    !isOpen ? 'translateX(-200px)' : 'translateX(0)'};
+  transition: all 0.5s;
+  color: ${({ theme }) => theme.colors.white};
+  background-color: rgba(0, 0, 0, 0.7);
+  overflow-y: auto;
+  /* display: grid;
+  align-content: start;
+  grid-gap: 24px;
+  padding: 16px;
+  padding-bottom: 40px;
+  overflow-y: auto;
+  background-color: ${({ theme }) => theme.colors.white}; */
 
   ${media.phone`
-    display: none;
-  `};
-
-  li:last-item a {
-    color: rgba(255, 255, 255, 0.5);
-  }
+     display: block;
+   `};
 `;
+
+const Logo = styled.h1`
+  font-size: 36px;
+  ${media.phone`
+     font-size: 30px;
+   `};
+`;
+
 
 const SidebarMenu = styled.ul`
   list-style-type: none;
@@ -154,3 +221,47 @@ const Link = styled(NavLink).attrs({ activeClassName })`
 //   .sidebar-menu__item--coming-soon a{
 //     color: rgba(255, 255, 255, 0.5);
 //   }
+
+
+const MediaHeader = styled.div`
+  display: none;
+  ${media.phone`
+    display: grid;
+    grid-auto-flow: column;
+    grid-gap: 16px;
+    align-items: center;
+    padding: 15px 5px 15px 15px;
+    border-bottom: 1px solid ${({ theme }) => theme.colors.white};
+  `};
+  > span {
+    line-height: 1.4;
+  }
+  > svg {
+    cursor: pointer;
+    :hover {
+      opacity: 0.8;
+    }
+  }
+
+  > svg:last-child {
+    margin-top: 10px;
+    justify-self: end;
+  }
+`;
+
+const ContainerBg = styled.div<MobileProps>`
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 1000;
+  display: ${({ isOpen }) => (isOpen ? 'block' : 'none')};
+  width: 100%;
+  height: 100%;
+  transition: all 0.5s;
+  background-color: ${({ theme }) => theme.colors.red};
+  opacity: 0.6;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+`;

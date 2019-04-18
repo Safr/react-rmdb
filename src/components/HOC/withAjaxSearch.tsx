@@ -7,7 +7,7 @@ interface InjectedProps {
   history: History;
 }
 
-// // EXPORTED HOC
+// EXPORTED HOC
 const withAjaxSearch = <P extends InjectedProps>(
   Component: React.ComponentType<P>,
 ): React.FC<P & InjectedProps> => props => {

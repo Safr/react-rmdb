@@ -20,7 +20,10 @@ const MainTemplate: React.FC<Props & RouteProps> = ({
       render={(props: any) => (
         <ErrorScreen>
           <MainLayout {...rest}>
-            <Component {...props} fallback={<LoadingScreen {...props} {...rest} />} />
+            <Component
+              {...props}
+              fallback={<LoadingScreen {...props} {...rest} />}
+            />
           </MainLayout>
         </ErrorScreen>
       )}

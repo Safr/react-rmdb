@@ -74,7 +74,6 @@
     "babel-eslint": "9.0.0",
     "babel-jest": "23.6.0",
     "babel-plugin-module-resolver": "3.2.0",
-    "babel-plugin-styled-components": "^1.10.0",
     "enzyme": "^3.9.0",
     "enzyme-adapter-react-16": "^1.12.1",
     "enzyme-to-json": "^3.3.5",
