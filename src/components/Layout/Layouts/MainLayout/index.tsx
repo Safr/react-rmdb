@@ -3,6 +3,8 @@ import { RouteProps } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
 import styled from 'styled-components';
+// STYLES
+import { media } from 'lib/styles';
 // HOCS
 import { withSidebar } from 'components/HOC';
 // DUCKS
@@ -42,7 +44,6 @@ const MainLayout: React.FC<Props & RouteProps> = ({
         <InnerContent>{React.cloneElement(children, { ...rest })}</InnerContent>
       </Grid>
       <Footer />
-  
     </Content>
   );
 };
@@ -76,11 +77,14 @@ const Grid = styled.div`
   flex: 1;
   display: grid;
   grid-template-columns: fit-content(100%) auto;
+  ${media.phone`
+    grid-template-columns: 1fr;
+  `};
 `;
 
 const InnerContent = styled.div`
   display: grid;
-  justify-content: center;
+  /* justify-content: center; */
   max-height: 100%;
   overflow-y: initial;
 `;

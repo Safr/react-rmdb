@@ -5,7 +5,6 @@ import { media } from 'lib/styles';
 // COMPONENTS
 import Copyright from 'components/Copyright';
 
-
 const Footer = () => {
   return (
     <Wrapper>
@@ -21,7 +20,7 @@ const Wrapper = styled.footer`
   justify-content: center;
   align-items: center;
   margin-top: auto; /* Stick to bottom of sidebar */
-  height: 80px;
+  height: 70px;
   text-align: center;
   color: #fff;
   font-size: 12px;
@@ -30,6 +29,4 @@ const Wrapper = styled.footer`
   ${media.phone`
     display: none;
   `};
-
-  
 `;

@@ -1,11 +1,12 @@
 import { css, ThemedCssFunction } from 'styled-components';
 
 const sizes = {
-  desktop: 1440,
-  laptop: 1130,
-  tablet: 1023,
-  phone: 768,
-  smallPhone: 480,
+  desktop: 1920,
+  laptop: 1366,
+  tablet: 1123,
+  smallTablet: 900,
+  phone: 700,
+  smallPhone: 466,
 };
 
 export const media = (Object.keys(sizes) as (keyof typeof sizes)[]).reduce((acc, label) => {

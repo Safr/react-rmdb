@@ -23,6 +23,18 @@ declare interface IMoviesState {
     total_pages: number
     results: any[],
   },
+  popularMovies: any | {
+    page: number,
+    total_results: number,
+    total_pages: number
+    results: any[],
+  },
+  topRatedMovies: any | {
+    page: number,
+    total_results: number,
+    total_pages: number
+    results: any[],
+  },
   // movies: any,
   favorites: any[],
   watchLater: [] | null,

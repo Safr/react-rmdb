@@ -8,7 +8,9 @@ import {
   NotFound,
   Login,
   // Main
-  Dashboard,
+  Discover,
+  Popular,
+  TopRated,
   SearchResults,
   // eslint-disable-next-line import/no-unresolved
 } from './routes';
@@ -17,9 +19,11 @@ import {
 const Routes = () => (
   <Switch>
     <MainRoute exact path="/login" component={Login} />
-    <MainRoute exact path="/dashboard" component={Dashboard} />
+    <MainRoute exact path="/" component={Discover} />
+    <MainRoute exact path="/popular" component={Popular} />
+    <MainRoute exact path="/top-rated" component={TopRated} />
     <MainRoute path="/search" component={SearchResults} />
-    <Redirect exact from="/" to="/dashboard" />
+    {/* <Redirect exact from="/" to="/dashboard" /> */}
     <Route path="/404" component={NotFound} />
     <Redirect to="/404" />
   </Switch>

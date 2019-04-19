@@ -13,7 +13,7 @@ const Sidebar = () => {
     <Wrapper>
       <SidebarMenu>
         <li className="sidebar-menu__item">
-          <Link exact to="/dashboard">
+          <Link exact to="/">
             <svg
               width="16"
               height="19"
@@ -77,7 +77,6 @@ export default Sidebar;
 const Wrapper = styled.div`
   position: relative;
   width: 200px;
-  height: calc(100vh - 150px);
   background-color: #191c1f;
 
   ${media.phone`
