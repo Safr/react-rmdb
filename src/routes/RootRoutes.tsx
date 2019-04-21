@@ -8,6 +8,7 @@ import {
   NotFound,
   Login,
   // Main
+  ComingSoon,
   Discover,
   Popular,
   TopRated,
@@ -19,6 +20,7 @@ import {
 const Routes = () => (
   <Switch>
     <MainRoute exact path="/login" component={Login} />
+    <MainRoute exact path="/coming-soon" component={ComingSoon} />
     <MainRoute exact path="/" component={Discover} />
     <MainRoute exact path="/popular" component={Popular} />
     <MainRoute exact path="/top-rated" component={TopRated} />

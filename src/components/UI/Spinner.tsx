@@ -41,10 +41,10 @@ const Preloader = styled.ul`
     margin-right: 1rem;
     background-color: ${({ theme }) => theme.colors.white};
     border-radius: 50%;
-    animation: ${animate} 1.8s ease-in-out infinite;
+    animation: ${animate} 1.1s ease-in-out infinite;
   }
   li:nth-child(1) {
-    animation-delay: 0.5s;
+    animation-delay: 0.6s;
     background-color: ${({ theme }) => theme.colors.white};
   }
   li:nth-child(2) {
@@ -56,7 +56,7 @@ const Preloader = styled.ul`
     background-color: ${({ theme }) => theme.colors.white};
   }
   li:nth-child(4) {
-    animation-delay: 1.2s;
+    animation-delay: 1.1s;
     background-color: ${({ theme }) => theme.colors.white};
   }
 `;

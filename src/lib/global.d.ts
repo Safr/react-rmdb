@@ -17,13 +17,21 @@ declare interface IUserState {
 }
 
 declare interface IMoviesState {
+  results: any;
   movies: any | {
     page: number,
     total_results: number,
     total_pages: number
     results: any[],
   },
+  // popularMovies: any;
   popularMovies: any | {
+    page: number,
+    total_results: number,
+    total_pages: number
+    results: any[],
+  },
+  soonMovies: any | {
     page: number,
     total_results: number,
     total_pages: number

@@ -1,11 +1,12 @@
 import { request } from 'lib/helpers';
-import { API_KEY, PATH_BASE, PATH_DISCOVER, PATH_POPULAR, PATH_TOP_RATED, PATH_MOVIE, PATH_PAGE } from 'lib/constants/searchConfig';
+import { API_KEY, PATH_BASE, PATH_DISCOVER, PATH_POPULAR, PATH_TOP_RATED, PATH_MOVIE, PATH_PAGE, PATH_UPCOMING } from 'lib/constants/searchConfig';
 
 export default {
   getOrders: () => {},
-  getMovies: (page: number) => request('get', `${PATH_BASE}${PATH_DISCOVER}${PATH_MOVIE}?language=en-US&api_key=${API_KEY}&${PATH_PAGE}${page}`),
-  getPopularMovies: (page: number) => request('get', `${PATH_BASE}${PATH_MOVIE}${PATH_POPULAR}?language=en-US&api_key=${API_KEY}&${PATH_PAGE}${page}`),
-  getTopRatedMovies: (page: number) => request('get', `${PATH_BASE}${PATH_MOVIE}${PATH_TOP_RATED}?language=en-US&api_key=${API_KEY}&${PATH_PAGE}${page}`),
+  getMovies: (page: number = 1) => request('get', `${PATH_BASE}${PATH_DISCOVER}${PATH_MOVIE}?language=en-US&api_key=${API_KEY}&${PATH_PAGE}${page}`),
+  getPopularMovies: (page: number = 1) => request('get', `${PATH_BASE}${PATH_MOVIE}${PATH_POPULAR}?language=en-US&api_key=${API_KEY}&${PATH_PAGE}${page}`),
+  getTopRatedMovies: (page: number = 1) => request('get', `${PATH_BASE}${PATH_MOVIE}${PATH_TOP_RATED}?language=en-US&api_key=${API_KEY}&${PATH_PAGE}${page}`),
+  getSoonMovies: (page: number = 1) => request('get', `${PATH_BASE}${PATH_MOVIE}${PATH_UPCOMING}?language=en-US&api_key=${API_KEY}&${PATH_PAGE}${page}`),
   getOrderBook: pair => request('get', `/order_book/?limit=50&pair=${pair}`),
 };
 

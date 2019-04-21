@@ -2,6 +2,9 @@ import * as React from 'react';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
 import styled from 'styled-components';
+// import { useSetGlobalEventHandler } from 'lib/hooks';
+// HOCS
+import { withAjaxLoadMore } from 'components/HOC';
 // DUCKS
 import {
   effects as moviesEffects,
@@ -17,24 +20,42 @@ import {
 // } from '../../api';
 // COMPONENTS
 import List from 'components/List';
-// import Button from '../../components/Button';
+import Spinner from 'components/UI/Spinner';
+
+// import { useLoadMore } from 'lib/hooks';
 
 const { useEffect } = React;
 
 // TYPES
 export interface Props {
-  fetchPopularMovies: () => Promise<void>;
+  fetchPopularMovies: (page: number) => Promise<void>;
   movies: any;
+  page: number;
+  isLoading: boolean;
 }
 
-const PopularPages: React.FC<Props> = ({ movies, fetchPopularMovies }) => {
+const PopularPages: React.FC<Props> = ({
+  movies,
+  fetchPopularMovies,
+  isLoading,
+  page,
+  ...rest
+}) => {
+  // const currentPage = movies ? movies.page : 1;
+
   useEffect(() => {
-    fetchPopularMovies();
-  }, [fetchPopularMovies]);
+    fetchPopularMovies(page);
+  }, [fetchPopularMovies, page]);
   return (
     <Content>
       <h2>Popular</h2>
-      {movies && <List list={movies.results} />}
+      {movies && <List list={movies.results} {...rest} />}
+      {!isLoading && (
+      <Loading>
+
+        <Spinner />
+      </Loading>
+      )}
 
       {/* {results && (
           <List
@@ -51,10 +72,6 @@ const PopularPages: React.FC<Props> = ({ movies, fetchPopularMovies }) => {
           />
         )} */}
       {/* 
-        <Button
-          className="button"
-          onClick={() => this.getMovies(this.props.section, page + 1)}
-          text="Load more"
         /> */}
     </Content>
   );
@@ -68,10 +85,18 @@ export default compose(
     }),
     { ...moviesEffects },
   ),
+  withAjaxLoadMore,
   React.memo,
 )(PopularPages);
 
 const Content = styled.div`
   padding: 30px 25px 40px 30px;
   position: relative;
+`;
+
+const Loading = styled.div`
+  display: grid;
+  align-items: center;
+  justify-content: center;
+  margin-top: 20px;
 `;

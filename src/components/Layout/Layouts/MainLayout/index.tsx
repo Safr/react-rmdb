@@ -6,7 +6,7 @@ import styled from 'styled-components';
 // STYLES
 import { media } from 'lib/styles';
 // HOCS
-import { withSidebar } from 'components/HOC';
+import { withAjaxLoadMore, withSidebar } from 'components/HOC';
 // DUCKS
 import { effects as moviesEffects } from 'redux/ducks/movies.duck';
 // COMPONENTS
@@ -21,8 +21,9 @@ const { useEffect } = React;
 export interface Props {
   children: JSX.Element;
   sidebarProps: any;
-  fetchMovies: () => Promise<void>;
+  fetchMovies: (page: number) => Promise<void>;
   rest?: Object;
+  page: number;
 }
 
 // EXPORTED COMPONENT
@@ -30,11 +31,12 @@ const MainLayout: React.FC<Props & RouteProps> = ({
   children,
   sidebarProps,
   fetchMovies,
+  page,
   ...rest
 }) => {
   useEffect(() => {
-    fetchMovies();
-  }, [fetchMovies]);
+    fetchMovies(page);
+  }, [fetchMovies, page]);
   return (
     <Content>
       <Header {...sidebarProps} {...rest} />
@@ -54,6 +56,7 @@ export default compose(
     { ...moviesEffects },
   ),
   withSidebar,
+  withAjaxLoadMore,
 )(MainLayout);
 
 const Content = styled.div`

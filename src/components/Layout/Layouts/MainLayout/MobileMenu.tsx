@@ -20,7 +20,6 @@ interface MobileProps {
 
 const MobileMenu: React.FC<Props> = ({ isSidebarOpen, closeSidebar }) => {
   const currentPath = window.location.pathname;
-  console.log('issidebaropen', isSidebarOpen);
   return (
     <SidebarPortal>
       <Wrapper isOpen={isSidebarOpen} id="sidebar">

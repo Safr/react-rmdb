@@ -3,11 +3,13 @@ import { createSelector } from 'reselect';
 import { Dispatch } from 'redux';
 // API
 import api from 'lib/api';
-import { DEFAULT_PAGE } from 'lib/constants/searchConfig';
+// import { DEFAULT_PAGE } from 'lib/constants/searchConfig';
 
 const initialState: IMoviesState = {
+  results: null,
   movies: null,
   popularMovies: null,
+  soonMovies: null,
   topRatedMovies: null,
   favorites: [],
   watchLater: null,
@@ -22,9 +24,13 @@ const actions = createActions<IMoviesState>(
   'FETCH_POPULAR_MOVIES_REQUEST',
   'FETCH_POPULAR_MOVIES_SUCCESS',
   'FETCH_POPULAR_MOVIES_FAILURE',
+  'FETCH_SOON_MOVIES_REQUEST',
+  'FETCH_SOON_MOVIES_SUCCESS',
+  'FETCH_SOON_MOVIES_FAILURE',
   'FETCH_TOP_RATED_MOVIES_REQUEST',
   'FETCH_TOP_RATED_MOVIES_SUCCESS',
   'FETCH_TOP_RATED_MOVIES_FAILURE',
+  'SET_POPULAR_MOVIES_PAGE',
 );
 
 const reducer: Reducer<IMoviesState, IMoviesState> = handleActions<
@@ -50,10 +56,31 @@ const reducer: Reducer<IMoviesState, IMoviesState> = handleActions<
     }),
     [actions.fetchPopularMoviesSuccess.toString()]: (
       state: IMoviesState,
-      { payload: popularMovies }: Action<IMoviesState>,
+      action: Action<IMoviesState>,
+    ) => {
+      // const { results } = action.payload;
+      const oldResults: any[] = state.popularMovies
+        ? state.popularMovies.results
+        : [];
+      return {
+        ...state,
+        popularMovies: {
+          ...action.payload,
+          results: [...oldResults, ...action.payload.results],
+        },
+        loading: false,
+      };
+    },
+    [actions.fetchSoonMoviesRequest.toString()]: (state: IMoviesState) => ({
+      ...state,
+      loading: true,
+    }),
+    [actions.fetchSoonMoviesSuccess.toString()]: (
+      state: IMoviesState,
+      { payload: soonMovies }: Action<IMoviesState>,
     ) => ({
       ...state,
-      popularMovies,
+      soonMovies,
       loading: false,
     }),
     [actions.fetchTopRatedMoviesRequest.toString()]: (state: IMoviesState) => ({
@@ -68,15 +95,32 @@ const reducer: Reducer<IMoviesState, IMoviesState> = handleActions<
       topRatedMovies,
       loading: false,
     }),
+    [actions.setPopularMoviesPage.toString()]: (state: IMoviesState) => {
+      return {
+        ...state,
+        popularMovies: {
+          ...state.popularMovies,
+          page: state.popularMovies.page + 1,
+        },
+        loading: false,
+      };
+    },
   },
   initialState,
 );
 
+// interface IEffects {
+//   fetchMovies: (page: number) => Promise<void>;
+//   fetchPopularMovies: (page: number) => Promise<void>;
+//   fetchTopRatedMovies: (page: number) => Promise<void>;
+//   fetchSoonMovies: (page: number) => Promise<void>;
+// }
+
 const effects = {
-  fetchMovies: () => async (dispatch: Dispatch): Promise<void> => {
+  fetchMovies: (page: number) => async (dispatch: Dispatch): Promise<void> => {
     try {
       await dispatch(actions.fetchMoviesRequest());
-      const data = await api.getMovies(DEFAULT_PAGE);
+      const data = await api.getMovies(page);
       await dispatch(actions.fetchMoviesSuccess(data));
       // return true;
     } catch (error) {
@@ -84,10 +128,12 @@ const effects = {
       return new Promise(resolve => resolve(error.message));
     }
   },
-  fetchPopularMovies: () => async (dispatch: Dispatch): Promise<void> => {
+  fetchPopularMovies: (page: number) => async (
+    dispatch: Dispatch,
+  ): Promise<void> => {
     try {
       await dispatch(actions.fetchPopularMoviesRequest());
-      const data = await api.getPopularMovies(DEFAULT_PAGE);
+      const data = await api.getPopularMovies(page);
       await dispatch(actions.fetchPopularMoviesSuccess(data));
       // return true;
     } catch (error) {
@@ -95,10 +141,25 @@ const effects = {
       return new Promise(resolve => resolve(error.message));
     }
   },
-  fetchTopRatedMovies: () => async (dispatch: Dispatch): Promise<void> => {
+  fetchSoonMovies: (page: number) => async (
+    dispatch: Dispatch,
+  ): Promise<void> => {
+    try {
+      await dispatch(actions.fetchSoonMoviesRequest());
+      const data = await api.getSoonMovies(page);
+      await dispatch(actions.fetchSoonMoviesSuccess(data));
+      // return true;
+    } catch (error) {
+      dispatch(actions.fetchSoonMoviesFailure(error.message));
+      return new Promise(resolve => resolve(error.message));
+    }
+  },
+  fetchTopRatedMovies: (page: number) => async (
+    dispatch: Dispatch,
+  ): Promise<void> => {
     try {
       await dispatch(actions.fetchTopRatedMoviesRequest());
-      const data = await api.getTopRatedMovies(DEFAULT_PAGE);
+      const data = await api.getTopRatedMovies(page);
       await dispatch(actions.fetchTopRatedMoviesSuccess(data));
       // return true;
     } catch (error) {
@@ -119,6 +180,7 @@ const selectors = {
   getMovies: cs(s => s.movies),
   getPopularMovies: cs(s => s.popularMovies),
   getTopRatedMovies: cs(s => s.topRatedMovies),
+  getSoonMovies: cs(s => s.soonMovies),
   getErrors: cs(s => s.error),
   getLoading: cs(s => s.loading),
 };
