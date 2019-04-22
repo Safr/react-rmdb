@@ -7,6 +7,7 @@ export default {
   getPopularMovies: (page: number = 1) => request('get', `${PATH_BASE}${PATH_MOVIE}${PATH_POPULAR}?language=en-US&api_key=${API_KEY}&${PATH_PAGE}${page}`),
   getTopRatedMovies: (page: number = 1) => request('get', `${PATH_BASE}${PATH_MOVIE}${PATH_TOP_RATED}?language=en-US&api_key=${API_KEY}&${PATH_PAGE}${page}`),
   getSoonMovies: (page: number = 1) => request('get', `${PATH_BASE}${PATH_MOVIE}${PATH_UPCOMING}?language=en-US&api_key=${API_KEY}&${PATH_PAGE}${page}`),
+  getMovie: (id: number) => request('get', `${PATH_BASE}${PATH_MOVIE}/${id}?api_key=${API_KEY}&append_to_response=videos`),
   getOrderBook: pair => request('get', `/order_book/?limit=50&pair=${pair}`),
 };
 

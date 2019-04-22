@@ -38,10 +38,9 @@ const ComingSoonPages: React.FC<Props> = ({
       <h2>Coming Soon</h2>
       {movies && <List list={movies.results} />}
       {isLoading && (
-      <Loading>
-
-        <Spinner />
-      </Loading>
+        <Loading>
+          <Spinner />
+        </Loading>
       )}
 
       {/* {results && (
@@ -81,6 +80,7 @@ export default compose(
 )(ComingSoonPages);
 
 const Content = styled.div`
+  max-width: 1200px;
   padding: 30px 25px 40px 30px;
   position: relative;
 `;

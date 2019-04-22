@@ -18,6 +18,7 @@ declare interface IUserState {
 
 declare interface IMoviesState {
   results: any;
+  movie: any;
   movies: any | {
     page: number,
     total_results: number,

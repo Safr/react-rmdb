@@ -37,8 +37,7 @@ const MovieItem: React.FC<Props> = props => {
 
             <ImageLink
               className="list__movie-image-link"
-              to="#"
-              // to={`/movie/${id}-${this.titleURL(title)}`}
+              to={`/movie/${id}-${title}`}
             >
               <img
                 src={`https://image.tmdb.org/t/p/w185_and_h278_bestv2${poster_path}`}

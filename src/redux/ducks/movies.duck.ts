@@ -8,6 +8,7 @@ import api from 'lib/api';
 const initialState: IMoviesState = {
   results: null,
   movies: null,
+  movie: null,
   popularMovies: null,
   soonMovies: null,
   topRatedMovies: null,
@@ -21,6 +22,9 @@ const actions = createActions<IMoviesState>(
   'FETCH_MOVIES_REQUEST',
   'FETCH_MOVIES_SUCCESS',
   'FETCH_MOVIES_FAILURE',
+  'FETCH_MOVIE_REQUEST',
+  'FETCH_MOVIE_SUCCESS',
+  'FETCH_MOVIE_FAILURE',
   'FETCH_POPULAR_MOVIES_REQUEST',
   'FETCH_POPULAR_MOVIES_SUCCESS',
   'FETCH_POPULAR_MOVIES_FAILURE',
@@ -48,6 +52,18 @@ const reducer: Reducer<IMoviesState, IMoviesState> = handleActions<
     ) => ({
       ...state,
       movies,
+      loading: false,
+    }),
+    [actions.fetchMovieRequest.toString()]: (state: IMoviesState) => ({
+      ...state,
+      loading: true,
+    }),
+    [actions.fetchMovieSuccess.toString()]: (
+      state: IMoviesState,
+      { payload: movie }: Action<IMoviesState>,
+    ) => ({
+      ...state,
+      movie,
       loading: false,
     }),
     [actions.fetchPopularMoviesRequest.toString()]: (state: IMoviesState) => ({
@@ -128,6 +144,17 @@ const effects = {
       return new Promise(resolve => resolve(error.message));
     }
   },
+  fetchMovie: (id: number) => async (dispatch: Dispatch): Promise<void> => {
+    try {
+      await dispatch(actions.fetchMovieRequest());
+      const data = await api.getMovie(id);
+      await dispatch(actions.fetchMovieSuccess(data));
+      // return true;
+    } catch (error) {
+      dispatch(actions.fetchMovieFailure(error.message));
+      return new Promise(resolve => resolve(error.message));
+    }
+  },
   fetchPopularMovies: (page: number) => async (
     dispatch: Dispatch,
   ): Promise<void> => {
@@ -178,6 +205,7 @@ const cs = cb =>
 
 const selectors = {
   getMovies: cs(s => s.movies),
+  getMovie: cs(s => s.movie),
   getPopularMovies: cs(s => s.popularMovies),
   getTopRatedMovies: cs(s => s.topRatedMovies),
   getSoonMovies: cs(s => s.soonMovies),

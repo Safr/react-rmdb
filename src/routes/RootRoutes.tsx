@@ -10,6 +10,7 @@ import {
   // Main
   ComingSoon,
   Discover,
+  Movie,
   Popular,
   TopRated,
   SearchResults,
@@ -26,6 +27,7 @@ const Routes = () => (
     <MainRoute exact path="/top-rated" component={TopRated} />
     <MainRoute path="/search" component={SearchResults} />
     {/* <Redirect exact from="/" to="/dashboard" /> */}
+    <MainRoute path="/movie/:id-:title" component={Movie} />
     <Route path="/404" component={NotFound} />
     <Redirect to="/404" />
   </Switch>
