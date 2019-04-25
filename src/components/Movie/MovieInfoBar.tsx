@@ -1,26 +1,19 @@
 import React from 'react';
+import styled from 'styled-components';
+// HELPERS
 import { calcTime, convertMoney } from 'lib/helpers';
 
 const MovieInfoBar = ({ time, budget, revenue }) => (
-  <div className="rmdb-movieinfobar">
-    <div className="rmdb-movieinfobar-content">
-      <div className="rmdb-movieinfobar-content-col">
-        <span className="rmdb-movieinfobar-info">
-          Running time: {calcTime(time)}
-        </span>
-      </div>
-      <div className="rmdb-movieinfobar-content-col">
-        <span className="rmdb-movieinfobar-info">
-          Budget: {convertMoney(budget)}
-        </span>
-      </div>
-      <div className="rmdb-movieinfobar-content-col">
-        <span className="rmdb-movieinfobar-info">
-          Revenue: {convertMoney(revenue)}
-        </span>
-      </div>
-    </div>
-  </div>
+  <Wrapper>
+    <span>Running time: {calcTime(time)}</span>
+    <span>Budget: {convertMoney(budget)}</span>
+    <span>Revenue: {convertMoney(revenue)}</span>
+  </Wrapper>
 );
 
 export default MovieInfoBar;
+
+const Wrapper = styled.div`
+  display: grid;
+  grid-gap: 10px;
+`;

@@ -3,15 +3,17 @@ import styled from 'styled-components';
 
 interface Props {
   voteAverage: number;
+  right: string;
+  top: string;
 }
 
-const VoteBadge: React.FC<Props> = ({ voteAverage }) => (
-  <Wrapper>{voteAverage}</Wrapper>
+const VoteBadge: React.FC<Props> = ({ voteAverage, ...rest }) => (
+  <Wrapper {...rest}>{voteAverage}</Wrapper>
 );
 
 export default VoteBadge;
 
-const Wrapper = styled.span`
+const Wrapper = styled.span<{ right: string; top: string }>`
   background-color: #f0a70d;
   position: absolute;
   border-radius: 50%;
@@ -21,8 +23,8 @@ const Wrapper = styled.span`
   height: 30px;
   line-height: 30px;
   text-align: center;
-  top: 15px;
-  right: -15px;
+  top: ${({ top }) => top || '15px'};
+  right: ${({ right }) => right || '-20px'};
   text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.8);
   box-shadow: 0 0 3px 1px rgba(0, 0, 0, 0.4);
 `;

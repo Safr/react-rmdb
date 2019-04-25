@@ -9,8 +9,6 @@ import {
 } from 'redux/ducks/movies.duck';
 // COMPONENTS
 import MovieInfo from 'components/Movie/MovieInfo';
-import MovieInfoBar from 'components/Movie/MovieInfoBar';
-
 interface Props {
   match: any;
   movie: any;
@@ -23,17 +21,11 @@ const Movie: React.FC<Props> = ({ fetchMovie, match, movie }) => {
   useEffect(() => {
     fetchMovie(match.params.id);
   }, [fetchMovie, match.params.id]);
-  console.log('movie', movie);
   return (
     <Content>
       {movie && (
         <Wrapper>
           <MovieInfo movie={movie} />
-          <MovieInfoBar
-            time={movie.runtime}
-            budget={movie.budget}
-            revenue={movie.revenue}
-          />
         </Wrapper>
       )}
     </Content>

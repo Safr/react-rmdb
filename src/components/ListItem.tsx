@@ -15,7 +15,7 @@ const MovieItem: React.FC<Props> = props => {
   const { id, poster_path, title, vote_average } = props;
   return (
     <Wrapper>
-      <VoteBadge voteAverage={vote_average} />
+      <VoteBadge voteAverage={vote_average} right="-20px" top="15px" />
       <ImageBox>
         {poster_path ? (
           <div>

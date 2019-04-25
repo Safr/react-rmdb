@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { throttle } from 'lib/helpers';
 
 type WithAjaxLoadMoreProps<T> = T & withAjaxLoadMoreInnerProps;
 
@@ -20,6 +21,22 @@ function withAjaxLoadMore<T>(
       currentPage: 1,
     };
 
+    handleScroll = throttle(() => {
+      const scrollTop =
+        (document.documentElement && document.documentElement.scrollTop) ||
+        document.body.scrollTop;
+      const scrollHeight =
+        (document.documentElement && document.documentElement.scrollHeight) ||
+        document.body.scrollHeight;
+      const clientHeight =
+        document.documentElement.clientHeight || window.innerHeight;
+      const scrolledToBottom =
+        Math.ceil(scrollTop + clientHeight + 200) >= scrollHeight;
+      if (scrolledToBottom) {
+        this.setPage();
+      }
+    }, 500);
+
     componentDidMount() {
       window.addEventListener('scroll', this.handleScroll);
     }
@@ -31,22 +48,6 @@ function withAjaxLoadMore<T>(
     setPage = () => {
       const { currentPage } = this.state;
       this.setState({ currentPage: currentPage + 1 });
-    };
-
-    handleScroll = () => {
-      const scrollTop =
-        (document.documentElement && document.documentElement.scrollTop) ||
-        document.body.scrollTop;
-      const scrollHeight =
-        (document.documentElement && document.documentElement.scrollHeight) ||
-        document.body.scrollHeight;
-      const clientHeight =
-        document.documentElement.clientHeight || window.innerHeight;
-      const scrolledToBottom =
-        Math.ceil(scrollTop + clientHeight) >= scrollHeight;
-      if (scrolledToBottom) {
-        this.setPage();
-      }
     };
 
     render() {

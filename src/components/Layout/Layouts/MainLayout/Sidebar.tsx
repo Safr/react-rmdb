@@ -77,6 +77,7 @@ export default Sidebar;
 const Wrapper = styled.div`
   position: relative;
   width: 200px;
+  height: calc(100vh - 140px);
   background-color: #191c1f;
 
   ${media.phone`

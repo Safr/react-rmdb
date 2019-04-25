@@ -1,45 +1,63 @@
-import React from 'react';
+import * as React from 'react';
 import styled from 'styled-components';
+// STYLES
+import { media } from 'lib/styles';
+// HOOKS
+import { useShowMore } from 'lib/hooks';
+// COMPONENTS
 import Meter from 'components/UI/Meter';
+import VoteBadge from 'components/UI/VoteBadge';
+import MovieInfoBar from 'components/Movie/MovieInfoBar';
+import MovieActions from 'components/Movie/MovieActions';
+import ShowMore from 'components/UI/ShowMore';
 
 interface Props {
   movie: any;
 }
 
-const MovieInfo: React.FC<Props> = ({ movie }) => (
-  <Wrapper>
-    <img
-      className="movie-poster"
-      src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
-      alt=""
-    />
-    <div className="rmdb-movieinfo-text">
-      <h1>{movie.title}</h1>
-      <h3 className="movie-overview-title">Overview</h3>
-      <p className="movie-overview">{movie.overview}</p>
-      <h3>IMDB RATING</h3>
-      <div className="rmdb-rating">
-        <Meter
-          min="0"
-          max="100"
-          optimum="100"
-          low="40"
-          high="70"
-          value={movie.vote_average * 10}
+const MovieInfo: React.FC<Props> = ({ movie }) => {
+  const { isOpen, toggleShowMore } = useShowMore(false);
+  return (
+    <Wrapper>
+      <img
+        className="movie-poster"
+        src={`https://image.tmdb.org/t/p/w300${movie.poster_path}`}
+        alt=""
+      />
+      <Content>
+        <h1>{movie.title}</h1>
+        <MovieActions />
+        <h2 className="movie-overview-title">Overview</h2>
+        <p className="movie-overview">{movie.overview}</p>
+
+        <Rating>
+          <h2>IMDB RATING</h2>
+          <VoteBadge voteAverage={movie.vote_average} right="0px" top="0px" />
+          <Meter
+            min="0"
+            max="100"
+            optimum="100"
+            low="40"
+            high="70"
+            value={movie.vote_average * 10}
+          />
+        </Rating>
+        <ShowMore
+          isOpen={isOpen}
+          toggleShowMore={toggleShowMore}
+          title="Show additional info"
         />
-        <p className="rmdb-score">{movie.vote_average}</p>
-      </div>
-      {/* {directors.length > 1 ? <h3>DIRECTORS</h3> : <h3>DIRECTOR</h3>}
-      {directors.map((element, i) => {
-        return (
-          <p key={i} className="rmdb-director">
-            {element.name}
-          </p>
-        );
-      })} */}
-    </div>
-  </Wrapper>
-);
+        {isOpen && (
+          <MovieInfoBar
+            time={movie.runtime}
+            budget={movie.budget}
+            revenue={movie.revenue}
+          />
+        )}
+      </Content>
+    </Wrapper>
+  );
+};
 
 export default MovieInfo;
 
@@ -47,4 +65,33 @@ const Wrapper = styled.div`
   display: grid;
   grid-auto-flow: column;
   grid-gap: 20px;
+  ${media.phone`
+    grid-auto-flow: row;
+
+    img {
+      justify-self: center;
+    }
+  `};
+
+  h2 {
+    margin-top: 0;
+    margin-bottom: 10px;
+  }
+`;
+
+const Content = styled.div`
+  display: grid;
+  ${media.phone`
+    grid-gap: 20px;
+    > div:first-child {
+      justify-self: center;
+    }
+    h1 {
+        text-align: center;
+    };
+  `};
+`;
+
+const Rating = styled.div`
+  position: relative;
 `;
