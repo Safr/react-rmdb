@@ -42,27 +42,6 @@ const ComingSoonPages: React.FC<Props> = ({
           <Spinner />
         </Loading>
       )}
-
-      {/* {results && (
-          <List
-            list={results}
-            addToList={(selectedMovie, userList) =>
-              this.props.addToList(selectedMovie, userList)
-            }
-            removeFromList={(selectedMovie, userList) =>
-              this.props.removeFromList(selectedMovie, userList)
-            }
-            authenticated={this.props.authenticated}
-            favorites={this.props.favorites}
-            watchLater={this.props.watchLater}
-          />
-        )} */}
-      {/* 
-        <Button
-          className="button"
-          onClick={() => this.getMovies(this.props.section, page + 1)}
-          text="Load more"
-        /> */}
     </Content>
   );
 };
@@ -89,5 +68,5 @@ const Loading = styled.div`
   display: grid;
   align-items: center;
   justify-content: center;
-  margin-top: 20px;
+  margin-top: 50px;
 `;

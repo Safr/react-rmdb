@@ -3,6 +3,7 @@ import { History } from 'history';
 // HOOKS
 import { useSearch } from 'lib/hooks';
 
+
 interface InjectedProps {
   history: History;
 }

@@ -3,8 +3,7 @@ import { connect } from 'react-redux';
 import { compose } from 'redux';
 import { Link, withRouter } from 'react-router-dom';
 import styled from 'styled-components';
-import {MdMenu
-} from 'react-icons/md';
+import { MdMenu } from 'react-icons/md';
 // STYLES
 import { media } from 'lib/styles';
 // HOCS
@@ -20,7 +19,7 @@ interface Props {
   isSidebarOpen: boolean;
   openSidebar: () => void;
   user?: any;
-  // searchByKeyword: () => void;
+  searchByKeyword: () => void;
   // searchKeyword: string;
 }
 
@@ -29,7 +28,7 @@ const Header: React.FC<Props> = ({
   isSidebarOpen,
   openSidebar,
   // searchKeyword,
-  // searchByKeyword,
+  searchByKeyword,
   user,
 }) => {
   const [userMenuOpen, setUserMenuOpen] = useState(false);
@@ -40,9 +39,9 @@ const Header: React.FC<Props> = ({
 
   return (
     <Wrapper>
-      {!isSidebarOpen && <Logo>Safr</Logo>}
-      {/* <SearchBar searchByKeyword={searchByKeyword} /> */}
-      <SearchBar />
+      {!isSidebarOpen &&  <Link to="/"><Logo>Safr</Logo></Link>}
+      <SearchBar searchByKeyword={searchByKeyword} />
+      {/* <SearchBar /> */}
       {authenticated ? (
         <UserWrapper>
           {user.photoURL ? (
@@ -90,8 +89,8 @@ const Header: React.FC<Props> = ({
         </Login>
       )}
       <HamburgerBlock onClick={openSidebar}>
-          <MdMenu size="32px" />
-        </HamburgerBlock>
+        <MdMenu size="32px" />
+      </HamburgerBlock>
     </Wrapper>
   );
 };
@@ -107,17 +106,21 @@ const Wrapper = styled.header`
   grid-template-columns: 200px 1fr 140px;
   ${media.phone`
   grid-template-columns: 1fr 50px;
-  background-color: #e53b47;
+  background-color: ${({ theme }) => theme.colors.red};
   `};
 /* ${media.smallPhone`
   grid-template-columns: 1fr 50px;
 `}; */
   justify-items: center;
   align-items: center
-  background-color: #cc343f;
+  background-color: ${({ theme }) => theme.colors.red};
   height: 70px;
   > svg {
     width: 50px;
+  }
+  > a {
+    color: ${({ theme }) => theme.colors.white};
+    text-decoration: none;
   }
 `;
 
@@ -159,14 +162,11 @@ const Login = styled.div`
   }
 `;
 
-
 const UserWrapper = styled.div`
-${media.phone`
+  ${media.phone`
   display: none;
 `};
-
 `;
-
 
 const HamburgerBlock = styled.div`
   display: none;

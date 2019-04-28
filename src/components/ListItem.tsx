@@ -13,6 +13,7 @@ interface Props {
 
 const MovieItem: React.FC<Props> = props => {
   const { id, poster_path, title, vote_average } = props;
+  console.log('`/movie/${id}-${title}`', `/movie/${id}-${title}`);
   return (
     <Wrapper>
       <VoteBadge voteAverage={vote_average} right="-20px" top="15px" />

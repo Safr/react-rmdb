@@ -1,13 +1,17 @@
 import { request } from 'lib/helpers';
-import { API_KEY, PATH_BASE, PATH_DISCOVER, PATH_POPULAR, PATH_TOP_RATED, PATH_MOVIE, PATH_PAGE, PATH_UPCOMING } from 'lib/constants/searchConfig';
+import { API_KEY,DEFAULT_PAGE, PATH_BASE, PATH_DISCOVER, PATH_POPULAR, PATH_TOP_RATED, PATH_MOVIE, PATH_PAGE, PATH_UPCOMING, PATH_SEARCH } from 'lib/constants/searchConfig';
 
 export default {
   getOrders: () => {},
-  getMovies: (page: number = 1) => request('get', `${PATH_BASE}${PATH_DISCOVER}${PATH_MOVIE}?language=en-US&api_key=${API_KEY}&${PATH_PAGE}${page}`),
-  getPopularMovies: (page: number = 1) => request('get', `${PATH_BASE}${PATH_MOVIE}${PATH_POPULAR}?language=en-US&api_key=${API_KEY}&${PATH_PAGE}${page}`),
-  getTopRatedMovies: (page: number = 1) => request('get', `${PATH_BASE}${PATH_MOVIE}${PATH_TOP_RATED}?language=en-US&api_key=${API_KEY}&${PATH_PAGE}${page}`),
-  getSoonMovies: (page: number = 1) => request('get', `${PATH_BASE}${PATH_MOVIE}${PATH_UPCOMING}?language=en-US&api_key=${API_KEY}&${PATH_PAGE}${page}`),
+  getMovies: (page: number = DEFAULT_PAGE) => request('get', `${PATH_BASE}${PATH_DISCOVER}${PATH_MOVIE}?language=en-US&api_key=${API_KEY}&${PATH_PAGE}${page}`),
+  getPopularMovies: (page: number = DEFAULT_PAGE) => request('get', `${PATH_BASE}${PATH_MOVIE}${PATH_POPULAR}?language=en-US&api_key=${API_KEY}&${PATH_PAGE}${page}`),
+  getTopRatedMovies: (page: number = DEFAULT_PAGE) => request('get', `${PATH_BASE}${PATH_MOVIE}${PATH_TOP_RATED}?language=en-US&api_key=${API_KEY}&${PATH_PAGE}${page}`),
+  getSoonMovies: (page: number = DEFAULT_PAGE) => request('get', `${PATH_BASE}${PATH_MOVIE}${PATH_UPCOMING}?language=en-US&api_key=${API_KEY}&${PATH_PAGE}${page}`),
   getMovie: (id: number) => request('get', `${PATH_BASE}${PATH_MOVIE}/${id}?api_key=${API_KEY}&append_to_response=videos`),
+  getSearchMovie: (name: string, page: number = DEFAULT_PAGE) => {
+    const TERM = name.replace(/\s/g, '+');
+    return request('get',`${PATH_BASE}${PATH_SEARCH}${PATH_MOVIE}?api_key=${API_KEY}&query=${TERM}&${PATH_PAGE}${page}`);
+  },
   getOrderBook: pair => request('get', `/order_book/?limit=50&pair=${pair}`),
 };
 

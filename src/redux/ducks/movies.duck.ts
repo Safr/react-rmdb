@@ -6,7 +6,6 @@ import api from 'lib/api';
 // import { DEFAULT_PAGE } from 'lib/constants/searchConfig';
 
 const initialState: IMoviesState = {
-  results: null,
   movies: null,
   movie: null,
   popularMovies: null,
@@ -34,7 +33,10 @@ const actions = createActions<IMoviesState>(
   'FETCH_TOP_RATED_MOVIES_REQUEST',
   'FETCH_TOP_RATED_MOVIES_SUCCESS',
   'FETCH_TOP_RATED_MOVIES_FAILURE',
-  'SET_POPULAR_MOVIES_PAGE',
+  'FETCH_MOVIE_BY_QUERY_REQUEST',
+  'FETCH_MOVIE_BY_QUERY_SUCCESS',
+  'FETCH_MOVIE_BY_QUERY_FAILURE',
+  'CLEAR_MOVIE',
 );
 
 const reducer: Reducer<IMoviesState, IMoviesState> = handleActions<
@@ -48,17 +50,38 @@ const reducer: Reducer<IMoviesState, IMoviesState> = handleActions<
     }),
     [actions.fetchMoviesSuccess.toString()]: (
       state: IMoviesState,
-      { payload: movies }: Action<IMoviesState>,
-    ) => ({
-      ...state,
-      movies,
-      loading: false,
-    }),
+      action: Action<IMoviesState>,
+    ) => {
+      const { results }: any = action.payload;
+      const oldResults: any[] = state.movies
+        ? state.movies.results
+        : [];
+      return {
+        ...state,
+        movies: {
+          ...action.payload,
+          results: [...oldResults, ...results],
+        },
+        loading: false,
+      };
+    },
     [actions.fetchMovieRequest.toString()]: (state: IMoviesState) => ({
       ...state,
       loading: true,
     }),
     [actions.fetchMovieSuccess.toString()]: (
+      state: IMoviesState,
+      { payload: movie }: Action<IMoviesState>,
+    ) => ({
+      ...state,
+      movie,
+      loading: false,
+    }),
+    [actions.fetchMovieByQueryRequest.toString()]: (state: IMoviesState) => ({
+      ...state,
+      loading: true,
+    }),
+    [actions.fetchMovieByQuerySuccess.toString()]: (
       state: IMoviesState,
       { payload: movie }: Action<IMoviesState>,
     ) => ({
@@ -74,7 +97,7 @@ const reducer: Reducer<IMoviesState, IMoviesState> = handleActions<
       state: IMoviesState,
       action: Action<IMoviesState>,
     ) => {
-      // const { results } = action.payload;
+      const { results }: any = action.payload;
       const oldResults: any[] = state.popularMovies
         ? state.popularMovies.results
         : [];
@@ -82,7 +105,7 @@ const reducer: Reducer<IMoviesState, IMoviesState> = handleActions<
         ...state,
         popularMovies: {
           ...action.payload,
-          results: [...oldResults, ...action.payload.results],
+          results: [...oldResults, ...results],
         },
         loading: false,
       };
@@ -93,34 +116,48 @@ const reducer: Reducer<IMoviesState, IMoviesState> = handleActions<
     }),
     [actions.fetchSoonMoviesSuccess.toString()]: (
       state: IMoviesState,
-      { payload: soonMovies }: Action<IMoviesState>,
-    ) => ({
-      ...state,
-      soonMovies,
-      loading: false,
-    }),
+      action: Action<IMoviesState>,
+    ) => {
+      const { results }: any = action.payload;
+      const oldResults: any[] = state.soonMovies
+        ? state.soonMovies.results
+        : [];
+      return {
+        ...state,
+        soonMovies: {
+          ...action.payload,
+          results: [...oldResults, ...results],
+        },
+        loading: false,
+      };
+    },
     [actions.fetchTopRatedMoviesRequest.toString()]: (state: IMoviesState) => ({
       ...state,
       loading: true,
     }),
     [actions.fetchTopRatedMoviesSuccess.toString()]: (
       state: IMoviesState,
-      { payload: topRatedMovies }: Action<IMoviesState>,
-    ) => ({
-      ...state,
-      topRatedMovies,
-      loading: false,
-    }),
-    [actions.setPopularMoviesPage.toString()]: (state: IMoviesState) => {
+      action: Action<IMoviesState>,
+    ) => {
+      const { results }: any = action.payload;
+      const oldResults: any[] = state.topRatedMovies
+        ? state.topRatedMovies.results
+        : [];
       return {
         ...state,
-        popularMovies: {
-          ...state.popularMovies,
-          page: state.popularMovies.page + 1,
+        topRatedMovies: {
+          ...action.payload,
+          results: [...oldResults, ...results],
         },
         loading: false,
       };
     },
+    [actions.clearMovie.toString()]: (
+      state: IMoviesState,
+    ) => ({
+        ...state,
+        movie: null,
+      }),
   },
   initialState,
 );
@@ -152,6 +189,19 @@ const effects = {
       // return true;
     } catch (error) {
       dispatch(actions.fetchMovieFailure(error.message));
+      return new Promise(resolve => resolve(error.message));
+    }
+  },
+  fetchMovieByQuery: (name: string = '') => async (
+    dispatch: Dispatch,
+  ): Promise<void> => {
+    try {
+      await dispatch(actions.fetchMovieByQueryRequest());
+      const data = await api.getSearchMovie(name);
+      await dispatch(actions.fetchMovieByQuerySuccess(data));
+      // return true;
+    } catch (error) {
+      dispatch(actions.fetchMovieByQueryFailure(error.message));
       return new Promise(resolve => resolve(error.message));
     }
   },

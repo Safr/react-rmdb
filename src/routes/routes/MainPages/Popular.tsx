@@ -10,14 +10,6 @@ import {
   effects as moviesEffects,
   selectors as moviesSelectors,
 } from 'redux/ducks/movies.duck';
-// CONSTANTS
-// import {
-//   API_KEY,
-//   PATH_BASE,
-//   PATH_MOVIE,
-//   DEFAULT_PAGE,
-//   PATH_PAGE,
-// } from '../../api';
 // COMPONENTS
 import List from 'components/List';
 import Spinner from 'components/UI/Spinner';
@@ -50,29 +42,11 @@ const PopularPages: React.FC<Props> = ({
     <Content>
       <h2>Popular</h2>
       {movies && <List list={movies.results} {...rest} />}
-      {!isLoading && (
-      <Loading>
-
-        <Spinner />
-      </Loading>
+      {isLoading && (
+        <Loading>
+          <Spinner />
+        </Loading>
       )}
-
-      {/* {results && (
-          <List
-            list={results}
-            addToList={(selectedMovie, userList) =>
-              this.props.addToList(selectedMovie, userList)
-            }
-            removeFromList={(selectedMovie, userList) =>
-              this.props.removeFromList(selectedMovie, userList)
-            }
-            authenticated={this.props.authenticated}
-            favorites={this.props.favorites}
-            watchLater={this.props.watchLater}
-          />
-        )} */}
-      {/* 
-        /> */}
     </Content>
   );
 };
@@ -98,5 +72,5 @@ const Loading = styled.div`
   display: grid;
   align-items: center;
   justify-content: center;
-  margin-top: 20px;
+  margin-top: 50px;
 `;

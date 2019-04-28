@@ -9,9 +9,10 @@ export const useSearch = (initialState = null): IHook => {
   const [ searchKeyword, setState ] = useState<string|null>(initialState);
   const searchByKeyword = useCallback(e => {
     if(typeof e !== 'string') {
-      return setState(e.target.value);
+      setState(e.target.value);
+      return;
     }
-    return setState(e);
+    setState(e);
   }, []);
 
   return {

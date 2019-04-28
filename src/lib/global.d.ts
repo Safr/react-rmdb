@@ -17,33 +17,37 @@ declare interface IUserState {
 }
 
 declare interface IMoviesState {
-  results: any;
+  // movies: any | {
+  //   page: number,
+  //   total_results: number,
+  //   total_pages: number
+  //   results: any,
+  // },
+  movies: any;
   movie: any;
-  movies: any | {
-    page: number,
-    total_results: number,
-    total_pages: number
-    results: any[],
-  },
-  // popularMovies: any;
   popularMovies: any | {
-    page: number,
-    total_results: number,
-    total_pages: number
-    results: any[],
-  },
-  soonMovies: any | {
-    page: number,
-    total_results: number,
-    total_pages: number
-    results: any[],
-  },
-  topRatedMovies: any | {
-    page: number,
-    total_results: number,
-    total_pages: number
-    results: any[],
-  },
+    results: any;
+  };
+  soonMovies: any;
+  topRatedMovies: any;
+  // popularMovies: any | {
+  //   page: number,
+  //   total_results: number,
+  //   total_pages: number
+  //   results: any,
+  // },
+  // soonMovies: any | {
+  //   page: number,
+  //   total_results: number,
+  //   total_pages: number
+  //   results: any,
+  // },
+  // topRatedMovies: any | {
+  //   page: number,
+  //   total_results: number,
+  //   total_pages: number
+  //   results: any,
+  // },
   // movies: any,
   favorites: any[],
   watchLater: [] | null,
@@ -69,39 +73,5 @@ declare interface IFilterState {
     label: string,
   },
   year: number
-}
-
-/**
- * orders information
- */
-declare interface IOrdersState {
-  orders: any,
-  errorMessage: string | null,
-  loading: boolean;
-}
-
-declare interface OrderInterface {
-  avg: string;
-  buy_price: string;
-  high: string;
-  last_trade: string;
-  low: string;
-  sell_price: string;
-  updated: number;
-  vol: string;
-  vol_curr: string;
-}
-
-declare type OrderBookInfo = string[];
-
-declare interface OrderInfo {
-  ask_quantity: string;
-  ask_amount: string;
-  ask_top: string;
-  bid_quantity: string;
-  bid_amount: string;
-  bid_top: string;
-  ask: OrderBookInfo[];
-  bid: OrderBookInfo[];
 }
 

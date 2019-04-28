@@ -9,14 +9,6 @@ import {
   effects as moviesEffects,
   selectors as moviesSelectors,
 } from 'redux/ducks/movies.duck';
-// CONSTANTS
-// import {
-//   API_KEY,
-//   PATH_BASE,
-//   PATH_MOVIE,
-//   DEFAULT_PAGE,
-//   PATH_PAGE,
-// } from '../../api';
 // COMPONENTS
 import List from 'components/List';
 import Spinner from 'components/UI/Spinner';
@@ -37,7 +29,6 @@ const TopRatedPages: React.FC<Props> = ({
   page,
   isLoading,
 }) => {
-  console.log('page', page);
   useEffect(() => {
     fetchTopRatedMovies(page);
   }, [fetchTopRatedMovies, page]);
@@ -46,10 +37,9 @@ const TopRatedPages: React.FC<Props> = ({
       <h2>Top Rated</h2>
       {movies && <List list={movies.results} />}
       {isLoading && (
-      <Loading>
-
-        <Spinner />
-      </Loading>
+        <Loading>
+          <Spinner />
+        </Loading>
       )}
     </Content>
   );
@@ -76,5 +66,5 @@ const Loading = styled.div`
   display: grid;
   align-items: center;
   justify-content: center;
-  margin-top: 20px;
+  margin-top: 50px;
 `;

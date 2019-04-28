@@ -5,11 +5,15 @@ type WithAjaxLoadMoreProps<T> = T & withAjaxLoadMoreInnerProps;
 
 type withAjaxLoadMoreInnerProps = {};
 
+interface InjectedProps {
+  isLoading: boolean;
+}
+
 type WithAjaxLoadMoreState = {
   currentPage: number;
 };
 
-function withAjaxLoadMore<T>(
+function withAjaxLoadMore<T extends InjectedProps>(
   WrappedComponent:
     | React.ComponentClass<WithAjaxLoadMoreProps<T>, {}>
     | React.FunctionComponent<WithAjaxLoadMoreProps<T>>,
@@ -22,6 +26,8 @@ function withAjaxLoadMore<T>(
     };
 
     handleScroll = throttle(() => {
+      console.log('laal');
+      const { isLoading } = this.props;
       const scrollTop =
         (document.documentElement && document.documentElement.scrollTop) ||
         document.body.scrollTop;
@@ -32,10 +38,10 @@ function withAjaxLoadMore<T>(
         document.documentElement.clientHeight || window.innerHeight;
       const scrolledToBottom =
         Math.ceil(scrollTop + clientHeight + 200) >= scrollHeight;
-      if (scrolledToBottom) {
+      if (scrolledToBottom && !isLoading) {
         this.setPage();
       }
-    }, 500);
+    }, 300);
 
     componentDidMount() {
       window.addEventListener('scroll', this.handleScroll);

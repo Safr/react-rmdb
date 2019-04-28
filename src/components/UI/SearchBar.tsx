@@ -7,26 +7,29 @@ interface MyFormValues {
   movieName: string;
 }
 
-const SearchBar: React.FC<{}> = () => {
+interface Props {
+  searchByKeyword: (name: string | object) => void;
+}
+
+const SearchBar: React.FC<Props> = ({ searchByKeyword }) => {
   return (
     <Formik
+      enableReinitialize
       initialValues={{ movieName: '' }}
-      onSubmit={(values: MyFormValues, { setSubmitting }) => {
+      onSubmit={(values: MyFormValues, { setSubmitting, setFieldValue }) => {
         console.log('values', values);
         setSubmitting(false);
+        searchByKeyword(values.movieName);
+        setFieldValue('movieName', '');
       }}
       render={({ handleSubmit, isSubmitting }) => (
         <Wrapper>
           <Field
-            name="text"
+            name="movieName"
             render={({ field, form }: FieldProps<MyFormValues>) => (
               <>
                 <MdSearch size="40px" />
-                <Input
-                  type="movieName"
-                  {...field}
-                  placeholder="Search movies..."
-                />
+                <Input {...field} placeholder="Search movies..." />
                 {form.touched.movieName &&
                   form.errors.movieName &&
                   form.errors.movieName}

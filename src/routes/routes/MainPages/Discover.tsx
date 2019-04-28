@@ -7,20 +7,30 @@ import { media } from 'lib/styles';
 // HOCS
 import { withAjaxLoadMore } from 'components/HOC';
 // DUCKS
-import { selectors as moviesSelectors } from 'redux/ducks/movies.duck';
+import {
+  effects as moviesEffects,
+  selectors as moviesSelectors,
+} from 'redux/ducks/movies.duck';
 
 // COMPONENTS
 import List from 'components/List';
 import Sorting from 'components/Sorting';
 import Spinner from 'components/UI/Spinner';
 
+const { useEffect } = React;
+
 // TYPES
 export interface Props {
+  fetchMovies: (page: number) => Promise<void>;
   movies: any;
+  page: number;
   isLoading: boolean;
 }
 
-const DiscoverPages: React.FC<Props> = ({ movies, isLoading, }) => {
+const DiscoverPages: React.FC<Props> = ({ movies, fetchMovies, isLoading, page }) => {
+  useEffect(() => {
+    fetchMovies(page);
+  }, [fetchMovies, page]);
   return (
     <Content>
       <h2>Discover</h2>
@@ -31,41 +41,22 @@ const DiscoverPages: React.FC<Props> = ({ movies, isLoading, }) => {
 
       {movies && <List list={movies.results} />}
       {isLoading && (
-      <Loading>
-
-        <Spinner />
-      </Loading>
+        <Loading>
+          <Spinner />
+        </Loading>
       )}
-
-      {/* {results && (
-          <List
-            list={results}
-            addToList={(selectedMovie, userList) =>
-              this.props.addToList(selectedMovie, userList)
-            }
-            removeFromList={(selectedMovie, userList) =>
-              this.props.removeFromList(selectedMovie, userList)
-            }
-            authenticated={this.props.authenticated}
-            favorites={this.props.favorites}
-            watchLater={this.props.watchLater}
-          />
-        )} */}
-      {/* 
-        <Button
-          className="button"
-          onClick={() => this.getMovies(this.props.section, page + 1)}
-          text="Load more"
-        /> */}
     </Content>
   );
 };
 
 export default compose(
-  connect(state => ({
-    movies: moviesSelectors.getMovies(state),
-    isLoading: moviesSelectors.getLoading(state),
-  })),
+  connect(
+    state => ({
+      movies: moviesSelectors.getMovies(state),
+      isLoading: moviesSelectors.getLoading(state),
+    }),
+    { ...moviesEffects },
+  ),
   withAjaxLoadMore,
   React.memo,
 )(DiscoverPages);
@@ -97,5 +88,5 @@ const Loading = styled.div`
   display: grid;
   align-items: center;
   justify-content: center;
-  margin-top: 20px;
+  margin-top: 50px;
 `;

@@ -7,23 +7,21 @@ import { MainLayout } from 'components/Layout/Layouts';
 // // TYPES
 type Props = {
   component: React.ComponentType<any>;
-  rest?: Object;
+  rest?: any;
 };
 
 const MainTemplate: React.FC<Props & RouteProps> = ({
   component: Component,
   ...rest
 }) => {
+  console.log('rest', rest);
   return (
     <Route
-      {...rest}
+    {...rest}
       render={(props: any) => (
         <ErrorScreen>
-          <MainLayout {...rest}>
-            <Component
-              {...props}
-              fallback={<LoadingScreen {...props} {...rest} />}
-            />
+          <MainLayout {...props}>
+            <Component {...props} {...rest} fallback={<LoadingScreen {...props} />} />
           </MainLayout>
         </ErrorScreen>
       )}

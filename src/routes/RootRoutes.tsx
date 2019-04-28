@@ -25,9 +25,9 @@ const Routes = () => (
     <MainRoute exact path="/" component={Discover} />
     <MainRoute exact path="/popular" component={Popular} />
     <MainRoute exact path="/top-rated" component={TopRated} />
-    <MainRoute path="/search" component={SearchResults} />
+    <MainRoute exact path="/search" component={SearchResults} />
     {/* <Redirect exact from="/" to="/dashboard" /> */}
-    <MainRoute path="/movie/:id-:title" component={Movie} />
+    <MainRoute exact path="/movie/:id-:title" component={Movie} />
     <Route path="/404" component={NotFound} />
     <Redirect to="/404" />
   </Switch>

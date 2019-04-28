@@ -1,42 +1,31 @@
 import * as React from 'react';
 import { RouteProps } from 'react-router-dom';
-import { connect } from 'react-redux';
-import { compose } from 'redux';
 import styled from 'styled-components';
+// import { Location } from 'history';
 // STYLES
 import { media } from 'lib/styles';
 // HOCS
-import { withAjaxLoadMore, withSidebar } from 'components/HOC';
-// DUCKS
-import { effects as moviesEffects } from 'redux/ducks/movies.duck';
+import { withSidebar } from 'components/HOC';
 // COMPONENTS
 import Header from './Header';
 import Sidebar from './Sidebar';
 import MobileMenu from './MobileMenu';
 import Footer from './Footer';
 
-const { useEffect } = React;
-
 // TYPES
 export interface Props {
   children: JSX.Element;
   sidebarProps: any;
-  fetchMovies: (page: number) => Promise<void>;
-  rest?: Object;
-  page: number;
+  rest: any;
+  location: Location;
 }
 
 // EXPORTED COMPONENT
 const MainLayout: React.FC<Props & RouteProps> = ({
   children,
   sidebarProps,
-  fetchMovies,
-  page,
   ...rest
 }) => {
-  useEffect(() => {
-    fetchMovies(page);
-  }, [fetchMovies, page]);
   return (
     <Content>
       <Header {...sidebarProps} {...rest} />
@@ -50,14 +39,7 @@ const MainLayout: React.FC<Props & RouteProps> = ({
   );
 };
 
-export default compose(
-  connect(
-    null,
-    { ...moviesEffects },
-  ),
-  withSidebar,
-  withAjaxLoadMore,
-)(MainLayout);
+export default withSidebar(MainLayout);
 
 const Content = styled.div`
   position: relative;

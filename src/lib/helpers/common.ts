@@ -1,11 +1,23 @@
-export const throttle = (fn, interval) => {
-  let lastTime;
-  return function throttled() {
-      let timeSinceLastExecution = Date.now() - lastTime;
-      if(!lastTime || (timeSinceLastExecution >= interval)) {
-          fn.apply(this, arguments);
-          lastTime = Date.now();
-      }
+// export const throttle = (fn, interval) => {
+//   let lastTime;
+//   return function throttled() {
+//       let timeSinceLastExecution = Date.now() - lastTime;
+//       if(!lastTime || (timeSinceLastExecution >= interval)) {
+//           fn.apply(this, arguments);
+//           lastTime = Date.now();
+//       }
+//   };
+// }
+
+export function throttle(fn, interval) {
+  let timer;
+  return function debounced() {
+      clearTimeout(timer);
+      let args = arguments;
+      let that = this;
+      timer = setTimeout(function callOriginalFn() {
+           fn.apply(that, args);
+      }, interval);
   };
 }
 
@@ -47,4 +59,11 @@ export const convertMoney = (money) => {
     minimumFractionDigits: 0,
   });
   return formatter.format(money);
+};
+
+export const getQueryStrings = (searchURL) => {
+  const query = new URLSearchParams(searchURL);
+  const searchTerm = query.get('query');
+  return searchTerm;
 }
+

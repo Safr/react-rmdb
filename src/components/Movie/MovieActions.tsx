@@ -51,6 +51,11 @@ const Wrapper = styled.div`
     border: 2px solid white;
     border-radius: 50%;
     position: relative;
-    transition: border 0.4s ease;
+    transition: all 0.4s ease;
+
+    :hover {
+      fill: ${({ theme }) => theme.colors.red};
+      border-color:  ${({ theme }) => theme.colors.red};
+    }
   }
 `;
