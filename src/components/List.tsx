@@ -11,7 +11,7 @@ interface Props {
 
 const List: React.FC<Props> = ({ list }) => {
   const movieItems = list.map((movie: any) => {
-    return <ListItem key={movie.id + movie.title} {...movie} />;
+    return <ListItem key={movie.id} {...movie} />;
   });
 
   return <Wrapper>{movieItems}</Wrapper>;

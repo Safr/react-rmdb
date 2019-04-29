@@ -3,7 +3,7 @@ import { createSelector } from 'reselect';
 import { Dispatch } from 'redux';
 // API
 import api from 'lib/api';
-// import { DEFAULT_PAGE } from 'lib/constants/searchConfig';
+// import { state as filters } from './filters.duck';
 
 const initialState: IMoviesState = {
   movies: null,
@@ -52,10 +52,8 @@ const reducer: Reducer<IMoviesState, IMoviesState> = handleActions<
       state: IMoviesState,
       action: Action<IMoviesState>,
     ) => {
-      const { results }: any = action.payload;
-      const oldResults: any[] = state.movies
-        ? state.movies.results
-        : [];
+      const { page, results }: any = action.payload;
+      const oldResults: any[] = state.movies && page !== 1 ? state.movies.results : [];
       return {
         ...state,
         movies: {
@@ -152,12 +150,10 @@ const reducer: Reducer<IMoviesState, IMoviesState> = handleActions<
         loading: false,
       };
     },
-    [actions.clearMovie.toString()]: (
-      state: IMoviesState,
-    ) => ({
-        ...state,
-        movie: null,
-      }),
+    [actions.clearMovie.toString()]: (state: IMoviesState) => ({
+      ...state,
+      movie: null,
+    }),
   },
   initialState,
 );
@@ -170,10 +166,12 @@ const reducer: Reducer<IMoviesState, IMoviesState> = handleActions<
 // }
 
 const effects = {
-  fetchMovies: (page: number) => async (dispatch: Dispatch): Promise<void> => {
+  fetchMovies: (page: number, filters: IFiltersState) => async (
+    dispatch: Dispatch,
+  ): Promise<void> => {
     try {
       await dispatch(actions.fetchMoviesRequest());
-      const data = await api.getMovies(page);
+      const data = await api.getMovies(page, filters);
       await dispatch(actions.fetchMoviesSuccess(data));
       // return true;
     } catch (error) {

@@ -1,7 +1,7 @@
-import { createActions, handleActions, Reducer } from 'redux-actions';
+import { Action, createActions, handleActions, Reducer } from 'redux-actions';
 import { createSelector } from 'reselect';
 
-const initialState: IFilterState = {
+const initialState: IFiltersState = {
   rating: {
     min: 5,
     max: 10,
@@ -21,14 +21,21 @@ const initialState: IFilterState = {
   year: new Date().getFullYear(),
 };
 
-const actions = createActions<IFilterState>('RESET_FILTERS');
+const actions = createActions<IFiltersState>('RESET_FILTERS', 'UPDATE_FILTERS');
 
-const reducer: Reducer<IFilterState, IFilterState> = handleActions<
-  IFilterState,
-  IFilterState
+const reducer: Reducer<IFiltersState, IFiltersState> = handleActions<
+  IFiltersState,
+  IFiltersState
 >(
   {
     [actions.resetFilters.toString()]: () => initialState,
+    [actions.updateFilters.toString()]: (
+      state: IFiltersState,
+      { payload: filters }: Action<IFiltersState>,
+    ) => ({
+      ...state,
+      ...filters,
+    }),
   },
   initialState,
 );
@@ -43,7 +50,7 @@ const cs = cb =>
   );
 
 const selectors = {
-  getFilters: cs(s => s.filters),
+  getFilters: cs(s => s),
   getErrors: cs(s => s.error),
 };
 

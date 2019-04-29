@@ -16,13 +16,6 @@ const withSidebar = <P extends InjectedProps>(
   const { location } = props;
   const prevLocation = usePrevious(location.pathname);
   const sidebarProps = useSidebar();
-  // const handleOpenSidebar = () => {
-  //   sidebarProps.openSidebar();
-  // };
-
-  // const handleCloseSidebar = () => {
-  //   sidebarProps.closeSidebar();
-  // };
 
   const onEscKeyPressed = e => {
     if (e.keyCode === 27) {
@@ -49,8 +42,6 @@ const withSidebar = <P extends InjectedProps>(
     <Component
       {...props}
       sidebarProps={sidebarProps}
-      // handleOpenSidebar={handleOpenSidebar}
-      // handleCloseSidebar={handleCloseSidebar}
     />
   );
 };

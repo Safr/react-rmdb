@@ -26,7 +26,6 @@ function withAjaxLoadMore<T extends InjectedProps>(
     };
 
     handleScroll = throttle(() => {
-      console.log('laal');
       const { isLoading } = this.props;
       const scrollTop =
         (document.documentElement && document.documentElement.scrollTop) ||

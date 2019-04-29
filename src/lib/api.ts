@@ -3,7 +3,14 @@ import { API_KEY,DEFAULT_PAGE, PATH_BASE, PATH_DISCOVER, PATH_POPULAR, PATH_TOP_
 
 export default {
   getOrders: () => {},
-  getMovies: (page: number = DEFAULT_PAGE) => request('get', `${PATH_BASE}${PATH_DISCOVER}${PATH_MOVIE}?language=en-US&api_key=${API_KEY}&${PATH_PAGE}${page}`),
+  getMovies: (page: number = DEFAULT_PAGE, filters: IFiltersState) => {
+    return request('get', `${PATH_BASE}${PATH_DISCOVER}${PATH_MOVIE}?language=en-US&api_key=${API_KEY}&${PATH_PAGE}${page}&primary_release_year=${filters.year}
+  &vote_average.gte=${filters.rating.min}
+  &vote_average.lte=${filters.rating.max}
+  &with_runtime.gte=${filters.runtime.min}
+  &with_runtime.lte=${filters.runtime.max}
+  &sort_by=${filters.sort_by.value}.${filters.order.value}`);
+  },
   getPopularMovies: (page: number = DEFAULT_PAGE) => request('get', `${PATH_BASE}${PATH_MOVIE}${PATH_POPULAR}?language=en-US&api_key=${API_KEY}&${PATH_PAGE}${page}`),
   getTopRatedMovies: (page: number = DEFAULT_PAGE) => request('get', `${PATH_BASE}${PATH_MOVIE}${PATH_TOP_RATED}?language=en-US&api_key=${API_KEY}&${PATH_PAGE}${page}`),
   getSoonMovies: (page: number = DEFAULT_PAGE) => request('get', `${PATH_BASE}${PATH_MOVIE}${PATH_UPCOMING}?language=en-US&api_key=${API_KEY}&${PATH_PAGE}${page}`),

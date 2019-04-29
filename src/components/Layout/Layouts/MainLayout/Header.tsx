@@ -39,7 +39,9 @@ const Header: React.FC<Props> = ({
 
   return (
     <Wrapper>
-      {!isSidebarOpen &&  <Link to="/"><Logo>Safr</Logo></Link>}
+      {/* {!isSidebarOpen &&  <Link to="/"><Logo>Safr</Logo></Link>} */}
+      {/* {!isSidebarOpen &&  <Logo>Safr</Logo>} */}
+      {!isSidebarOpen &&  <Logo><Link to="/">Safr</Link></Logo>}
       <SearchBar searchByKeyword={searchByKeyword} />
       {/* <SearchBar /> */}
       {authenticated ? (
@@ -118,10 +120,6 @@ const Wrapper = styled.header`
   > svg {
     width: 50px;
   }
-  > a {
-    color: ${({ theme }) => theme.colors.white};
-    text-decoration: none;
-  }
 `;
 
 const Logo = styled.h1`
@@ -129,6 +127,10 @@ const Logo = styled.h1`
   ${media.phone`
     display: none;
   `};
+  > a {
+    color: ${({ theme }) => theme.colors.white};
+    text-decoration: none;
+  }
 `;
 
 const Login = styled.div`

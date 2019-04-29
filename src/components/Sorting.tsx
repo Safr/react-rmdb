@@ -1,27 +1,33 @@
 import * as React from 'react';
 import Dropdown from 'react-dropdown';
+// import 'react-dropdown/style.css';
 import styled from 'styled-components';
 // CONSTANTS
 import { SORT_BY, SORT_BY_ORDER } from 'lib/constants/SelectOptions';
 
-const Sorting = () => (
+export interface Props {
+  filters: IFiltersState;
+  updateFilters: (filters: IFiltersState) => void;
+}
+
+const Sorting: React.FC<Props> = ({ filters, updateFilters }) => (
   <Wrapper>
     <div>
       <Label>Sort by</Label>
       <Dropdown
-        className="test"
         options={SORT_BY}
-        // value={`${this.props.filters.sort_by.label}`}
-        // onChange={sort_by => this.props.updateFilters({ ...this.props.filters, sort_by: sort_by })}
+        value={filters.sort_by.label}
+        onChange={(sort_by: ISortOrder) =>
+          updateFilters({ ...filters, sort_by })
+        }
       />
     </div>
     <div>
       <Label>Order by</Label>
       <Dropdown
-        className="test"
         options={SORT_BY_ORDER}
-        // value={`${this.props.filters.order.label}`}
-        // onChange={order => this.props.updateFilters({ ...this.props.filters, order: order })}
+        value={filters.order.label}
+        onChange={(order: ISortOrder) => updateFilters({ ...filters, order })}
       />
     </div>
   </Wrapper>
@@ -32,27 +38,32 @@ export default Sorting;
 const Wrapper = styled.div`
   display: flex;
   align-items: center;
-
+  display: flex;
+  align-items: center;
   > div {
     display: flex;
     align-items: center;
     display: inherit;
     padding: 0 8px;
-  }
 
-  .Dropdown-arrow {
-    display: none;
-  }
+    .Dropdown-arrow {
+      display: none;
+    }
 
-  .Dropdown-placeholder {
-    text-decoration: underline;
-  }
+    .Dropdown-placeholder {
+      text-decoration: underline;
+    }
 
-  .Dropdown-control {
-    padding: 6px 20px 6px 10px;
-  }
-  .Dropdown-menu {
-    width: 120%;
+    .Dropdown-control {
+      /* position: absolute;
+      right: 0;
+      z-index: 1; */
+      padding: 6px 20px 6px 10px;
+    }
+    .Dropdown-menu {
+      width: 120%;
+      position: relative;
+    }
   }
 `;
 

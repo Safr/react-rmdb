@@ -11,9 +11,9 @@ declare interface IRootState {
 }
 
 declare interface IUserState {
-  isAuthenticated: boolean,
-  user: Object | null,
-  error: boolean,
+  isAuthenticated: boolean;
+  user: Object | null;
+  error: boolean;
 }
 
 declare interface IMoviesState {
@@ -55,23 +55,21 @@ declare interface IMoviesState {
   error: boolean,
 }
 
-declare interface IFilterState {
-  rating: {
-    min: number,
-    max:number
-  },
-  runtime: {
-    min:number,
-    max: number
-  },
-  sort_by: {
-    value: string,
-    label: string
-  },
-  order: {
-    value: string,
-    label: string,
-  },
-  year: number
+declare interface ISortOrder {
+  value: string;
+  label: string;
+}
+
+declare interface IRatingRuntime {
+  min: number;
+  max:number;
+}
+
+declare interface IFiltersState {
+  rating: IRatingRuntime;
+  runtime: IRatingRuntime;
+  sort_by: ISortOrder;
+  order: ISortOrder;
+  year: number;
 }
 

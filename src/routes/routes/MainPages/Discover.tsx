@@ -8,6 +8,12 @@ import { media } from 'lib/styles';
 import { withAjaxLoadMore } from 'components/HOC';
 // DUCKS
 import {
+  actions as filtersActions,
+  effects as filtersEffects,
+  selectors as filtersSelectors,
+} from 'redux/ducks/filters.duck';
+
+import {
   effects as moviesEffects,
   selectors as moviesSelectors,
 } from 'redux/ducks/movies.duck';
@@ -21,22 +27,31 @@ const { useEffect } = React;
 
 // TYPES
 export interface Props {
-  fetchMovies: (page: number) => Promise<void>;
+  fetchMovies: (page: number, filters: IFiltersState) => Promise<void>;
+  updateFilters: (filters: IFiltersState) => void;
   movies: any;
   page: number;
   isLoading: boolean;
+  filters: IFiltersState;
 }
 
-const DiscoverPages: React.FC<Props> = ({ movies, fetchMovies, isLoading, page }) => {
+const DiscoverPages: React.FC<Props> = ({
+  movies,
+  fetchMovies,
+  isLoading,
+  page,
+  filters,
+  updateFilters,
+}) => {
   useEffect(() => {
-    fetchMovies(page);
-  }, [fetchMovies, page]);
+    fetchMovies(page, filters);
+  }, [fetchMovies, page, filters]);
   return (
     <Content>
       <h2>Discover</h2>
       <SortingBox>
         <h3>— browse movies by year, ratings and duration.</h3>
-        <Sorting />
+        <Sorting filters={filters} updateFilters={updateFilters} />
       </SortingBox>
 
       {movies && <List list={movies.results} />}
@@ -52,10 +67,11 @@ const DiscoverPages: React.FC<Props> = ({ movies, fetchMovies, isLoading, page }
 export default compose(
   connect(
     state => ({
+      filters: filtersSelectors.getFilters(state),
       movies: moviesSelectors.getMovies(state),
       isLoading: moviesSelectors.getLoading(state),
     }),
-    { ...moviesEffects },
+    { ...filtersActions, ...filtersEffects, ...moviesEffects },
   ),
   withAjaxLoadMore,
   React.memo,
