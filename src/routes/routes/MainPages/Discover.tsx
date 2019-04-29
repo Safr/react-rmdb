@@ -8,6 +8,7 @@ import { media } from 'lib/styles';
 import { withAjaxLoadMore } from 'components/HOC';
 // DUCKS
 import {
+  state as filtersState,
   actions as filtersActions,
   effects as filtersEffects,
   selectors as filtersSelectors,
@@ -43,7 +44,10 @@ const DiscoverPages: React.FC<Props> = ({
   updateFilters,
 }) => {
   useEffect(() => {
-    fetchMovies(page, filters);
+    fetchMovies(page, filtersState);
+  }, [fetchMovies, page]);
+  useEffect(() => {
+    fetchMovies(1, filters);
   }, [fetchMovies, page, filters]);
   return (
     <Content>

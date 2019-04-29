@@ -3,7 +3,7 @@ import { createSelector } from 'reselect';
 import { Dispatch } from 'redux';
 // API
 import api from 'lib/api';
-// import { state as filters } from './filters.duck';
+// import { state as filtersState } from './filters.duck';
 
 const initialState: IMoviesState = {
   movies: null,
@@ -53,7 +53,8 @@ const reducer: Reducer<IMoviesState, IMoviesState> = handleActions<
       action: Action<IMoviesState>,
     ) => {
       const { page, results }: any = action.payload;
-      const oldResults: any[] = state.movies && page !== 1 ? state.movies.results : [];
+      const oldResults: any[] =
+        state.movies && page !== 1 ? state.movies.results : [];
       return {
         ...state,
         movies: {

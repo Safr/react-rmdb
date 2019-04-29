@@ -2,6 +2,7 @@ import * as React from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 // COMPONENTS
+import MovieActions from 'components/Movie/MovieActions';
 import VoteBadge from 'components/UI/VoteBadge';
 
 interface Props {
@@ -18,22 +19,8 @@ const MovieItem: React.FC<Props> = props => {
       <VoteBadge voteAverage={vote_average} right="-20px" top="15px" />
       <ImageBox>
         {poster_path ? (
-          <div>
-            <MovieActions>
-              {/* {this.renderFavHeart()}
-
-              <svg
-                width="10"
-                height="15"
-                className="list__movie-action action__playtrailer"
-                viewBox="0 0 10 15"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path d="M.013.135L9.7 7.5.012 14.865" />
-              </svg>
-
-              {this.renderWatchLaterClock()} */}
-            </MovieActions>
+          <>
+            <MovieActions />
 
             <ImageLink
               className="list__movie-image-link"
@@ -44,7 +31,7 @@ const MovieItem: React.FC<Props> = props => {
                 alt={title}
               />
             </ImageLink>
-          </div>
+          </>
         ) : (
           <div>
             <div className="list__movie-actions">
@@ -92,16 +79,9 @@ const ImageBox = styled.figure`
   position: relative;
   box-shadow: 3px 4px 7px 2px rgba(0, 0, 0, 0.4);
   overflow: hidden;
-`;
 
-const ImageLink = styled(Link)`
-  /* width: 100%;
-  height: 100%;
-  display: block; */
-`;
-
-const MovieActions = styled.div`
-  position: absolute;
+  > div {
+    position: absolute;
   bottom: -40px;
   background: linear-gradient(
     to bottom,
@@ -115,4 +95,19 @@ const MovieActions = styled.div`
   justify-content: space-around;
   transition: bottom 0.4s ease;
   z-index: 1;
+
+  svg {
+    border: none;
+  }
+  }
+
+  :hover > div {
+    bottom: 0;
+  }
+`;
+
+const ImageLink = styled(Link)`
+  /* width: 100%;
+  height: 100%;
+  display: block; */
 `;

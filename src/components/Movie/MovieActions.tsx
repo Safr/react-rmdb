@@ -45,14 +45,12 @@ const Wrapper = styled.div`
   display: grid;
   grid-auto-flow: column;
   width: 200px;
-
   svg {
     padding: 10px;
     border: 2px solid white;
     border-radius: 50%;
     position: relative;
     transition: all 0.4s ease;
-
     :hover {
       fill: ${({ theme }) => theme.colors.red};
       border-color:  ${({ theme }) => theme.colors.red};

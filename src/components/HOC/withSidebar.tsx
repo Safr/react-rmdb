@@ -17,6 +17,16 @@ const withSidebar = <P extends InjectedProps>(
   const prevLocation = usePrevious(location.pathname);
   const sidebarProps = useSidebar();
 
+  useEffect(() => {
+    if (sidebarProps.isSidebarOpen) {
+      document.body.style.overflowY = 'hidden';
+    }
+
+    if (!sidebarProps.isSidebarOpen) {
+      document.body.style.overflowY = 'auto';
+    }
+  });
+
   const onEscKeyPressed = e => {
     if (e.keyCode === 27) {
       if (sidebarProps.isSidebarOpen) sidebarProps.closeSidebar();

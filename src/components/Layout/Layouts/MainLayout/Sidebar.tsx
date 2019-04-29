@@ -1,7 +1,9 @@
 import * as React from 'react';
 import { compose } from 'redux';
+// import { NavLink, RouteComponentProps } from 'react-router-dom';
 import { NavLink } from 'react-router-dom';
 import { connect } from 'react-redux';
+import { Location } from 'history';
 import styled from 'styled-components';
 // STYLES
 import { media } from 'lib/styles';
@@ -14,15 +16,15 @@ import {
 // COMPONENTS
 import Filters from 'components/UI/Filters';
 
+
 interface Props {
   filters: IFiltersState;
+  location: Location;
   resetFilters: () => void;
   updateFilters: (filters: IFiltersState) => void;
 }
 
-const Sidebar: React.FC<Props> = ({ filters, updateFilters, resetFilters }) => {
-  const currentPath = window.location.pathname;
-
+const Sidebar: React.FC<Props> = ({ filters, location, updateFilters, resetFilters }) => {
   return (
     <Wrapper>
       <SidebarMenu>
@@ -75,7 +77,7 @@ const Sidebar: React.FC<Props> = ({ filters, updateFilters, resetFilters }) => {
         </li>
       </SidebarMenu>
 
-      {currentPath === '/' && (
+      {location.pathname === '/' && (
         <Filters
           filters={filters}
           updateFilters={updateFilters}
@@ -119,7 +121,7 @@ export default compose(
 const Wrapper = styled.div`
   position: relative;
   width: 200px;
-  height: calc(100vh - 140px);
+  /* height: calc(100vh - 140px); */
   background-color: ${({ theme }) => theme.colors.black};
 
   ${media.phone`

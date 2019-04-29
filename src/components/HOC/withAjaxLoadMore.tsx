@@ -36,7 +36,7 @@ function withAjaxLoadMore<T extends InjectedProps>(
       const clientHeight =
         document.documentElement.clientHeight || window.innerHeight;
       const scrolledToBottom =
-        Math.ceil(scrollTop + clientHeight + 200) >= scrollHeight;
+        Math.ceil(scrollTop + clientHeight + 100) >= scrollHeight;
       if (scrolledToBottom && !isLoading) {
         this.setPage();
       }

@@ -3,6 +3,8 @@ import styled from 'styled-components';
 import InputRange from 'react-input-range';
 import Dropdown from 'react-dropdown';
 
+const { useState } = React;
+
 interface Props {
   filters: IFiltersState;
   resetFilters: () => void;
@@ -10,17 +12,13 @@ interface Props {
 }
 
 const Filters: React.FC<Props> = ({ filters, updateFilters, resetFilters }) => {
-  // resetState = () => {
-  //   this.props.resetFilters();
-  // };
+  const [rating, setRating] = useState<IRatingRuntime>({ min: 5, max: 10 });
+  const [runtime, setRuntime] = useState<IRatingRuntime>({ min: 45, max: 250 });
   const rangeDate = (start, end) =>
     Array.from(
       { length: end - start },
       (value, key) => key + start + 1,
     ).reverse();
-
-    console.log('rangeDate(1900, new Date().getFullYear())', rangeDate(1900, new Date().getFullYear()));
-
   return (
     <AppFilters>
       Filters
@@ -36,15 +34,16 @@ const Filters: React.FC<Props> = ({ filters, updateFilters, resetFilters }) => {
         </svg>
         <FiltersResetLabel>Reset</FiltersResetLabel>
       </FiltersReset>
-      <ul className="filters-list">
+      <ul>
         <FiltersListItem>
           <FilterLabel>Year</FilterLabel>
           <Dropdown
+            placeholder="Select an option"
             options={rangeDate(1900, new Date().getFullYear())}
+            value={String(filters.year)}
             onChange={(year: any) =>
               updateFilters({ ...filters, year: year.value })
             }
-            // value={filters.year}
           />
         </FiltersListItem>
 
@@ -54,8 +53,9 @@ const Filters: React.FC<Props> = ({ filters, updateFilters, resetFilters }) => {
             minValue={0}
             maxValue={10}
             draggableTrack
-            value={filters.rating}
-            onChange={(rating: IRatingRuntime) =>
+            value={rating}
+            onChange={(newRating: IRatingRuntime) => setRating(newRating)}
+            onChangeComplete={() =>
               updateFilters({
                 ...filters,
                 rating,
@@ -70,15 +70,14 @@ const Filters: React.FC<Props> = ({ filters, updateFilters, resetFilters }) => {
             minValue={0}
             maxValue={500}
             draggableTrack
-            value={{ min: 3, max: 443 }}
-            onChange={() => console.log('d')}
-            // value={this.props.filters.runtime}
-            // onChange={runtime =>
-            //   this.props.updateFilters({
-            //     ...this.props.filters,
-            //     runtime,
-            //   })
-            // }
+            value={runtime}
+            onChange={(newRuntime: IRatingRuntime) => setRuntime(newRuntime)}
+            onChangeComplete={() =>
+              updateFilters({
+                ...filters,
+                runtime,
+              })
+            }
           />
         </FiltersListItem>
       </ul>
@@ -88,10 +87,8 @@ const Filters: React.FC<Props> = ({ filters, updateFilters, resetFilters }) => {
 
 export default Filters;
 
-//
-
 const AppFilters = styled.div`
-  color: #fff;
+  color: ${({ theme }) => theme.colors.white}
   padding: 10px 15px;
 
   ul {
@@ -102,8 +99,8 @@ const AppFilters = styled.div`
 
   .input-range__slider {
     appearance: none;
-    background: #ff424f;
-    border: 1px solid #ff424f;
+    background: ${({ theme }) => theme.colors.red}
+    border: 1px solid ${({ theme }) => theme.colors.red}
     border-radius: 100%;
     cursor: pointer;
     display: block;
@@ -132,7 +129,7 @@ const AppFilters = styled.div`
 
   .input-range__label {
     color: #aaaaaa;
-    font-size: 0.6rem;
+    font-size: 12px;
     transform: translateZ(0);
     white-space: nowrap;
   }
@@ -164,7 +161,7 @@ const AppFilters = styled.div`
   }
 
   .input-range__track {
-    background: #eeeeee;
+    background: ${({ theme }) => theme.colors.white};
     border-radius: 0.1rem;
     cursor: pointer;
     display: block;
@@ -173,7 +170,7 @@ const AppFilters = styled.div`
     transition: left 0.3s ease-out, width 0.3s ease-out;
   }
   .input-range--disabled .input-range__track {
-    background: #eeeeee;
+    background: ${({ theme }) => theme.colors.white};
   }
 
   .input-range__track--background {
@@ -185,14 +182,13 @@ const AppFilters = styled.div`
   }
 
   .input-range__track--active {
-    background: #ff424f;
+    background: ${({ theme }) => theme.colors.red};
   }
 
   .input-range {
     height: 1rem;
     position: relative;
     width: 125px;
-    /*width: 100%;*/
   }
 
   .Dropdown-root {
@@ -208,10 +204,10 @@ const AppFilters = styled.div`
     position: relative;
     overflow: hidden;
     border-radius: 2px;
-    color: #fff;
+    color: ${({ theme }) => theme.colors.white}
     cursor: pointer;
     outline: none;
-    padding: 6px 40px 6px 10px;
+    padding: 6px 40px 15px 10px;
     transition: all 200ms ease;
   }
 
@@ -220,7 +216,7 @@ const AppFilters = styled.div`
   }
 
   .Dropdown-arrow {
-    border-color: #ff424f transparent transparent;
+    border-color: ${({ theme }) => theme.colors.red} transparent transparent;
     border-style: solid;
     border-width: 5px 5px 0;
     content: ' ';
@@ -229,7 +225,7 @@ const AppFilters = styled.div`
     margin-top: -ceil(2.5);
     position: absolute;
     right: 10px;
-    top: 11px;
+    bottom: 18px;
     width: 0;
   }
 
@@ -239,7 +235,7 @@ const AppFilters = styled.div`
   }
 
   .Dropdown-menu {
-    background-color: #191c1f;
+    background-color: ${({ theme }) => theme.colors.black};
     box-shadow: 0 1px 0 rgba(0, 0, 0, 0.06);
     box-sizing: border-box;
     margin-top: -1px;
@@ -254,13 +250,13 @@ const AppFilters = styled.div`
 
   .Dropdown-menu .Dropdown-group > .Dropdown-title {
     padding: 8px 10px;
-    color: rgba(51, 51, 51, 1);
+    color: ${({ theme }) => theme.colors.white};
     font-weight: bold;
     text-transform: capitalize;
   }
 
   .Dropdown-option {
-    color: #fff;
+    color: ${({ theme }) => theme.colors.white};
     cursor: pointer;
     display: block;
     padding: 8px 10px;
@@ -273,12 +269,12 @@ const AppFilters = styled.div`
   }
 
   .Dropdown-option:hover {
-    color: #ff424f;
+    color: ${({ theme }) => theme.colors.red};
   }
 
   .Dropdown-option.is-selected {
-    background-color: #f2f9fc;
-    color: #333;
+    background-color: ${({ theme }) => theme.colors.black};
+    color: ${({ theme }) => theme.colors.red};
   }
 
   .Dropdown-noresults {
@@ -288,6 +284,10 @@ const AppFilters = styled.div`
     display: block;
     padding: 8px 10px;
   }
+
+  .Dropdown-placeholder {
+    color: ${({ theme }) => theme.colors.white};
+  }
 `;
 
 const FiltersListItem = styled.li`
@@ -295,12 +295,6 @@ const FiltersListItem = styled.li`
   padding: 6px 0;
   margin-bottom: 10px;
 `;
-
-// @media screen and (min-width: 1200px) {
-//   .filters-list__item{
-//     display: flex;
-//   }
-// }
 
 const FilterLabel = styled.label`
   font-size: 11px;
@@ -323,11 +317,11 @@ const FiltersReset = styled.button`
   }
 
   :hover {
-    color: #fff;
+    color: ${({ theme }) => theme.colors.white};
     opacity: 0.8;
 
     path {
-      fill: #fff;
+      fill: ${({ theme }) => theme.colors.white};
       opacity: 0.8;
     }
   }
