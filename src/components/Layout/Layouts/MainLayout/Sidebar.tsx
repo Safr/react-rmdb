@@ -1,12 +1,26 @@
 import * as React from 'react';
 import { NavLink } from 'react-router-dom';
+import { connect } from 'react-redux';
 import styled from 'styled-components';
 // STYLES
 import { media } from 'lib/styles';
+// DUCKS
+import {
+  actions as filtersActions,
+  effects as filtersEffects,
+  selectors as filtersSelectors,
+} from 'redux/ducks/filters.duck';
 // COMPONENTS
 import Filters from 'components/UI/Filters';
 
-const Sidebar = () => {
+interface Props {
+  filters: IFiltersState;
+  resetFilters: () => void;
+  updateFilters: (filters: IFiltersState) => void;
+}
+
+
+const Sidebar: React.FC<Props> = ({ filters, updateFilters, resetFilters }) => {
   const currentPath = window.location.pathname;
 
   return (
@@ -61,18 +75,23 @@ const Sidebar = () => {
         </li>
       </SidebarMenu>
 
-      {currentPath === '/dashboard' && (
+      {currentPath === '/' && (
         <Filters
-        // filters={this.props.filters}
-        // updateFilters={this.props.updateFilters}
-        // resetFilters={this.props.resetFilters}
+          filters={filters}
+          updateFilters={updateFilters}
+          resetFilters={resetFilters}
         />
       )}
     </Wrapper>
   );
 };
 
-export default Sidebar;
+export default connect(
+    state => ({
+      filters: filtersSelectors.getFilters(state),
+    }),
+    { ...filtersActions, ...filtersEffects },
+)(Sidebar);
 
 const Wrapper = styled.div`
   position: relative;
@@ -122,16 +141,16 @@ const Link = styled(NavLink).attrs({ activeClassName })`
   transition: all 0.3s ease;
 
   :hover {
-    color: #ff424f;
+    color: ${({ theme }) => theme.colors.red};
 
     svg path {
-      fill: #ff424f;
+      fill: ${({ theme }) => theme.colors.red};
     }
   }
   &.${activeClassName} {
-    color: #ff424f;
+    color: ${({ theme }) => theme.colors.red};
     svg path {
-      fill: #ff424f;
+      fill: ${({ theme }) => theme.colors.red};
     }
   }
 `;

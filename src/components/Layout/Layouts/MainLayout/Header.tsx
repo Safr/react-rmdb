@@ -115,7 +115,7 @@ const Wrapper = styled.header`
 `}; */
   justify-items: center;
   align-items: center
-  background-color: ${({ theme }) => theme.colors.red};
+  background-color: ${({ theme }) => theme.colors.darkRed};
   height: 70px;
   > svg {
     width: 50px;

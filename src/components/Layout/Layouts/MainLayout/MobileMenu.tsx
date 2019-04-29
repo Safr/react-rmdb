@@ -1,15 +1,26 @@
 import * as React from 'react';
 import { NavLink } from 'react-router-dom';
+import { connect } from 'react-redux';
+import { compose } from 'redux';
 import { MdClose } from 'react-icons/md';
 import styled from 'styled-components';
 // STYLES
 import { media } from 'lib/styles';
+// DUCKS
+import {
+  actions as filtersActions,
+  effects as filtersEffects,
+  selectors as filtersSelectors,
+} from 'redux/ducks/filters.duck';
 // COMPONENTS
 import Copyright from 'components/Copyright';
 import Filters from 'components/UI/Filters';
 import SidebarPortal from 'components/Layout/Sidebars/SidebarPortal';
 
 interface Props {
+  filters: IFiltersState;
+  resetFilters: () => void;
+  updateFilters: (filters: IFiltersState) => void;
   isSidebarOpen: boolean;
   closeSidebar: () => void;
 }
@@ -18,7 +29,7 @@ interface MobileProps {
   readonly isOpen: boolean;
 }
 
-const MobileMenu: React.FC<Props> = ({ isSidebarOpen, closeSidebar }) => {
+const MobileMenu: React.FC<Props> = ({ filters, isSidebarOpen, closeSidebar, resetFilters, updateFilters }) => {
   const currentPath = window.location.pathname;
   return (
     <SidebarPortal>
@@ -77,8 +88,10 @@ const MobileMenu: React.FC<Props> = ({ isSidebarOpen, closeSidebar }) => {
           </li>
         </SidebarMenu>
 
-        {currentPath === '/discover' && (
+        {currentPath === '/' && (
           <Filters
+          filters={filters} updateFilters={updateFilters}
+          resetFilters={resetFilters}
           // filters={this.props.filters}
           // updateFilters={this.props.updateFilters}
           // resetFilters={this.props.resetFilters}
@@ -92,7 +105,14 @@ const MobileMenu: React.FC<Props> = ({ isSidebarOpen, closeSidebar }) => {
   );
 };
 
-export default MobileMenu;
+export default compose(
+  connect(
+    state => ({
+      filters: filtersSelectors.getFilters(state),
+    }),
+    { ...filtersActions, ...filtersEffects },
+  ),
+)(MobileMenu);
 
 // const Wrapper = styled.div<MobileProps>`
 //   position: fixed;

@@ -54,7 +54,7 @@ const Content = styled.div`
   flex-direction: column;
   position: relative;
   background-color: #222b31;
-  color: #fff;
+  color: ${({ theme }) => theme.colors.white};
 `;
 
 const Grid = styled.div`

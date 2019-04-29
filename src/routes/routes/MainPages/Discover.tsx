@@ -12,7 +12,6 @@ import {
   effects as filtersEffects,
   selectors as filtersSelectors,
 } from 'redux/ducks/filters.duck';
-
 import {
   effects as moviesEffects,
   selectors as moviesSelectors,

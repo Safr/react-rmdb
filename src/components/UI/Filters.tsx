@@ -3,7 +3,13 @@ import styled from 'styled-components';
 import InputRange from 'react-input-range';
 import Dropdown from 'react-dropdown';
 
-const Filters = () => {
+interface Props {
+  filters: IFiltersState;
+  resetFilters: () => void;
+  updateFilters: (filters: IFiltersState) => void;
+}
+
+const Filters: React.FC<Props> = ({ filters, updateFilters, resetFilters }) => {
   // resetState = () => {
   //   this.props.resetFilters();
   // };
@@ -13,11 +19,12 @@ const Filters = () => {
       (value, key) => key + start + 1,
     ).reverse();
 
+    console.log('rangeDate(1900, new Date().getFullYear())', rangeDate(1900, new Date().getFullYear()));
+
   return (
     <AppFilters>
       Filters
-      {/* <button type="button" className="filters-reset" onClick={this.resetState}> */}
-      <FiltersReset type="button" className="filters-reset">
+      <FiltersReset type="button" onClick={resetFilters}>
         <svg
           width="6"
           height="7"
@@ -34,13 +41,10 @@ const Filters = () => {
           <FilterLabel>Year</FilterLabel>
           <Dropdown
             options={rangeDate(1900, new Date().getFullYear())}
-            // value={`${this.props.filters.year}`}
-            // onChange={year =>
-            //   this.props.updateFilters({
-            //     ...this.props.filters,
-            //     year: year.value,
-            //   })
-            // }
+            onChange={(year: any) =>
+              updateFilters({ ...filters, year: year.value })
+            }
+            // value={filters.year}
           />
         </FiltersListItem>
 
@@ -50,15 +54,13 @@ const Filters = () => {
             minValue={0}
             maxValue={10}
             draggableTrack
-            value={{ min: 3, max: 4 }}
-            onChange={() => console.log('d')}
-            // value={this.props.filters.rating}
-            // onChange={rating =>
-            //   this.props.updateFilters({
-            //     ...this.props.filters,
-            //     rating,
-            //   })
-            // }
+            value={filters.rating}
+            onChange={(rating: IRatingRuntime) =>
+              updateFilters({
+                ...filters,
+                rating,
+              })
+            }
           />
         </FiltersListItem>
 

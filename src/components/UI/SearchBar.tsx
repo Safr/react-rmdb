@@ -68,7 +68,7 @@ const Input = styled.input`
   height: 100%;
   padding: 10px 10px 10px 100px;
   font-size: 20px;
-  background-color: #e53b47;
+  background-color: ${({ theme }) => theme.colors.red};
   border: 0;
   color: white;
   -webkit-appearance: none;

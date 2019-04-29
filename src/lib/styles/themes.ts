@@ -10,7 +10,8 @@ export const primaryTheme = {
     darkGrey: '#ababab',
 
     // RED
-    red: '#cc343f',
+    red: '#e53b47',
+    darkRed: '#cc343f',
 
     // BLUE
     blue: '#3E80FF',
