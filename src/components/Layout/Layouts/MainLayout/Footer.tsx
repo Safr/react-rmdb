@@ -24,7 +24,7 @@ const Wrapper = styled.footer`
   text-align: center;
   color: #fff;
   font-size: 12px;
-  background-color: #191c1f;
+  background-color: ${({ theme }) => theme.colors.black};
 
   ${media.phone`
     display: none;

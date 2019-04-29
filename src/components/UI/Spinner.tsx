@@ -24,7 +24,7 @@ const animate = keyframes`
 `;
 
 const Preloader = styled.ul`
-   display: grid;
+  display: grid;
   width: 100px;
   align-items: center;
   justify-items: center;

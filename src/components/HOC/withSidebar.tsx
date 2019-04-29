@@ -38,12 +38,7 @@ const withSidebar = <P extends InjectedProps>(
     }
     // eslint-disable-next-line
   }, [location.pathname]);
-  return (
-    <Component
-      {...props}
-      sidebarProps={sidebarProps}
-    />
-  );
+  return <Component {...props} sidebarProps={sidebarProps} />;
 };
 
 export default withSidebar;

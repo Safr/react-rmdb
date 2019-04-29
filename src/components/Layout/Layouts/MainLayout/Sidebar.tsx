@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { compose } from 'redux';
 import { NavLink } from 'react-router-dom';
 import { connect } from 'react-redux';
 import styled from 'styled-components';
@@ -18,7 +19,6 @@ interface Props {
   resetFilters: () => void;
   updateFilters: (filters: IFiltersState) => void;
 }
-
 
 const Sidebar: React.FC<Props> = ({ filters, updateFilters, resetFilters }) => {
   const currentPath = window.location.pathname;
@@ -86,18 +86,41 @@ const Sidebar: React.FC<Props> = ({ filters, updateFilters, resetFilters }) => {
   );
 };
 
-export default connect(
+// const mapStateToProps = (state: any) => ({
+//   filters: filtersSelectors.getFilters(state),
+// });
+
+// const mapDispatchToProps = (dispatch: Dispatch) => ({
+//   resetFilters: () => dispatch(filtersActions.resetFilters()),
+//   updateFilters: (filters: IFiltersState) =>
+//     dispatch(filtersEffects.updateFilters(filters)),
+// });
+
+// export default connect<any, any, void>(
+//   mapStateToProps,
+//   mapDispatchToProps,
+// )(Sidebar);
+
+// export default connect(
+//   state => ({
+//     filters: filtersSelectors.getFilters(state),
+//   }),
+//   { ...filtersActions, ...filtersEffects },
+// )(Sidebar);
+export default compose(
+  connect(
     state => ({
       filters: filtersSelectors.getFilters(state),
     }),
     { ...filtersActions, ...filtersEffects },
+  ),
 )(Sidebar);
 
 const Wrapper = styled.div`
   position: relative;
   width: 200px;
   height: calc(100vh - 140px);
-  background-color: #191c1f;
+  background-color: ${({ theme }) => theme.colors.black};
 
   ${media.phone`
     display: none;
@@ -124,7 +147,7 @@ const SidebarMenu = styled.ul`
 
         path {
           transition: all 0.3s ease;
-          fill: #fff;
+          fill: ${({ theme }) => theme.colors.white};
         }
       }
     }
@@ -134,7 +157,7 @@ const SidebarMenu = styled.ul`
 const activeClassName = 'active';
 
 const Link = styled(NavLink).attrs({ activeClassName })`
-  color: #fff;
+  color: ${({ theme }) => theme.colors.white};
   text-decoration: none;
   padding: 10px 15px;
   display: block;
@@ -154,22 +177,3 @@ const Link = styled(NavLink).attrs({ activeClassName })`
     }
   }
 `;
-
-//   .sidebar-menu__item a.is-active,
-//   .sidebar-menu__item:hover a{
-//     color: #FF424F;
-//   }
-
-//   .sidebar-menu__item a.is-active path,
-//   .sidebar-menu__item:hover a path{
-//     fill: #FF424F;
-//   }
-
-//   .sidebar-menu__item--coming-soon{
-//     margin: 10px 0;
-//     font-style: italic;
-//   }
-
-//   .sidebar-menu__item--coming-soon a{
-//     color: rgba(255, 255, 255, 0.5);
-//   }

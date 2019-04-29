@@ -29,7 +29,13 @@ interface MobileProps {
   readonly isOpen: boolean;
 }
 
-const MobileMenu: React.FC<Props> = ({ filters, isSidebarOpen, closeSidebar, resetFilters, updateFilters }) => {
+const MobileMenu: React.FC<Props> = ({
+  filters,
+  isSidebarOpen,
+  closeSidebar,
+  resetFilters,
+  updateFilters,
+}) => {
   const currentPath = window.location.pathname;
   return (
     <SidebarPortal>
@@ -90,17 +96,14 @@ const MobileMenu: React.FC<Props> = ({ filters, isSidebarOpen, closeSidebar, res
 
         {currentPath === '/' && (
           <Filters
-          filters={filters} updateFilters={updateFilters}
-          resetFilters={resetFilters}
-          // filters={this.props.filters}
-          // updateFilters={this.props.updateFilters}
-          // resetFilters={this.props.resetFilters}
+            filters={filters}
+            updateFilters={updateFilters}
+            resetFilters={resetFilters}
           />
         )}
         <Copyright />
       </Wrapper>
       <ContainerBg isOpen={isSidebarOpen} onClick={closeSidebar} />
-      {/* <ContainerBg /> */}
     </SidebarPortal>
   );
 };

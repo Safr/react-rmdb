@@ -13,20 +13,21 @@ type Props = {
 const MainTemplate: React.FC<Props & RouteProps> = ({
   component: Component,
   ...rest
-}) => {
-  console.log('rest', rest);
-  return (
-    <Route
+}) => (
+  <Route
     {...rest}
-      render={(props: any) => (
-        <ErrorScreen>
-          <MainLayout {...props}>
-            <Component {...props} {...rest} fallback={<LoadingScreen {...props} />} />
-          </MainLayout>
-        </ErrorScreen>
-      )}
-    />
-  );
-};
+    render={(props: any) => (
+      <ErrorScreen>
+        <MainLayout {...props}>
+          <Component
+            {...props}
+            {...rest}
+            fallback={<LoadingScreen {...props} />}
+          />
+        </MainLayout>
+      </ErrorScreen>
+    )}
+  />
+);
 
 export default MainTemplate;

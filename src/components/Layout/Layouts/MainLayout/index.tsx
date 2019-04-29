@@ -30,7 +30,7 @@ const MainLayout: React.FC<Props & RouteProps> = ({
     <Content>
       <Header {...sidebarProps} {...rest} />
       <Grid>
-        <Sidebar />
+        <Sidebar {...sidebarProps} />
         <MobileMenu {...sidebarProps} />
         <InnerContent>{React.cloneElement(children, { ...rest })}</InnerContent>
       </Grid>

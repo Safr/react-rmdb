@@ -39,9 +39,11 @@ const Header: React.FC<Props> = ({
 
   return (
     <Wrapper>
-      {/* {!isSidebarOpen &&  <Link to="/"><Logo>Safr</Logo></Link>} */}
-      {/* {!isSidebarOpen &&  <Logo>Safr</Logo>} */}
-      {!isSidebarOpen &&  <Logo><Link to="/">Safr</Link></Logo>}
+      {!isSidebarOpen && (
+        <Logo>
+          <Link to="/">Safr</Link>
+        </Logo>
+      )}
       <SearchBar searchByKeyword={searchByKeyword} />
       {/* <SearchBar /> */}
       {authenticated ? (
