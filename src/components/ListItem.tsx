@@ -33,23 +33,12 @@ const MovieItem: React.FC<Props> = props => {
             </ImageLink>
           </>
         ) : (
-          <div>
-            <div className="list__movie-actions">
-              {/* {this.renderFavButton(id)} */}
-              <svg
-                width="10"
-                height="15"
-                className="list__movie-action action__playtrailer"
-                viewBox="0 0 10 15"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path d="M.013.135L9.7 7.5.012 14.865" />
-              </svg>
-            </div>
+          <>
+            <MovieActions />
             <ImageLink to={`/movie/${id}`}>
               <div className="list__movie-no_image_holder" />
             </ImageLink>
-          </div>
+          </>
         )}
       </ImageBox>
       <h3>{title}</h3>
@@ -68,8 +57,7 @@ const Wrapper = styled.li`
   h3 {
     display: block;
     font-size: 16px;
-    color: #fff;
-  }
+    color: ${({ theme }) => theme.colors.white};
 `;
 
 const ImageBox = styled.figure`

@@ -22,7 +22,7 @@ const Wrapper = styled.footer`
   margin-top: auto; /* Stick to bottom of sidebar */
   height: 70px;
   text-align: center;
-  color: #fff;
+  color: ${({ theme }) => theme.colors.white};
   font-size: 12px;
   background-color: ${({ theme }) => theme.colors.black};
 

@@ -31,10 +31,6 @@ const Preloader = styled.ul`
   grid-auto-flow: column;
   margin: 0;
   padding: 0;
-  /* height: 30px; */
-  /* margin-top: -40px;
-  padding-right: 29px;
-  padding-left: 29px; */
   li {
     width: 2rem;
     height: 2rem;

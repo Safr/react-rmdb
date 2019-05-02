@@ -55,6 +55,11 @@ const Content = styled.div`
   position: relative;
   background-color: #222b31;
   color: ${({ theme }) => theme.colors.white};
+  height: 100%;
+  /* height: calc(100vh - 140px);
+  ${media.phone`
+    height: auto;
+  `}; */
 `;
 
 const Grid = styled.div`

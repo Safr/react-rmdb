@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import { MdFavorite, MdPlayArrow, MdAccessTime } from 'react-icons/md';
 // STYLES
-import { primaryTheme } from 'lib/styles';
+import { media, primaryTheme } from 'lib/styles';
 
 const renderFavHeart = () => {
   return (
@@ -56,4 +56,7 @@ const Wrapper = styled.div`
       border-color:  ${({ theme }) => theme.colors.red};
     }
   }
+  ${media.phone`
+    justify-self: center;
+  `};
 `;

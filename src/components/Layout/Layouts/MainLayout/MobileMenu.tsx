@@ -8,6 +8,10 @@ import styled from 'styled-components';
 import { media } from 'lib/styles';
 // DUCKS
 import {
+  effects as authEffects,
+  selectors as authSelectors,
+} from 'redux/ducks/auth.duck';
+import {
   actions as filtersActions,
   effects as filtersEffects,
   selectors as filtersSelectors,
@@ -18,6 +22,8 @@ import Filters from 'components/UI/Filters';
 import SidebarPortal from 'components/Layout/Sidebars/SidebarPortal';
 
 interface Props {
+  authLogout: () => Promise<any>;
+  isAuthenticated: boolean;
   filters: IFiltersState;
   resetFilters: () => void;
   updateFilters: (filters: IFiltersState) => void;
@@ -30,6 +36,8 @@ interface MobileProps {
 }
 
 const MobileMenu: React.FC<Props> = ({
+  authLogout,
+  isAuthenticated,
   filters,
   isSidebarOpen,
   closeSidebar,
@@ -94,7 +102,7 @@ const MobileMenu: React.FC<Props> = ({
           </li>
         </SidebarMenu>
         <Login>
-         { true ? (
+         { !isAuthenticated ? (
             <li>
             <Link exact to="/login">
             <MdSubdirectoryArrowRight color="#fff" />
@@ -104,7 +112,7 @@ const MobileMenu: React.FC<Props> = ({
 
          ) : (
           <li>
-            <Link exact to="#">
+            <Link exact to="#" onClick={authLogout}>
           <MdSubdirectoryArrowRight color="#fff" />
             Sign Out
             </Link>
@@ -130,9 +138,10 @@ const MobileMenu: React.FC<Props> = ({
 export default compose(
   connect(
     state => ({
+      isAuthenticated: authSelectors.getAuth(state),
       filters: filtersSelectors.getFilters(state),
     }),
-    { ...filtersActions, ...filtersEffects },
+    { ...authEffects, ...filtersActions, ...filtersEffects },
   ),
 )(MobileMenu);
 

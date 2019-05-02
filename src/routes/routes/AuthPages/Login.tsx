@@ -1,39 +1,49 @@
 import * as React from 'react';
+import { connect } from 'react-redux';
 import { Formik, Field, FieldProps } from 'formik';
 // import { Redirect } from 'react-router-dom';
 import styled from 'styled-components';
 // STYLES
 import { media } from 'lib/styles';
-// import {
-//   app,
-//   facebookProvider,
-//   githubProvider,
-//   twitterProvider,
-//   googleProvider,
-// } from '../../firebase';
+// HELPERS
+// import { validators }  from 'lib/helpers';
+// DUCKS
+import { actions, effects } from 'redux/ducks/auth.duck';
+
+const initialValues = {
+  email: '',
+  password: '',
+};
 
 interface MyFormValues {
-  movieName: string;
+  email: string;
+  password: string;
 }
 
 interface Props {
-  searchByKeyword: (name: string | object) => void;
+  authLogin: (values: MyFormValues, setErrors, setSubmitting) => Promise<any>;
 }
 
-const Login: React.FC<Props> = () => {
+const Login: React.FC<Props> = ({ authLogin }) => {
   return (
     <LoginWrapper>
-      <h1 className="App-main-title login-form-title">Join us!</h1>
+      <h1>Join us!</h1>
       <Formik
         enableReinitialize
-        initialValues={{ movieName: '' }}
-        onSubmit={(values: MyFormValues, { setSubmitting, setFieldValue }) => {
+        initialValues={initialValues}
+        // validate={validators.auth}
+        onSubmit={(values: MyFormValues, { setSubmitting, setErrors }) => {
           console.log('values', values);
-          setSubmitting(false);
-          setFieldValue('movieName', '');
+          authLogin(values, setErrors, setSubmitting);
+          
+          // setSubmitting(false);
+          // setFieldValue('email', '');
+          // setFieldValue('password', '');
         }}
-        render={({ handleSubmit, isSubmitting }) => (
-          <StyledForm>
+        render={({ handleSubmit, ...rest}) => {
+          console.log('rest', rest);
+          return (
+          <StyledForm onSubmit={handleSubmit}>
             <Notice>
               If you don't have an account already, this form will create you
               one.
@@ -42,31 +52,53 @@ const Login: React.FC<Props> = () => {
               <Label>Email</Label>
               <Field
                 name="email"
-                type="email"
-                placeholder="Email"
-                render={({ field }: FieldProps<MyFormValues>) => (
+                render={({ field, form, ...rest }: FieldProps<MyFormValues>) => {
+                  console.log('form', form);
+                  console.log('rest', rest);
+                  return(
                   <>
-                    <Input {...field} placeholder="Email" />
+                    <Input
+                      {...field}
+                      className={
+         (form.touched[field.name] && form.errors[field.name])
+          ? 'error'
+          : ''
+      } 
+      type="text" placeholder="Email" />
+      {form.touched[field.name] && form.errors[field.name] && (
+          <Error>{form.errors[field.name]}</Error>
+      )}
                   </>
-                )}
+                );
+              }}
               />
             </FormItem>
             <FormItem>
               <Label>Password</Label>
               <Field
                 name="password"
-                type="password"
-                placeholder="Password"
-                render={({ field }: FieldProps<MyFormValues>) => (
+                render={({ field, form }: FieldProps<MyFormValues>) => (
                   <>
-                    <Input {...field} placeholder="Password" />
+                    <Input {...field}
+                    className={
+                      (form.touched[field.name] && form.errors[field.name])
+                       ? 'error'
+                       : ''
+                   } 
+                    type="password" placeholder="Password"
+                    
+                    />
+                    {form.touched[field.name] && form.errors[field.name] && (
+          <Error>{form.errors[field.name]}</Error>
+      )}
                   </>
                 )}
               />
             </FormItem>
             <Button type="submit">Log In</Button>
           </StyledForm>
-        )}
+        );
+      }}
       />
       <Divider>Or</Divider>
       <SocialWrapper>
@@ -135,17 +167,26 @@ const Login: React.FC<Props> = () => {
     </LoginWrapper>
   );
 };
-export default Login;
+export default connect(
+  // state => ({
+  //   token: selectors.getToken(state),
+  //   isLoading: selectors.getLoading(state),
+  //   error: selectors.getErrors(state),
+  // }),
+  null,
+  { ...actions, ...effects },
+)(Login);
 
 const LoginWrapper = styled.div`
   position: relative;
   z-index: 1;
-  margin: 100px auto;
+  margin: 60px auto;
   background-color: rgba(20, 22, 24, 0.5);
 
   ${media.phone`
-    margin-top: 50px;
-    margin-bottom: 50px;
+    margin-top: 20px;
+    margin-bottom: 0;
+    background-color: transparent;
   `};
 
   h1 {
@@ -153,6 +194,10 @@ const LoginWrapper = styled.div`
     background-color: ${({ theme }) => theme.colors.red};
     padding: 10px;
     margin: 0;
+    ${media.phone`
+      background-color: transparent;
+    `};
+
   }
 `;
 
@@ -160,6 +205,12 @@ const Notice = styled.div`
   padding: 20px 0;
   opacity: 0.7;
   font-size: 14px;
+
+  ${media.phone`
+    padding-top: 10px;
+    padding-bottom: 10px;
+    text-align: center;
+  `};
 `;
 
 const Divider = styled.div`
@@ -197,6 +248,9 @@ const Divider = styled.div`
 
 const StyledForm = styled.form`
   padding: 10px 30px;
+  ${media.phone`
+    padding: 10px;
+  `};
 `;
 
 const SocialWrapper = styled.div`
@@ -218,20 +272,31 @@ const SocialWrapper = styled.div`
       opacity: 0.8;
     }
   }
+
+  ${media.phone`
+    padding-left: 20px;
+    padding-right: 20px;
+  `};
 `;
 
 const Input = styled.input`
-  padding: 10px 20px;
-    border: 0;
-    box-shadow: none;
-    border-radius: 4px;
     box-sizing: border-box;
     width: 100%;
+    padding: 10px 15px;
+    margin-bottom: 5px;
     font-size: 16px;
+    border: 1px solid transparent;
+    box-shadow: none;
+    border-radius: 4px;
+    &.error {
+      border-color: ${({ theme }) => theme.colors.red};
+      &:focus {
+        box-shadow: 3px 3px 10px
+            ${({ theme }) => theme.colors.red},
+            0 0 0 1px ${({ theme }) => theme.colors.red};
+      }
+    }
 }
-  ::placeholder {
-    color: rgba(255, 255, 255, 0.5);
-  }
 `;
 
 const Button = styled.button`
@@ -239,7 +304,7 @@ const Button = styled.button`
     margin-top: 40px;
   width: 100%;
       padding: 20px;
-    background-color: #ff424f;
+    background-color: ${({ theme }) => theme.colors.red};
     color: #fff;
     border: 0;
     border-radius: 2px;
@@ -254,10 +319,21 @@ const Button = styled.button`
 `;
 
 const FormItem = styled.div`
-  margin-bottom: 20px;
+  position: relative;
+  margin-bottom: 24px;
 `;
 
 const Label = styled.label`
   display: block;
   margin-bottom: 10px;
+`;
+
+const Error = styled.span`
+  position: absolute;
+  left: 0;
+  bottom: -18px;
+  color: ${({ theme }) => theme.colors.red};
+  margin-top: 5px;
+  margin-bottom: 5px;
+  font-size: 14px;
 `;

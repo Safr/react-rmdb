@@ -10,7 +10,7 @@ declare interface IRootState {
     router?: any;
 }
 
-declare interface IUserState {
+declare interface IAuthState {
   isAuthenticated: boolean;
   user: Object | null;
   error: boolean;

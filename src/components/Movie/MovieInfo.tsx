@@ -63,10 +63,10 @@ export default MovieInfo;
 
 const Wrapper = styled.div`
   display: grid;
-  grid-auto-flow: column;
+  grid-template-columns: 300px auto;
   grid-gap: 20px;
   ${media.phone`
-    grid-auto-flow: row;
+  grid-template-columns: 1fr;
 
     img {
       justify-self: center;

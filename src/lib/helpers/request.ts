@@ -7,6 +7,15 @@ export default async (method, url, options = {}, config = null) => {
     headers: {},
   });
 
+  instance.interceptors.response.use(
+    response => {
+      return response;
+    },
+    error => {
+      return Promise.reject(error);
+    },
+  );
+
   try {
     const response = await instance[method](url, options, config);
 

@@ -11,6 +11,7 @@ import {
   selectors as moviesSelectors,
 } from 'redux/ducks/movies.duck';
 // COMPONENTS
+import { Content } from 'components/UI/Page';
 import MovieInfo from 'components/Movie/MovieInfo';
 import Spinner from 'components/UI/Spinner';
 
@@ -64,11 +65,6 @@ export default compose(
   React.memo,
 )(Movie);
 
-const Content = styled.div`
-  max-width: 1200px;
-  padding: 30px 25px 40px 30px;
-  position: relative;
-`;
 
 const Wrapper = styled.div`
   display: grid;
