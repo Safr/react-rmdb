@@ -267,8 +267,10 @@ const StyledForm = styled.form`
 
 const SocialWrapper = styled.div`
   display: grid;
-  grid-auto-flow: column;
-  padding: 10px 200px;
+  grid-template-columns: 50px 50px;
+  padding: 10px 0;
+  justify-content: center;
+
 
   button {
     border: none;
