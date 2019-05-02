@@ -1,6 +1,6 @@
 const validators = {
     auth: values => {
-        const errors = {email: '', password: ''};
+        const errors = {} as { email: string, password: string};
       
         if (!values.email) {
           errors.email = 'Field is mandatory';

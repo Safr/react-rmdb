@@ -6,7 +6,7 @@ import styled from 'styled-components';
 // STYLES
 import { media } from 'lib/styles';
 // HELPERS
-// import { validators }  from 'lib/helpers';
+import { validators }  from 'lib/helpers';
 // DUCKS
 import { actions, effects } from 'redux/ducks/auth.duck';
 
@@ -31,7 +31,7 @@ const Login: React.FC<Props> = ({ authLogin }) => {
       <Formik
         enableReinitialize
         initialValues={initialValues}
-        // validate={validators.auth}
+        validate={validators.auth}
         onSubmit={(values: MyFormValues, { setSubmitting, setErrors }) => {
           console.log('values', values);
           authLogin(values, setErrors, setSubmitting);
@@ -40,7 +40,7 @@ const Login: React.FC<Props> = ({ authLogin }) => {
           // setFieldValue('email', '');
           // setFieldValue('password', '');
         }}
-        render={({ handleSubmit, ...rest}) => {
+        render={({ handleSubmit, errors, ...rest}) => {
           console.log('rest', rest);
           return (
           <StyledForm onSubmit={handleSubmit}>
@@ -95,6 +95,9 @@ const Login: React.FC<Props> = ({ authLogin }) => {
                 )}
               />
             </FormItem>
+            {!!Object.keys(errors).length && errors.form && (
+              <Error>{errors.form}</Error>
+            )}
             <Button type="submit">Log In</Button>
           </StyledForm>
         );
@@ -102,7 +105,7 @@ const Login: React.FC<Props> = ({ authLogin }) => {
       />
       <Divider>Or</Divider>
       <SocialWrapper>
-        <button type="button" className="login-social">
+        {/* <button type="button" className="login-social">
           <svg
             width="32"
             height="32"
@@ -118,7 +121,7 @@ const Login: React.FC<Props> = ({ authLogin }) => {
               fill="#FFF"
             />
           </svg>
-        </button>
+        </button> */}
         <button type="button" className="login-social">
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
             <path
@@ -127,14 +130,14 @@ const Login: React.FC<Props> = ({ authLogin }) => {
             />
           </svg>
         </button>
-        <button type="button" className="login-social">
+        {/* <button type="button" className="login-social">
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 26">
             <path
               d="M32 3.076a13.14 13.14 0 0 1-3.771 1.034A6.584 6.584 0 0 0 31.116.478a13.166 13.166 0 0 1-4.169 1.593 6.557 6.557 0 0 0-4.792-2.073 6.565 6.565 0 0 0-6.565 6.565c0 .514.058 1.015.17 1.496a18.639 18.639 0 0 1-13.532-6.86 6.539 6.539 0 0 0-.889 3.3 6.563 6.563 0 0 0 2.92 5.465 6.532 6.532 0 0 1-2.973-.821l-.001.083a6.568 6.568 0 0 0 5.267 6.437 6.578 6.578 0 0 1-2.965.113 6.571 6.571 0 0 0 6.133 4.559 13.172 13.172 0 0 1-8.154 2.81c-.53 0-1.052-.031-1.566-.091a18.587 18.587 0 0 0 10.064 2.949c12.076 0 18.679-10.004 18.679-18.68 0-.284-.006-.567-.019-.85A13.315 13.315 0 0 0 32 3.077"
               fill="#55acee"
             />
           </svg>
-        </button>
+        </button> */}
         <button type="button" className="login-social">
           <svg
             width="40"
@@ -180,13 +183,18 @@ export default connect(
 const LoginWrapper = styled.div`
   position: relative;
   z-index: 1;
-  margin: 60px auto;
+  width: 500px;
+  margin: 45px auto;
   background-color: rgba(20, 22, 24, 0.5);
 
   ${media.phone`
     margin-top: 20px;
     margin-bottom: 0;
     background-color: transparent;
+  `};
+
+  ${media.smallPhone`
+    width: 100%;
   `};
 
   h1 {
@@ -251,12 +259,16 @@ const StyledForm = styled.form`
   ${media.phone`
     padding: 10px;
   `};
+  
+  & > div:last-of-type {
+    margin-bottom: 0;
+  }
 `;
 
 const SocialWrapper = styled.div`
   display: grid;
   grid-auto-flow: column;
-  padding: 10px 100px;
+  padding: 10px 200px;
 
   button {
     border: none;
@@ -305,7 +317,7 @@ const Button = styled.button`
   width: 100%;
       padding: 20px;
     background-color: ${({ theme }) => theme.colors.red};
-    color: #fff;
+    color: ${({ theme }) => theme.colors.white};
     border: 0;
     border-radius: 2px;
     font-size: 14px;
@@ -319,7 +331,6 @@ const Button = styled.button`
 `;
 
 const FormItem = styled.div`
-  position: relative;
   margin-bottom: 24px;
 `;
 
@@ -329,11 +340,6 @@ const Label = styled.label`
 `;
 
 const Error = styled.span`
-  position: absolute;
-  left: 0;
-  bottom: -18px;
   color: ${({ theme }) => theme.colors.red};
-  margin-top: 5px;
-  margin-bottom: 5px;
   font-size: 14px;
 `;

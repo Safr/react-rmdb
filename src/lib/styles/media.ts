@@ -6,7 +6,7 @@ const sizes = {
   tablet: 1123,
   smallTablet: 900,
   phone: 776,
-  smallPhone: 466,
+  smallPhone: 480,
 };
 
 export const media = (Object.keys(sizes) as (keyof typeof sizes)[]).reduce((acc, label) => {
