@@ -2,7 +2,7 @@ import * as React from 'react';
 import { NavLink } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
-import { MdClose } from 'react-icons/md';
+import { MdClose, MdSubdirectoryArrowRight} from 'react-icons/md';
 import styled from 'styled-components';
 // STYLES
 import { media } from 'lib/styles';
@@ -93,6 +93,25 @@ const MobileMenu: React.FC<Props> = ({
             </Link>
           </li>
         </SidebarMenu>
+        <Login>
+         { true ? (
+            <li>
+            <Link exact to="/login">
+            <MdSubdirectoryArrowRight color="#fff" />
+              Login
+            </Link>
+          </li>
+
+         ) : (
+          <li>
+            <Link exact to="#">
+          <MdSubdirectoryArrowRight color="#fff" />
+            Sign Out
+            </Link>
+          </li>
+         )}
+            
+        </Login>
 
         {currentPath === '/' && (
           <Filters
@@ -117,29 +136,6 @@ export default compose(
   ),
 )(MobileMenu);
 
-// const Wrapper = styled.div<MobileProps>`
-//   position: fixed;
-//   top: 0;
-//   left: 0;
-//   z-index: 5;
-//   height: 100%;
-//   display: none;
-//   width: 170px;
-//   transform: ${({ isOpen }) =>
-//     !isOpen ? 'translateX(-170px)' : 'translateX(0)'};
-//   transition: all 0.5s;
-//   height: calc(100vh - 160px);
-//   background-color: #191c1f;
-//   overflow-y: auto;
-
-//   ${media.phone`
-//     display: block;
-//   `};
-
-//   li:last-item a {
-//     color: rgba(255, 255, 255, 0.5);
-//   }
-// `;
 const Wrapper = styled.div<MobileProps>`
   width: 200px;
   position: fixed;
@@ -148,20 +144,12 @@ const Wrapper = styled.div<MobileProps>`
   z-index: 1050;
   height: 100%;
   display: none;
-  /* opacity: ${({ isOpen }) => (!isOpen ? '0' : '1')}; */
   transform: ${({ isOpen }) =>
     !isOpen ? 'translateX(-200px)' : 'translateX(0)'};
   transition: all 0.5s;
   color: ${({ theme }) => theme.colors.white};
   background-color: rgba(0, 0, 0, 0.7);
   overflow-y: auto;
-  /* display: grid;
-  align-content: start;
-  grid-gap: 24px;
-  padding: 16px;
-  padding-bottom: 40px;
-  overflow-y: auto;
-  background-color: ${({ theme }) => theme.colors.white}; */
 
   ${media.phone`
      display: block;
@@ -178,7 +166,7 @@ const Logo = styled.h1`
 const SidebarMenu = styled.ul`
   list-style-type: none;
   margin: 0;
-  padding: 25px 0;
+  padding: 10px 0;
   font-size: 14px;
 
   li {
@@ -190,6 +178,7 @@ const SidebarMenu = styled.ul`
         vertical-align: -2px;
 
         path {
+          margin-right: 15px;
           transition: all 0.3s ease;
           fill: #fff;
         }
@@ -221,25 +210,6 @@ const Link = styled(NavLink).attrs({ activeClassName })`
     }
   }
 `;
-
-//   .sidebar-menu__item a.is-active,
-//   .sidebar-menu__item:hover a{
-//     color: #FF424F;
-//   }
-
-//   .sidebar-menu__item a.is-active path,
-//   .sidebar-menu__item:hover a path{
-//     fill: #FF424F;
-//   }
-
-//   .sidebar-menu__item--coming-soon{
-//     margin: 10px 0;
-//     font-style: italic;
-//   }
-
-//   .sidebar-menu__item--coming-soon a{
-//     color: rgba(255, 255, 255, 0.5);
-//   }
 
 const MediaHeader = styled.div`
   display: none;
@@ -283,3 +253,18 @@ const ContainerBg = styled.div<MobileProps>`
   overflow-y: auto;
   -webkit-overflow-scrolling: touch;
 `;
+
+const Login = styled.ul`
+  padding: 15px 0;
+  border-top: 1px solid ${({ theme }) => theme.colors.white};
+  border-bottom: 1px solid ${({ theme }) => theme.colors.white};
+
+  li {
+    a {
+      display: grid;
+      grid-template-columns: max-content max-content;
+    grid-gap: 15px;
+    }
+  }
+
+  `;

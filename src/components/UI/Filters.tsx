@@ -89,7 +89,7 @@ export default Filters;
 
 const AppFilters = styled.div`
   color: ${({ theme }) => theme.colors.white}
-  padding: 10px 15px;
+  padding: 15px;
 
   ul {
     padding: 0;
