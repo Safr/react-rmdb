@@ -1,6 +1,7 @@
 import { Action, createActions, handleActions, Reducer } from 'redux-actions';
 import { push } from 'connected-react-router';
 import { createSelector } from 'reselect';
+import { toast } from 'react-toastify';
 import { lensPath, view } from 'ramda';
 import {
   firebaseApp,
@@ -13,6 +14,8 @@ import {
 const initialState: IAuthState = {
   isAuthenticated: false,
   user: null,
+  favorites: null,
+  watchLater: null,
   error: false,
 };
 
@@ -61,10 +64,10 @@ const effects = {
       data = await firebaseApp
         .auth()
         .signInWithEmailAndPassword(email, password);
-      console.log('data', data.user);
       await Promise.all([
         dispatch(actions.setUserSuccess(data.user)),
         setSubmitting(false),
+        toast.success("You've been successfully authenticated"),
       ]);
 
       return await dispatch(push('/'));
@@ -72,15 +75,26 @@ const effects = {
       setSubmitting(false);
       if (error) {
         const message = view(lensPath(['message']), error);
+        toast.error('There must be an error occured while logging in');
         return new Promise(resolve => resolve(setErrors({ form: message })));
       }
       return new Promise(resolve => resolve(error));
     }
   },
+  authWithSocialNetwork: (provider: any) => async () => {
+    firebaseApp.auth().signInWithPopup(provider)
+    .then(() => {
+        toast.success("You've been successfully authenticated");
+    })
+    .catch(() => {
+      toast.error('There must be an error occured while logging in');
+    })
+  },
   authLogout: () => async dispatch => {
-    firebaseApp.auth().signOut();
+    await firebaseApp.auth().signOut();
     await dispatch(actions.authLogout());
     await dispatch(push('/login'));
+    await toast.success("You've been successfully unauthenticated");
   },
 };
 

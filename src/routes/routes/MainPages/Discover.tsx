@@ -45,10 +45,10 @@ const DiscoverPages: React.FC<Props> = ({
 }) => {
   useEffect(() => {
     fetchMovies(page, filtersState);
-  }, [fetchMovies, page]);
+  }, [fetchMovies, page, filters]);
   useEffect(() => {
     fetchMovies(1, filters);
-  }, [fetchMovies, page, filters]);
+  }, [fetchMovies, filters]);
   return (
     <Content>
       <h2>Discover</h2>
@@ -81,6 +81,7 @@ export default compose(
 )(DiscoverPages);
 
 const Content = styled.div`
+  max-width: 1200px;
   padding: 30px 25px 40px 30px;
   position: relative;
 

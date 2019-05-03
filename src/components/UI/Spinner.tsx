@@ -25,10 +25,10 @@ const animate = keyframes`
 
 const Preloader = styled.ul`
   display: grid;
-  width: 100px;
   align-items: center;
   justify-items: center;
   grid-auto-flow: column;
+  width: max-content;
   margin: 0;
   padding: 0;
   li {

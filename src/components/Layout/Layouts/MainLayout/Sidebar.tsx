@@ -16,7 +16,6 @@ import {
 // COMPONENTS
 import Filters from 'components/UI/Filters';
 
-
 interface Props {
   filters: IFiltersState;
   location: Location;
@@ -24,7 +23,12 @@ interface Props {
   updateFilters: (filters: IFiltersState) => void;
 }
 
-const Sidebar: React.FC<Props> = ({ filters, location, updateFilters, resetFilters }) => {
+const Sidebar: React.FC<Props> = ({
+  filters,
+  location,
+  updateFilters,
+  resetFilters,
+}) => {
   return (
     <Wrapper>
       <SidebarMenu>
@@ -119,9 +123,10 @@ export default compose(
 )(Sidebar);
 
 const Wrapper = styled.div`
-  position: relative;
+  position: fixed;
   width: 200px;
   /* height: calc(100vh - 140px); */
+  height: 100%;
   background-color: ${({ theme }) => theme.colors.black};
 
   ${media.phone`

@@ -1,8 +1,13 @@
+declare module 'react-toastify' {
+  const content: any 
+  export const ToastContainer: any
+  export const toast: any
+  export default content
+}
 
 /**
  * RootStore
  */
-
 declare interface IRootState {
     movies?: any,
     orders?: any;
@@ -13,6 +18,8 @@ declare interface IRootState {
 declare interface IAuthState {
   isAuthenticated: boolean;
   user: Object | null;
+  favorites: any;
+  watchLater: any;
   error: boolean;
 }
 

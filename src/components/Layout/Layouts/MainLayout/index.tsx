@@ -7,6 +7,7 @@ import { media } from 'lib/styles';
 // HOCS
 import { withSidebar } from 'components/HOC';
 // COMPONENTS
+import Toast from './Toaster';
 import Header from './Header';
 import Sidebar from './Sidebar';
 import MobileMenu from './MobileMenu';
@@ -35,6 +36,7 @@ const MainLayout: React.FC<Props & RouteProps> = ({
         <InnerContent>{React.cloneElement(children, { ...rest })}</InnerContent>
       </Grid>
       <Footer />
+      <Toast />
     </Content>
   );
 };
@@ -66,15 +68,20 @@ const Grid = styled.div`
   position: relative;
   flex: 1;
   display: grid;
-  grid-template-columns: fit-content(100%) auto;
-  ${media.phone`
-    grid-template-columns: 1fr;
-  `};
+  // grid-template-columns: fit-content(100%) auto;
+  margin-top: 70px;
+  // ${media.phone`
+  //   grid-template-columns: 1fr;
+  // `};
 `;
 
 const InnerContent = styled.div`
   display: grid;
   /* justify-content: center; */
   max-height: 100%;
+  margin-left: 200px;
   overflow-y: initial;
+  ${media.phone`
+    margin-left: 0;
+  `};
 `;

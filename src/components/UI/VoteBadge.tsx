@@ -14,7 +14,7 @@ const VoteBadge: React.FC<Props> = ({ voteAverage, ...rest }) => (
 export default VoteBadge;
 
 const Wrapper = styled.span<{ right: string; top: string }>`
-  background-color: #f0a70d;
+  background-color: ${({ theme }) => theme.colors.yellow};
   position: absolute;
   border-radius: 50%;
   font-size: 12px;

@@ -55,10 +55,13 @@ const reducer: Reducer<IMoviesState, IMoviesState> = handleActions<
       const { page, results }: any = action.payload;
       const oldResults: any[] =
         state.movies && page !== 1 ? state.movies.results : [];
+      // const { results }: any = action.payload;
+      // const oldResults: any[] = state.movies ? state.movies.results : [];
       return {
         ...state,
         movies: {
           ...action.payload,
+          page,
           results: [...oldResults, ...results],
         },
         loading: false,

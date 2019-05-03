@@ -58,6 +58,7 @@ export default compose(
 )(TopRatedPages);
 
 const Content = styled.div`
+  max-width: 1200px;
   padding: 30px 25px 40px 30px;
   position: relative;
 `;

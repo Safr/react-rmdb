@@ -17,6 +17,9 @@ export const primaryTheme = {
     blue: '#3E80FF',
     transparentBlue: 'rgba(0, 126, 255, 0.1)',
 
+    // YELLOW
+    yellow: '#f0a70d',
+
     // BLACK
     black: '#191c1f',
 
