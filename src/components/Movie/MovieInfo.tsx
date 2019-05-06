@@ -8,7 +8,7 @@ import { useShowMore } from 'lib/hooks';
 import Meter from 'components/UI/Meter';
 import VoteBadge from 'components/UI/VoteBadge';
 import MovieInfoBar from 'components/Movie/MovieInfoBar';
-import MovieActions from 'components/Movie/MovieActions';
+// import MovieActions from 'components/Movie/MovieActions';
 import ShowMore from 'components/UI/ShowMore';
 
 interface Props {
@@ -26,7 +26,7 @@ const MovieInfo: React.FC<Props> = ({ movie }) => {
       />
       <Content>
         <h1>{movie.title}</h1>
-        <MovieActions />
+        {/* <MovieActions /> */}
         <h2 className="movie-overview-title">Overview</h2>
         <p className="movie-overview">{movie.overview}</p>
 

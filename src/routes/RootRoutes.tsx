@@ -13,6 +13,8 @@ import {
   Movie,
   Popular,
   TopRated,
+  Favorites,
+  WatchLater,
   SearchResults,
   // eslint-disable-next-line import/no-unresolved
 } from './routes';
@@ -25,6 +27,8 @@ const Routes = () => (
     <MainRoute exact path="/" component={Discover} />
     <MainRoute exact path="/popular" component={Popular} />
     <MainRoute exact path="/top-rated" component={TopRated} />
+    <MainRoute exact path="/favorites" component={Favorites} />
+    <MainRoute exact path="/watch-later" component={WatchLater} />
     <MainRoute exact path="/search" component={SearchResults} />
     {/* <Redirect exact from="/" to="/dashboard" /> */}
     <MainRoute exact path="/movie/:id-:title" component={Movie} />

@@ -171,7 +171,7 @@ const reducer: Reducer<IMoviesState, IMoviesState> = handleActions<
 
 const effects = {
   fetchMovies: (page: number, filters: IFiltersState) => async (
-    dispatch: Dispatch,
+    dispatch: Dispatch<any>,
   ): Promise<void> => {
     try {
       await dispatch(actions.fetchMoviesRequest());
@@ -183,19 +183,19 @@ const effects = {
       return new Promise(resolve => resolve(error.message));
     }
   },
-  fetchMovie: (id: number) => async (dispatch: Dispatch): Promise<void> => {
+  fetchMovie: (id: number) => async (dispatch: Dispatch<any>): Promise<void> => {
     try {
       await dispatch(actions.fetchMovieRequest());
       const data = await api.getMovie(id);
       await dispatch(actions.fetchMovieSuccess(data));
-      // return true;
+      return data;
     } catch (error) {
       dispatch(actions.fetchMovieFailure(error.message));
       return new Promise(resolve => resolve(error.message));
     }
   },
   fetchMovieByQuery: (name: string = '') => async (
-    dispatch: Dispatch,
+    dispatch: Dispatch<any>,
   ): Promise<void> => {
     try {
       await dispatch(actions.fetchMovieByQueryRequest());
@@ -208,7 +208,7 @@ const effects = {
     }
   },
   fetchPopularMovies: (page: number) => async (
-    dispatch: Dispatch,
+    dispatch: Dispatch<any>,
   ): Promise<void> => {
     try {
       await dispatch(actions.fetchPopularMoviesRequest());
@@ -221,7 +221,7 @@ const effects = {
     }
   },
   fetchSoonMovies: (page: number) => async (
-    dispatch: Dispatch,
+    dispatch: Dispatch<any>,
   ): Promise<void> => {
     try {
       await dispatch(actions.fetchSoonMoviesRequest());
@@ -234,7 +234,7 @@ const effects = {
     }
   },
   fetchTopRatedMovies: (page: number) => async (
-    dispatch: Dispatch,
+    dispatch: Dispatch<any>,
   ): Promise<void> => {
     try {
       await dispatch(actions.fetchTopRatedMoviesRequest());

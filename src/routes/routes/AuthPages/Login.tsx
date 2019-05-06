@@ -60,8 +60,6 @@ const Login: React.FC<Props> = ({ isAuthenticated, authLogin, authWithSocialNetw
                       form,
                       ...rest
                     }: FieldProps<MyFormValues>) => {
-                      console.log('form', form);
-                      console.log('rest', rest);
                       return (
                         <>
                           <Input

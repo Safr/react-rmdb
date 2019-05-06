@@ -2,19 +2,12 @@ import * as React from 'react';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
 import styled from 'styled-components';
-// HOCS
-import { withAjaxLoadMore } from 'components/HOC';
 // DUCKS
-import { selectors as authSelectors } from 'redux/ducks/auth.duck';
 import {
   effects as moviesEffects,
   selectors as moviesSelectors,
 } from 'redux/ducks/movies.duck';
 // COMPONENTS
-import List from 'components/List';
-import Spinner from 'components/UI/Spinner';
-
-const { useEffect } = React;
 
 // TYPES
 export interface Props {
@@ -24,24 +17,15 @@ export interface Props {
   isLoading: boolean;
 }
 
-const TopRatedPages: React.FC<Props> = ({
+const WatchLater: React.FC<Props> = ({
   movies,
   fetchTopRatedMovies,
   page,
   isLoading,
 }) => {
-  useEffect(() => {
-    fetchTopRatedMovies(page);
-  }, [fetchTopRatedMovies, page]);
   return (
     <Content>
-      <h2>Top Rated</h2>
-      {movies && <List list={movies.results} />}
-      {isLoading && (
-        <Loading>
-          <Spinner />
-        </Loading>
-      )}
+      <h2>Watch Later</h2>
     </Content>
   );
 };
@@ -49,25 +33,16 @@ const TopRatedPages: React.FC<Props> = ({
 export default compose(
   connect(
     state => ({
-      user: authSelectors.getUser(state),
       movies: moviesSelectors.getTopRatedMovies(state),
       isLoading: moviesSelectors.getLoading(state),
     }),
     { ...moviesEffects },
   ),
-  withAjaxLoadMore,
   React.memo,
-)(TopRatedPages);
+)(WatchLater);
 
 const Content = styled.div`
   max-width: 1200px;
   padding: 30px 25px 40px 30px;
   position: relative;
-`;
-
-const Loading = styled.div`
-  display: grid;
-  align-items: center;
-  justify-content: center;
-  margin-top: 50px;
 `;

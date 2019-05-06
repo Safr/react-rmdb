@@ -14,8 +14,6 @@ import {
 const initialState: IAuthState = {
   isAuthenticated: false,
   user: null,
-  favorites: null,
-  watchLater: null,
   error: false,
 };
 
@@ -82,13 +80,15 @@ const effects = {
     }
   },
   authWithSocialNetwork: (provider: any) => async () => {
-    firebaseApp.auth().signInWithPopup(provider)
-    .then(() => {
+    firebaseApp
+      .auth()
+      .signInWithPopup(provider)
+      .then(() => {
         toast.success("You've been successfully authenticated");
-    })
-    .catch(() => {
-      toast.error('There must be an error occured while logging in');
-    })
+      })
+      .catch(() => {
+        toast.error('There must be an error occured while logging in');
+      });
   },
   authLogout: () => async dispatch => {
     await firebaseApp.auth().signOut();

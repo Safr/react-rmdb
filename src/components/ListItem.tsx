@@ -10,17 +10,45 @@ interface Props {
   poster_path: string;
   title: any;
   vote_average: number;
+  favoritedIds: any;
+  favorited: boolean;
+  isAuthenticated: boolean;
+  onFavoriteSelect: any;
+  onFavoriteDeselect: any;
 }
 
-const MovieItem: React.FC<Props> = props => {
-  const { id, poster_path, title, vote_average } = props;
+const ListItem: React.FC<Props> = props => {
+  const {
+    id,
+    poster_path,
+    title,
+    vote_average,
+    favoritedIds,
+    onFavoriteSelect,
+    onFavoriteDeselect,
+    isAuthenticated,
+    favorited,
+  } = props;
+  const isFavorited =
+    isAuthenticated &&
+    favoritedIds &&
+    Object.keys(favoritedIds).includes(String(id));
   return (
     <Wrapper>
       <VoteBadge voteAverage={vote_average} right="-20px" top="15px" />
       <ImageBox>
         {poster_path ? (
           <>
-            <MovieActions />
+            <MovieActions
+              onFavoriteSelect={() => {
+                onFavoriteSelect(id);
+              }}
+              onFavoriteDeselect={() => {
+                onFavoriteDeselect(id);
+              }}
+              isAuthenticated={isAuthenticated}
+              favorited={isFavorited || favorited}
+            />
 
             <ImageLink
               className="list__movie-image-link"
@@ -34,7 +62,16 @@ const MovieItem: React.FC<Props> = props => {
           </>
         ) : (
           <>
-            <MovieActions />
+            <MovieActions
+              onFavoriteSelect={() => {
+                onFavoriteSelect(id);
+              }}
+              onFavoriteDeselect={() => {
+                onFavoriteDeselect(id);
+              }}
+              isAuthenticated={isAuthenticated}
+              favorited={isFavorited || favorited}
+            />
             <ImageLink to={`/movie/${id}`}>
               <div className="list__movie-no_image_holder" />
             </ImageLink>
@@ -46,7 +83,7 @@ const MovieItem: React.FC<Props> = props => {
   );
 };
 
-export default MovieItem;
+export default ListItem;
 
 const Wrapper = styled.li`
   position: relative;
@@ -70,23 +107,23 @@ const ImageBox = styled.figure`
 
   > div {
     position: absolute;
-  bottom: -40px;
-  background: linear-gradient(
-    to bottom,
-    rgba(255, 255, 255, 0) 0%,
-    rgba(0, 0, 0, 1) 100%
-  );
-  width: 100%;
-  height: 40px;
-  display: flex;
-  align-items: center;
-  justify-content: space-around;
-  transition: bottom 0.4s ease;
-  z-index: 1;
+    bottom: -40px;
+    background: linear-gradient(
+      to bottom,
+      rgba(255, 255, 255, 0) 0%,
+      rgba(0, 0, 0, 1) 100%
+    );
+    width: 100%;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    transition: bottom 0.4s ease;
+    z-index: 1;
 
-  svg {
-    border: none;
-  }
+    svg {
+      border: none;
+    }
   }
 
   :hover > div {

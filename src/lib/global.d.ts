@@ -12,14 +12,20 @@ declare interface IRootState {
     movies?: any,
     orders?: any;
     user?: any;
+    favorites?: any;
+    filters?: any;
     router?: any;
 }
 
 declare interface IAuthState {
   isAuthenticated: boolean;
   user: Object | null;
-  favorites: any;
-  watchLater: any;
+  error: boolean;
+}
+
+declare interface IFavoritesState {
+  favoritedMovies: any;
+  favoritedIds: any;
   error: boolean;
 }
 

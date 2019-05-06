@@ -67,3 +67,4 @@ export const getQueryStrings = (searchURL) => {
   return searchTerm;
 }
 
+export const getObjectIds = obj => Object.keys(obj).map(key => obj[key]);
