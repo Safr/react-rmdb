@@ -2,7 +2,6 @@ import { request } from 'lib/helpers';
 import { API_KEY,DEFAULT_PAGE, PATH_BASE, PATH_DISCOVER, PATH_POPULAR, PATH_TOP_RATED, PATH_MOVIE, PATH_PAGE, PATH_UPCOMING, PATH_SEARCH } from 'lib/constants/searchConfig';
 
 export default {
-  getOrders: () => {},
   getMovies: (page: number = DEFAULT_PAGE, filters: IFiltersState) => {
     if (filters) {
       return request('get', `${PATH_BASE}${PATH_DISCOVER}${PATH_MOVIE}?language=en-US&api_key=${API_KEY}&${PATH_PAGE}${page}&primary_release_year=${filters.year}

@@ -9,7 +9,8 @@ import { withSidebar } from 'components/HOC';
 // COMPONENTS
 import Toast from './Toaster';
 import Header from './Header';
-import Sidebar from './Sidebar';
+import Sidebar from './Sidebar'
+import Modal from 'components/Layout/Modals';
 import MobileMenu from './MobileMenu';
 import Footer from './Footer';
 
@@ -36,6 +37,7 @@ const MainLayout: React.FC<Props & RouteProps> = ({
         <InnerContent>{React.cloneElement(children, { ...rest })}</InnerContent>
       </Grid>
       <Footer />
+      <Modal />
       <Toast />
     </Content>
   );

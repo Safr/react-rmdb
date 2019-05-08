@@ -65,7 +65,7 @@ const Wrapper = styled.div`
 }
 
 .Dropdown-arrow {
-  border-color: #FF424F transparent transparent;
+  border-color: ${({ theme }) => theme.colors.red}; transparent transparent;
   border-style: solid;
   border-width: 5px 5px 0;
   content: ' ';

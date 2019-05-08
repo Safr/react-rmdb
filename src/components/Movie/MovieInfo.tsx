@@ -1,7 +1,9 @@
 import * as React from 'react';
+import { MdPlayArrow } from 'react-icons/md';
+import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 // STYLES
-import { media } from 'lib/styles';
+import { media, primaryTheme } from 'lib/styles';
 // HOOKS
 import { useShowMore } from 'lib/hooks';
 // COMPONENTS
@@ -13,9 +15,33 @@ import ShowMore from 'components/UI/ShowMore';
 
 interface Props {
   movie: any;
+  isAuthenticated: boolean;
+  closeModal: () => void;
+  openModal: () => void;
 }
 
-const MovieInfo: React.FC<Props> = ({ movie }) => {
+const renderPlay = (isAuthenticated, openModal, closeModal, trailer) => {
+  if (isAuthenticated) {
+     return (
+       // eslint-disable-next-line
+       <LinkInstead onClick={() => openModal({
+            type: 'video',
+            args: { closeModal, trailerLink: trailer.key },
+          })}>
+         <span>Watch Trailer</span>
+      <MdPlayArrow color={primaryTheme.colors.white} size="40px" />
+       </LinkInstead>
+     )
+  }
+  return (
+    <StyledLink to="/login">
+      <span>Watch Trailer</span>
+      <MdPlayArrow color={primaryTheme.colors.white} size="40px" />
+    </StyledLink>
+  );
+};
+
+const MovieInfo: React.FC<Props> = ({ isAuthenticated, movie, openModal, closeModal }) => {
   const { isOpen, toggleShowMore } = useShowMore(false);
   return (
     <Wrapper>
@@ -26,7 +52,9 @@ const MovieInfo: React.FC<Props> = ({ movie }) => {
       />
       <Content>
         <h1>{movie.title}</h1>
-        {/* <MovieActions /> */}
+        {movie.videos.results.length > 0 &&
+          movie.videos.results[0] &&
+          renderPlay(isAuthenticated, openModal, closeModal, movie.videos.results[0])}
         <h2 className="movie-overview-title">Overview</h2>
         <p className="movie-overview">{movie.overview}</p>
 
@@ -94,4 +122,40 @@ const Content = styled.div`
 
 const Rating = styled.div`
   position: relative;
+`;
+
+const StyledLink = styled(Link)`
+  display: grid;
+  align-items: center;
+  grid-auto-flow: column;
+  width: 140px;
+  height: max-content;
+  color: ${({ theme }) => theme.colors.white};
+  text-decoration: none;
+
+  :hover {
+    color: ${({ theme }) => theme.colors.red};
+
+    svg {
+      fill: ${({ theme }) => theme.colors.red};
+    }
+  }
+`;
+
+const LinkInstead = styled.div`
+  display: grid;
+  align-items: center;
+  grid-auto-flow: column;
+  width: 140px;
+  height: max-content;
+  color: ${({ theme }) => theme.colors.white};
+  text-decoration: none;
+
+  :hover {
+    color: ${({ theme }) => theme.colors.red};
+
+    svg {
+      fill: ${({ theme }) => theme.colors.red};
+    }
+  }
 `;

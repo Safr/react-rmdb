@@ -1,18 +1,21 @@
 import * as React from 'react';
-import styled from 'styled-components';
 import { Link } from 'react-router-dom';
-import { MdFavorite, MdPlayArrow, MdAccessTime } from 'react-icons/md';
+import { MdFavorite, MdAccessTime } from 'react-icons/md';
+import styled from 'styled-components';
 // STYLES
 import { media, primaryTheme } from 'lib/styles';
 
 interface Props {
   isAuthenticated: boolean;
-  onFavoriteSelect: any;
-  onFavoriteDeselect: any;
-  favorited: any;
+  onFavoriteSelect?: any;
+  onFavoriteDeselect?: any;
+  onWatchLaterSelect?: any;
+  onWatchLaterDeselect?: any;
+  favorited: boolean;
+  isWatchLater: boolean;
 }
 
-const renderFavHeart = (onFavoriteSelect, onFavoriteDeselect, isAuthenticated, favorited ) => {
+const renderFavHeart = (onFavoriteSelect, onFavoriteDeselect, isAuthenticated, favorited) => {
   if (isAuthenticated) {
     return favorited ? (
       <MdFavorite
@@ -40,7 +43,23 @@ const renderFavHeart = (onFavoriteSelect, onFavoriteDeselect, isAuthenticated, f
   );
 };
 
-const renderWatchLaterClock = () => {
+const renderWatchLaterClock = (onWatchLaterSelect, onWatchLaterDeselect, isAuthenticated, isWatchLater) => {
+  if (isAuthenticated) {
+    return isWatchLater ? (
+      <MdAccessTime
+      onClick={onWatchLaterDeselect as any}
+      color={primaryTheme.colors.red}
+      size="40px"
+    />
+  ) :
+  (
+    <MdAccessTime
+      onClick={onWatchLaterSelect as any}
+      color={ primaryTheme.colors.white}
+      size="40px"
+    />
+  );
+}
   return (
     <Link to="/login">
       <MdAccessTime color={primaryTheme.colors.white} size="40px" />
@@ -48,25 +67,19 @@ const renderWatchLaterClock = () => {
   );
 };
 
-const renderPlay = () => {
-  return (
-    <Link to="/login">
-      <MdPlayArrow color={primaryTheme.colors.white} size="40px" />
-    </Link>
-  );
-};
-
 const MovieActions: React.FC<Props> = ({
   onFavoriteSelect,
   onFavoriteDeselect,
+  onWatchLaterSelect,
+  onWatchLaterDeselect,
   isAuthenticated,
   favorited,
+  isWatchLater,
 }) => {
   return (
     <Wrapper>
       {renderFavHeart(onFavoriteSelect,onFavoriteDeselect, isAuthenticated, favorited)}
-      {renderPlay()}
-      {renderWatchLaterClock()}
+      {renderWatchLaterClock(onWatchLaterSelect, onWatchLaterDeselect, isAuthenticated, isWatchLater)}
     </Wrapper>
   );
 };

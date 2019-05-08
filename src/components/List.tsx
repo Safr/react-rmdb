@@ -5,46 +5,38 @@ import styled from 'styled-components';
 import { media } from 'lib/styles';
 // DUCKS
 import { selectors as authSelectors } from 'redux/ducks/auth.duck';
-import { effects as favoritesEffects, selectors as favoritesSelectors } from 'redux/ducks/favorites.duck';
+import {
+  effects as favoritesEffects,
+  selectors as favoritesSelectors,
+} from 'redux/ducks/favorites.duck';
+import {
+  effects as watchLaterEffects,
+  selectors as watchLaterSelectors,
+} from 'redux/ducks/watchLater.duck';
 // COMPONENTS
 import ListItem from './ListItem';
 
 interface Props {
   isAuthenticated: boolean;
   favoritedIds: any;
+  watchLaterIds: any;
   list: any;
   addToFavoritesList: (selectedMovie: number) => Promise<void>;
   removeFromFavoritesList: (selectedMovie: number) => Promise<void>;
+  addToWatchLaterList: (selectedMovie: number) => Promise<void>;
+  removeFromWatchLaterList: (selectedMovie: number) => Promise<void>;
 }
 
 const List: React.FC<Props> = ({
   list,
   favoritedIds,
+  watchLaterIds,
   isAuthenticated,
   addToFavoritesList,
   removeFromFavoritesList,
+  addToWatchLaterList,
+  removeFromWatchLaterList,
 }) => {
-  // const addToUserList = (selectedMovie, userList) => {
-  //   const userUid = user.uid;
-
-  //   firebaseApp
-  //     .database()
-  //     .ref(userUid)
-  //     .child(userList)
-  //     .update({
-  //       [selectedMovie]: selectedMovie,
-  //     });
-  // };
-  // const removeFromUserList = selectedMovie => {
-  //   const userUid = user.uid;
-
-  //   firebaseApp
-  //     .database()
-  //     .ref(userUid)
-  //     .child('favorites')
-  //     .child(selectedMovie)
-  //     .remove();
-  // };
   const movieItems = list.map((movie: any) => {
     return (
       <ListItem
@@ -52,9 +44,14 @@ const List: React.FC<Props> = ({
         {...movie}
         isAuthenticated={isAuthenticated}
         favoritedIds={favoritedIds}
+        watchLaterIds={watchLaterIds}
         onFavoriteSelect={selectedMovie => addToFavoritesList(selectedMovie)}
         onFavoriteDeselect={selectedMovie =>
           removeFromFavoritesList(selectedMovie)
+        }
+        onWatchLaterSelect={selectedMovie => addToWatchLaterList(selectedMovie)}
+        onWatchLaterDeselect={selectedMovie =>
+          removeFromWatchLaterList(selectedMovie)
         }
       />
     );
@@ -68,8 +65,9 @@ export default connect(
     isAuthenticated: authSelectors.getAuth(state),
     user: authSelectors.getUser(state),
     favoritedIds: favoritesSelectors.getFavoritedIds(state),
+    watchLaterIds: watchLaterSelectors.getWatchLaterIds(state),
   }),
-  { ...favoritesEffects },
+  { ...favoritesEffects, ...watchLaterEffects },
 )(List);
 
 const Wrapper = styled.ul`

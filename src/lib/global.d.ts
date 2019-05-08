@@ -13,6 +13,7 @@ declare interface IRootState {
     orders?: any;
     user?: any;
     favorites?: any;
+    watchLater?: any;
     filters?: any;
     router?: any;
 }
@@ -23,9 +24,21 @@ declare interface IAuthState {
   error: boolean;
 }
 
+declare interface IModalsState {
+    type: any;
+    open: boolean;
+    args: any;
+}
+
 declare interface IFavoritesState {
   favoritedMovies: any;
   favoritedIds: any;
+  error: boolean;
+}
+
+declare interface IWatchLaterState {
+  watchLaterMovies: any;
+  watchLaterIds: any;
   error: boolean;
 }
 

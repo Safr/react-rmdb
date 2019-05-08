@@ -2,7 +2,6 @@ import * as React from 'react';
 import { Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { Formik, Field, FieldProps } from 'formik';
-// import { Redirect } from 'react-router-dom';
 import styled from 'styled-components';
 // STYLES
 import { media } from 'lib/styles';
@@ -29,7 +28,11 @@ interface Props {
   authWithSocialNetwork: (prodiver: any) => void;
 }
 
-const Login: React.FC<Props> = ({ isAuthenticated, authLogin, authWithSocialNetwork }) => {
+const Login: React.FC<Props> = ({
+  isAuthenticated,
+  authLogin,
+  authWithSocialNetwork,
+}) => {
   if (isAuthenticated) {
     return <Redirect to="/" />;
   }
@@ -55,11 +58,7 @@ const Login: React.FC<Props> = ({ isAuthenticated, authLogin, authWithSocialNetw
                   <Label>Email</Label>
                   <Field
                     name="email"
-                    render={({
-                      field,
-                      form,
-                      ...rest
-                    }: FieldProps<MyFormValues>) => {
+                    render={({ field, form }: FieldProps<MyFormValues>) => {
                       return (
                         <>
                           <Input
@@ -133,7 +132,11 @@ const Login: React.FC<Props> = ({ isAuthenticated, authLogin, authWithSocialNetw
             />
           </svg>
         </button> */}
-          <button type="button" className="login-social" onClick={() => authWithSocialNetwork(githubProvider)}>
+          <button
+            type="button"
+            className="login-social"
+            onClick={() => authWithSocialNetwork(githubProvider)}
+          >
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
               <path
                 d="M15.999.395C7.164.395 0 7.558 0 16.396c0 7.068 4.584 13.065 10.943 15.181.8.147 1.092-.347 1.092-.77 0-.38-.014-1.387-.022-2.722-4.451.967-5.39-2.145-5.39-2.145-.727-1.848-1.776-2.34-1.776-2.34-1.453-.993.11-.973.11-.973 1.605.113 2.45 1.65 2.45 1.65 1.428 2.444 3.745 1.738 4.657 1.328.145-1.034.559-1.739 1.016-2.139-3.553-.404-7.288-1.776-7.288-7.907 0-1.747.623-3.175 1.647-4.294-.165-.405-.714-2.03.156-4.234 0 0 1.344-.43 4.4 1.64a15.36 15.36 0 0 1 4.006-.539c1.359.007 2.728.184 4.006.54 3.054-2.07 4.395-1.64 4.395-1.64.873 2.202.324 3.828.159 4.233 1.026 1.12 1.645 2.547 1.645 4.294 0 6.146-3.741 7.5-7.305 7.895.574.494 1.086 1.47 1.086 2.963 0 2.14-.02 3.864-.02 4.39 0 .427.288.925 1.1.768C27.42 29.455 32 23.462 32 16.396c0-8.838-7.164-16-16.001-16"
@@ -149,7 +152,11 @@ const Login: React.FC<Props> = ({ isAuthenticated, authLogin, authWithSocialNetw
             />
           </svg>
         </button> */}
-          <button type="button" className="login-social" onClick={() => authWithSocialNetwork(googleAuthProvider)}>
+          <button
+            type="button"
+            className="login-social"
+            onClick={() => authWithSocialNetwork(googleAuthProvider)}
+          >
             <svg
               width="40"
               height="40"

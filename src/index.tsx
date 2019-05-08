@@ -5,8 +5,9 @@ import { firebaseApp } from 'lib/firebase';
 // REDUX
 import { history, store } from 'redux/store';
 // DUCKS
-import { actions as favoritesActions } from 'redux/ducks/favorites.duck';
 import { actions as authActions } from 'redux/ducks/auth.duck';
+import { actions as favoritesActions } from 'redux/ducks/favorites.duck';
+import { actions as watchLaterActions } from 'redux/ducks/watchLater.duck';
 // COMPONENTS
 import App from './App';
 
@@ -26,20 +27,22 @@ firebaseApp.auth().onAuthStateChanged((user: any) => {
       .once('value')
       .then(snapshot => {
         const favoritesIds = snapshot.val();
-        console.log('Object.keys(favoritesIds)', Object.keys(favoritesIds));
         if (favoritesIds) {
-          store.dispatch(favoritesActions.setFavoritedIdsSuccess(Object.keys(favoritesIds)));
+          store.dispatch(
+            favoritesActions.setFavoritedIdsSuccess(Object.keys(favoritesIds)),
+          );
         }
       });
     firebaseApp
       .database()
-      .ref(`${userUid}/watchLater`)
+      .ref(`${userUid}/watch-later`)
       .once('value')
       .then(snapshot => {
-        const firebaseUserLists = snapshot.val();
-        console.log('firebaseUserLists', firebaseUserLists);
-        if (firebaseUserLists) {
-          console.log(firebaseUserLists);
+        const watchLaterIds = snapshot.val();
+        if (watchLaterIds) {
+          store.dispatch(
+            watchLaterActions.setWatchLaterIdsSuccess(Object.keys(watchLaterIds)),
+          );
         }
       });
     renderApp(App);

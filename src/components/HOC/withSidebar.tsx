@@ -1,7 +1,7 @@
 import * as React from 'react';
+import { Location } from 'history';
 // HOOKS
 import { useSidebar, usePrevious, useSetGlobalEventHandler } from 'lib/hooks';
-import { Location } from 'history';
 
 const { useEffect } = React;
 

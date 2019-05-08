@@ -2,7 +2,7 @@ import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 
 const defaultProps = {
-  modalRoot: document.getElementById('modal-sidebar'),
+  sidebarRoot: document.getElementById('modal-sidebar'),
 };
 
 interface Props {
@@ -13,9 +13,9 @@ type DefaultProps = Readonly<typeof defaultProps>;
 // EXPORTED COMPONENT
 const SidebarPortal: React.FC<Props & Partial<DefaultProps>> = ({
   children,
-  modalRoot,
+  sidebarRoot,
 }): React.ReactPortal =>
-  ReactDOM.createPortal(children, modalRoot as HTMLElement);
+  ReactDOM.createPortal(children, sidebarRoot as HTMLElement);
 
 SidebarPortal.defaultProps = defaultProps;
 

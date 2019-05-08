@@ -1,6 +1,7 @@
 import { Action, handleActions, createActions, Reducer } from 'redux-actions';
 import { Dispatch } from 'redux';
 import { createSelector } from 'reselect';
+import { toast } from 'react-toastify';
 // CONSTANTS
 import { API_KEY, PATH_BASE, PATH_MOVIE } from 'lib/constants/searchConfig';
 // HELPERS
@@ -16,7 +17,7 @@ const getMovieObject = async movieId => {
 
 const initialState: IFavoritesState = {
   favoritedMovies: null,
-  favoritedIds: null,
+  favoritedIds: [],
   error: false,
 };
 
@@ -50,7 +51,9 @@ const reducer: Reducer<IFavoritesState, IFavoritesState> = handleActions<
 );
 
 const effects = {
-  getAllMoviesFromList: () => async (dispatch: Dispatch): Promise<void> => {
+  getAllFavoritedMoviesFromList: () => async (
+    dispatch: Dispatch,
+  ): Promise<void> => {
     let favoriteList;
     //   const userUid = user.uid;
     // @ts-ignore
@@ -64,6 +67,7 @@ const effects = {
         .then(snapshot => {
           favoriteList = snapshot.val();
         });
+      console.log('favoriteList', favoriteList);
       if (favoriteList) {
         const moviesIdsArr = getObjectIds(favoriteList);
         const promises = moviesIdsArr.map(item => {
@@ -73,15 +77,19 @@ const effects = {
         Promise.all(promises).then(userListMovies => {
           dispatch(actions.setFavoritedMoviesSuccess(userListMovies));
         });
+      } else {
+        dispatch(actions.setFavoritedMoviesSuccess(null));
       }
     }
   },
   addToFavoritesList: (selectedMovie: number) => async (
-    dispatch: Dispatch<any>, getState: () => IRootState,
+    dispatch: Dispatch<any>,
+    getState: () => IRootState,
   ): Promise<void> => {
     // const userUid = user.uid;
     const { favoritedIds } = getState().favorites;
     console.log('favoritedIds', favoritedIds);
+    console.log('selectedMovie', selectedMovie);
     // @ts-ignore
     const userUid: string = firebaseApp.auth().currentUser.uid;
     await firebaseApp
@@ -91,13 +99,16 @@ const effects = {
       .update({
         [selectedMovie]: selectedMovie,
       });
-      await dispatch(actions.setFavoritedIdsSuccess([...favoritedIds, selectedMovie]));
-      await dispatch(effects.getAllMoviesFromList());
+    await dispatch(
+      actions.setFavoritedIdsSuccess([...favoritedIds, selectedMovie]),
+    );
+    await dispatch(effects.getAllFavoritedMoviesFromList());
+    await toast.success('The new movie has been added to favorites');
   },
   removeFromFavoritesList: selectedMovie => async (
-    dispatch: Dispatch<any> , getState: () => IRootState,
+    dispatch: Dispatch<any>,
+    getState: () => IRootState,
   ): Promise<void> => {
-    // const userUid = user.uid;
     const { favoritedIds } = getState().favorites;
 
     // @ts-ignore
@@ -109,8 +120,14 @@ const effects = {
       .child('favorites')
       .child(selectedMovie)
       .remove();
-      await dispatch(actions.setFavoritedIdsSuccess(favoritedIds.filter(id => id !== selectedMovie)));
-    await dispatch(effects.getAllMoviesFromList());
+
+    dispatch(
+      actions.setFavoritedIdsSuccess(
+        favoritedIds.filter(id => id !== selectedMovie),
+      ),
+    );
+    await dispatch(effects.getAllFavoritedMoviesFromList());
+    await toast.success('The new movie has been removed from favorites');
   },
 };
 

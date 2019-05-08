@@ -2,8 +2,11 @@ import * as React from 'react';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
 import { Link, withRouter } from 'react-router-dom';
-import styled from 'styled-components';
+import { Location } from 'history';
 import { MdMenu } from 'react-icons/md';
+import styled from 'styled-components';
+// HOOKS
+import { usePrevious } from 'lib/hooks';
 // STYLES
 import { media, primaryTheme } from 'lib/styles';
 // DUCKS
@@ -26,23 +29,35 @@ interface Props {
   openSidebar: () => void;
   user?: any;
   searchByKeyword: () => void;
+  location: Location;
   // searchKeyword: string;
 }
+
+const { useEffect } = React;
 
 const Header: React.FC<Props> = ({
   isAuthenticated,
   isSidebarOpen,
   authLogout,
+  location,
   openSidebar,
   // searchKeyword,
   searchByKeyword,
   user,
 }) => {
   const [userMenuOpen, setUserMenuOpen] = useState(false);
+  const prevLocation = usePrevious(location.pathname);
 
   const toggleUserMenu = () => {
     setUserMenuOpen(prevUserMenuOpen => !prevUserMenuOpen);
   };
+
+  useEffect(() => {
+    if (prevLocation && prevLocation !== location.pathname) {
+      setUserMenuOpen(false);
+    }
+    // eslint-disable-next-line
+  }, [location.pathname]);
 
   return (
     <Wrapper>
@@ -56,6 +71,7 @@ const Header: React.FC<Props> = ({
       {isAuthenticated ? (
         <UserWrapper>
           {user.photoURL ? (
+            // eslint-disable-next-line
             <img
               onClick={toggleUserMenu}
               className="user-wrapper-avatar"

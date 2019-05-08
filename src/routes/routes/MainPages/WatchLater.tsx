@@ -4,28 +4,32 @@ import { compose } from 'redux';
 import styled from 'styled-components';
 // DUCKS
 import {
-  effects as moviesEffects,
-  selectors as moviesSelectors,
-} from 'redux/ducks/movies.duck';
+  effects as watchLaterEffects,
+  selectors as watchLaterSelectors,
+} from 'redux/ducks/watchLater.duck';
 // COMPONENTS
+import List from 'components/List';
 
 // TYPES
 export interface Props {
-  fetchTopRatedMovies: (page: number) => Promise<void>;
-  movies: any;
-  page: number;
-  isLoading: boolean;
+  getAllWatchLaterMoviesFromList: () => Promise<void>;
+  watchLaterMovies: any;
 }
 
+const { useEffect } = React;
+
 const WatchLater: React.FC<Props> = ({
-  movies,
-  fetchTopRatedMovies,
-  page,
-  isLoading,
+  getAllWatchLaterMoviesFromList,
+  watchLaterMovies,
 }) => {
+  useEffect(() => {
+    getAllWatchLaterMoviesFromList();
+  }, [getAllWatchLaterMoviesFromList]);
   return (
     <Content>
       <h2>Watch Later</h2>
+      {watchLaterMovies && <List list={watchLaterMovies} />}
+      {!watchLaterMovies && <h3>Select your watch later movie</h3>}
     </Content>
   );
 };
@@ -33,10 +37,9 @@ const WatchLater: React.FC<Props> = ({
 export default compose(
   connect(
     state => ({
-      movies: moviesSelectors.getTopRatedMovies(state),
-      isLoading: moviesSelectors.getLoading(state),
+      watchLaterMovies: watchLaterSelectors.getWatchLaterMovies(state),
     }),
-    { ...moviesEffects },
+    { ...watchLaterEffects },
   ),
   React.memo,
 )(WatchLater);

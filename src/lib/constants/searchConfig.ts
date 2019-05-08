@@ -13,4 +13,5 @@ export const PATH_TOP_RATED: string = '/top_rated';
 export const PATH_UPCOMING: string = '/upcoming';
 
 export const DEFAULT_PAGE: number = 1;
-export const PATH_PAGE: string = 'page='
+export const PATH_PAGE: string = 'page=';
+export const URL_YOUTUBE: string = 'https://www.youtube.com/embed/';

@@ -10,11 +10,15 @@ interface Props {
   poster_path: string;
   title: any;
   vote_average: number;
-  favoritedIds: any;
+  favoritedIds: string[];
+  watchLaterIds: string[];
   favorited: boolean;
+  watchLater: boolean;
   isAuthenticated: boolean;
   onFavoriteSelect: any;
   onFavoriteDeselect: any;
+  onWatchLaterSelect: any;
+  onWatchLaterDeselect: any;
 }
 
 const ListItem: React.FC<Props> = props => {
@@ -24,15 +28,20 @@ const ListItem: React.FC<Props> = props => {
     title,
     vote_average,
     favoritedIds,
+    watchLaterIds,
     onFavoriteSelect,
     onFavoriteDeselect,
+    onWatchLaterSelect,
+    onWatchLaterDeselect,
     isAuthenticated,
     favorited,
+    watchLater,
   } = props;
+
   const isFavorited =
-    isAuthenticated &&
-    favoritedIds &&
-    Object.keys(favoritedIds).includes(String(id));
+    isAuthenticated && favoritedIds && favoritedIds.includes(String(id));
+  const isWatchLater =
+    isAuthenticated && watchLaterIds && watchLaterIds.includes(String(id));
   return (
     <Wrapper>
       <VoteBadge voteAverage={vote_average} right="-20px" top="15px" />
@@ -46,8 +55,15 @@ const ListItem: React.FC<Props> = props => {
               onFavoriteDeselect={() => {
                 onFavoriteDeselect(id);
               }}
+              onWatchLaterSelect={() => {
+                onWatchLaterSelect(id);
+              }}
+              onWatchLaterDeselect={() => {
+                onWatchLaterDeselect(id);
+              }}
               isAuthenticated={isAuthenticated}
               favorited={isFavorited || favorited}
+              isWatchLater={isWatchLater || watchLater}
             />
 
             <ImageLink
@@ -69,8 +85,15 @@ const ListItem: React.FC<Props> = props => {
               onFavoriteDeselect={() => {
                 onFavoriteDeselect(id);
               }}
+              onWatchLaterSelect={() => {
+                onWatchLaterSelect(id);
+              }}
+              onWatchLaterDeselect={() => {
+                onWatchLaterDeselect(id);
+              }}
               isAuthenticated={isAuthenticated}
               favorited={isFavorited || favorited}
+              isWatchLater={isWatchLater || watchLater}
             />
             <ImageLink to={`/movie/${id}`}>
               <div className="list__movie-no_image_holder" />
@@ -98,12 +121,14 @@ const Wrapper = styled.li`
 `;
 
 const ImageBox = styled.figure`
-  height: 278px;
-
-  margin: 0 auto 15px;
   position: relative;
+  height: 278px;
+  margin: 0 auto 15px;
   box-shadow: 3px 4px 7px 2px rgba(0, 0, 0, 0.4);
   overflow: hidden;
+  transform: translateY(0) scale(1);
+  opacity: 1;
+  transition: transform 0.5s ease 0s, opacity 0.5s ease 0s;
 
   > div {
     position: absolute;
@@ -126,13 +151,25 @@ const ImageBox = styled.figure`
     }
   }
 
+  img {
+    opacity: 1;
+    transition: transform 0.5s cubic-bezier(0.15, 1, 0.33, 1);
+}
+
+  }
+
+  :hover img {
+    opacity: 0.5;
+    transform: scale(1.15);
+  }
+
   :hover > div {
     bottom: 0;
   }
 `;
 
 const ImageLink = styled(Link)`
-  /* width: 100%;
+  width: 100%;
   height: 100%;
-  display: block; */
+  display: block;
 `;
