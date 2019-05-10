@@ -3,7 +3,6 @@ import { createSelector } from 'reselect';
 import { Dispatch } from 'redux';
 // API
 import api from 'lib/api';
-// import { state as filtersState } from './filters.duck';
 
 const initialState: IMoviesState = {
   movies: null,
@@ -162,13 +161,6 @@ const reducer: Reducer<IMoviesState, IMoviesState> = handleActions<
   initialState,
 );
 
-// interface IEffects {
-//   fetchMovies: (page: number) => Promise<void>;
-//   fetchPopularMovies: (page: number) => Promise<void>;
-//   fetchTopRatedMovies: (page: number) => Promise<void>;
-//   fetchSoonMovies: (page: number) => Promise<void>;
-// }
-
 const effects = {
   fetchMovies: (page: number, filters: IFiltersState) => async (
     dispatch: Dispatch<any>,
@@ -177,13 +169,14 @@ const effects = {
       await dispatch(actions.fetchMoviesRequest());
       const data = await api.getMovies(page, filters);
       await dispatch(actions.fetchMoviesSuccess(data));
-      // return true;
     } catch (error) {
       dispatch(actions.fetchMoviesFailure(error.message));
       return new Promise(resolve => resolve(error.message));
     }
   },
-  fetchMovie: (id: number) => async (dispatch: Dispatch<any>): Promise<void> => {
+  fetchMovie: (id: number) => async (
+    dispatch: Dispatch<any>,
+  ): Promise<void> => {
     try {
       await dispatch(actions.fetchMovieRequest());
       const data = await api.getMovie(id);
@@ -201,7 +194,6 @@ const effects = {
       await dispatch(actions.fetchMovieByQueryRequest());
       const data = await api.getSearchMovie(name);
       await dispatch(actions.fetchMovieByQuerySuccess(data));
-      // return true;
     } catch (error) {
       dispatch(actions.fetchMovieByQueryFailure(error.message));
       return new Promise(resolve => resolve(error.message));
@@ -214,7 +206,6 @@ const effects = {
       await dispatch(actions.fetchPopularMoviesRequest());
       const data = await api.getPopularMovies(page);
       await dispatch(actions.fetchPopularMoviesSuccess(data));
-      // return true;
     } catch (error) {
       dispatch(actions.fetchPopularMoviesFailure(error.message));
       return new Promise(resolve => resolve(error.message));
@@ -227,7 +218,6 @@ const effects = {
       await dispatch(actions.fetchSoonMoviesRequest());
       const data = await api.getSoonMovies(page);
       await dispatch(actions.fetchSoonMoviesSuccess(data));
-      // return true;
     } catch (error) {
       dispatch(actions.fetchSoonMoviesFailure(error.message));
       return new Promise(resolve => resolve(error.message));
@@ -240,7 +230,6 @@ const effects = {
       await dispatch(actions.fetchTopRatedMoviesRequest());
       const data = await api.getTopRatedMovies(page);
       await dispatch(actions.fetchTopRatedMoviesSuccess(data));
-      // return true;
     } catch (error) {
       dispatch(actions.fetchTopRatedMoviesFailure(error.message));
       return new Promise(resolve => resolve(error.message));

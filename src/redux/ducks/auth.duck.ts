@@ -3,9 +3,7 @@ import { push } from 'connected-react-router';
 import { createSelector } from 'reselect';
 import { toast } from 'react-toastify';
 import { lensPath, view } from 'ramda';
-import {
-  firebaseApp,
-} from 'lib/firebase';
+import { firebaseApp } from 'lib/firebase';
 
 const initialState: IAuthState = {
   isAuthenticated: false,
