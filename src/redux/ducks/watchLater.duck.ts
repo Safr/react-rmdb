@@ -54,30 +54,35 @@ const effects = {
   getAllWatchLaterMoviesFromList: () => async (
     dispatch: Dispatch,
   ): Promise<void> => {
-    let watchLaterList;
-    // @ts-ignore
-    const userUid: string = firebaseApp.auth().currentUser.uid;
+    try {
+      let watchLaterList;
+      // @ts-ignore
+      const userUid: string = firebaseApp.auth().currentUser.uid;
 
-    if (userUid) {
-      await firebaseApp
-        .database()
-        .ref(`${userUid}/watch-later`)
-        .once('value')
-        .then(snapshot => {
-          watchLaterList = snapshot.val();
-        });
-      if (watchLaterList) {
-        const moviesIdsArr = getObjectIds(watchLaterList);
-        const promises = moviesIdsArr.map(item => {
-          const movie = getMovieObject(item);
-          return movie;
-        });
-        Promise.all(promises).then(userListMovies => {
-          dispatch(actions.setWatchLaterMoviesSuccess(userListMovies));
-        });
-      } else {
-        dispatch(actions.setWatchLaterMoviesSuccess(null));
+      if (userUid) {
+        await firebaseApp
+          .database()
+          .ref(`${userUid}/watch-later`)
+          .once('value')
+          .then(snapshot => {
+            watchLaterList = snapshot.val();
+          });
+        if (watchLaterList) {
+          const moviesIdsArr = getObjectIds(watchLaterList);
+          const promises = moviesIdsArr.map(item => {
+            const movie = getMovieObject(item);
+            return movie;
+          });
+          Promise.all(promises).then(userListMovies => {
+            dispatch(actions.setWatchLaterMoviesSuccess(userListMovies));
+          });
+        } else {
+          dispatch(actions.setWatchLaterMoviesSuccess(null));
+        }
       }
+    } catch (error) {
+      dispatch(actions.setWatchLaterMoviesFailure(error.message));
+      return new Promise(resolve => resolve(error.message));
     }
   },
   addToWatchLaterList: (selectedMovie: number) => async (
@@ -95,7 +100,10 @@ const effects = {
         [selectedMovie]: selectedMovie,
       });
     await dispatch(
-      actions.setWatchLaterIdsSuccess([...watchLaterIds, String(selectedMovie)]),
+      actions.setWatchLaterIdsSuccess([
+        ...watchLaterIds,
+        String(selectedMovie),
+      ]),
     );
     await dispatch(effects.getAllWatchLaterMoviesFromList());
     await toast.success('The new movie has been added to watch later');

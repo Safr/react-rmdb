@@ -54,8 +54,6 @@ const reducer: Reducer<IMoviesState, IMoviesState> = handleActions<
       const { page, results }: any = action.payload;
       const oldResults: any[] =
         state.movies && page !== 1 ? state.movies.results : [];
-      // const { results }: any = action.payload;
-      // const oldResults: any[] = state.movies ? state.movies.results : [];
       return {
         ...state,
         movies: {
@@ -66,6 +64,11 @@ const reducer: Reducer<IMoviesState, IMoviesState> = handleActions<
         loading: false,
       };
     },
+    [actions.fetchMoviesFailure.toString()]: (state: IMoviesState) => ({
+      ...state,
+      loading: false,
+      error: true,
+    }),
     [actions.fetchMovieRequest.toString()]: (state: IMoviesState) => ({
       ...state,
       loading: true,
@@ -78,6 +81,11 @@ const reducer: Reducer<IMoviesState, IMoviesState> = handleActions<
       movie,
       loading: false,
     }),
+    [actions.fetchMovieFailure.toString()]: (state: IMoviesState) => ({
+      ...state,
+      loading: false,
+      error: true,
+    }),
     [actions.fetchMovieByQueryRequest.toString()]: (state: IMoviesState) => ({
       ...state,
       loading: true,
@@ -89,6 +97,11 @@ const reducer: Reducer<IMoviesState, IMoviesState> = handleActions<
       ...state,
       movie,
       loading: false,
+    }),
+    [actions.fetchMovieByQueryFailure.toString()]: (state: IMoviesState) => ({
+      ...state,
+      loading: false,
+      error: true,
     }),
     [actions.fetchPopularMoviesRequest.toString()]: (state: IMoviesState) => ({
       ...state,
@@ -111,6 +124,11 @@ const reducer: Reducer<IMoviesState, IMoviesState> = handleActions<
         loading: false,
       };
     },
+    [actions.fetchPopularMoviesFailure.toString()]: (state: IMoviesState) => ({
+      ...state,
+      loading: false,
+      error: true,
+    }),
     [actions.fetchSoonMoviesRequest.toString()]: (state: IMoviesState) => ({
       ...state,
       loading: true,
@@ -132,6 +150,11 @@ const reducer: Reducer<IMoviesState, IMoviesState> = handleActions<
         loading: false,
       };
     },
+    [actions.fetchSoonMoviesFailure.toString()]: (state: IMoviesState) => ({
+      ...state,
+      loading: false,
+      error: true,
+    }),
     [actions.fetchTopRatedMoviesRequest.toString()]: (state: IMoviesState) => ({
       ...state,
       loading: true,
@@ -153,6 +176,11 @@ const reducer: Reducer<IMoviesState, IMoviesState> = handleActions<
         loading: false,
       };
     },
+    [actions.fetchTopRatedMoviesFailure.toString()]: (state: IMoviesState) => ({
+      ...state,
+      loading: false,
+      error: true,
+    }),
     [actions.clearMovie.toString()]: (state: IMoviesState) => ({
       ...state,
       movie: null,

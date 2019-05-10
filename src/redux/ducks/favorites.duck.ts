@@ -54,30 +54,35 @@ const effects = {
   getAllFavoritedMoviesFromList: () => async (
     dispatch: Dispatch,
   ): Promise<void> => {
-    let favoriteList;
-    // @ts-ignore
-    const userUid: string = firebaseApp.auth().currentUser.uid;
+    try {
+      let favoriteList;
+      // @ts-ignore
+      const userUid: string = firebaseApp.auth().currentUser.uid;
 
-    if (userUid) {
-      await firebaseApp
-        .database()
-        .ref(`${userUid}/favorites`)
-        .once('value')
-        .then(snapshot => {
-          favoriteList = snapshot.val();
-        });
-      if (favoriteList) {
-        const moviesIdsArr = getObjectIds(favoriteList);
-        const promises = moviesIdsArr.map(item => {
-          const movie = getMovieObject(item);
-          return movie;
-        });
-        Promise.all(promises).then(userListMovies => {
-          dispatch(actions.setFavoritedMoviesSuccess(userListMovies));
-        });
-      } else {
-        dispatch(actions.setFavoritedMoviesSuccess(null));
+      if (userUid) {
+        await firebaseApp
+          .database()
+          .ref(`${userUid}/favorites`)
+          .once('value')
+          .then(snapshot => {
+            favoriteList = snapshot.val();
+          });
+        if (favoriteList) {
+          const moviesIdsArr = getObjectIds(favoriteList);
+          const promises = moviesIdsArr.map(item => {
+            const movie = getMovieObject(item);
+            return movie;
+          });
+          Promise.all(promises).then(userListMovies => {
+            dispatch(actions.setFavoritedMoviesSuccess(userListMovies));
+          });
+        } else {
+          dispatch(actions.setFavoritedMoviesSuccess(null));
+        }
       }
+    } catch (error) {
+      dispatch(actions.setFavoritedMoviesFailure(error.message));
+      return new Promise(resolve => resolve(error.message));
     }
   },
   addToFavoritesList: (selectedMovie: number) => async (
