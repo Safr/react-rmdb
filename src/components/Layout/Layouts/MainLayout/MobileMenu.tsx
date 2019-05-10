@@ -62,7 +62,7 @@ const MobileMenu: React.FC<Props> = ({
           />
         </MediaHeader>
         <SidebarMenu>
-          <li className="sidebar-menu__item">
+          <li>
             <Link exact to="/">
               <svg
                 width="16"
@@ -76,7 +76,7 @@ const MobileMenu: React.FC<Props> = ({
               Discover
             </Link>
           </li>
-          <li className="sidebar-menu__item">
+          <li>
             <Link exact to="/popular">
               <svg
                 width="13"
@@ -90,7 +90,7 @@ const MobileMenu: React.FC<Props> = ({
               Popular
             </Link>
           </li>
-          <li className="sidebar-menu__item">
+          <li>
             <Link exact to="/top-rated">
               <svg
                 width="15"
@@ -104,7 +104,7 @@ const MobileMenu: React.FC<Props> = ({
               Top Rated
             </Link>
           </li>
-          <li className="sidebar-menu__item sidebar-menu__item--coming-soon">
+          <li>
             <Link exact to="/coming-soon">
               Coming Soon
             </Link>

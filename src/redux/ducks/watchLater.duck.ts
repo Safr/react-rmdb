@@ -95,7 +95,7 @@ const effects = {
         [selectedMovie]: selectedMovie,
       });
     await dispatch(
-      actions.setWatchLaterIdsSuccess([...watchLaterIds, selectedMovie]),
+      actions.setWatchLaterIdsSuccess([...watchLaterIds, String(selectedMovie)]),
     );
     await dispatch(effects.getAllWatchLaterMoviesFromList());
     await toast.success('The new movie has been added to watch later');
@@ -118,7 +118,7 @@ const effects = {
 
     dispatch(
       actions.setWatchLaterIdsSuccess(
-        watchLaterIds.filter(id => id !== selectedMovie),
+        watchLaterIds.filter(id => id !== String(selectedMovie)),
       ),
     );
     await dispatch(effects.getAllWatchLaterMoviesFromList());

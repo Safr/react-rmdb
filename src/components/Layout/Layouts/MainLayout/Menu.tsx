@@ -24,7 +24,9 @@ const Menu: React.FC<Props> = ({ isOpen, userName, onClick }) => {
           <Link to="/watch-later">Watch Later</Link>
         </li>
         <li>
-          <Logout href="#" onClick={onClick}>Logout</Logout>
+          <Logout href="#" onClick={onClick}>
+            Logout
+          </Logout>
         </li>
       </Ul>
     </Wrapper>
@@ -79,19 +81,19 @@ const Ul = styled.ul`
 `;
 
 const Link = styled(NavLink).attrs({ activeClassName })`
-   display: block;
-    font-size: 13px;
-    color: ${({ theme }) => theme.colors.white};
-    text-decoration: none;
-    padding: 10px;
-    text-align: left;
-    transition: all 0.3s ease;
+  display: block;
+  font-size: 13px;
+  color: ${({ theme }) => theme.colors.white};
+  text-decoration: none;
+  padding: 10px;
+  text-align: left;
+  transition: all 0.3s ease;
 
-    :hover {
-      background-color: ${({ theme }) => theme.colors.red};
-    }
+  :hover {
+    background-color: ${({ theme }) => theme.colors.red};
+  }
 
-    &.${activeClassName} {
+  &.${activeClassName} {
     color: ${({ theme }) => theme.colors.red};
     svg path {
       fill: ${({ theme }) => theme.colors.red};
@@ -100,17 +102,17 @@ const Link = styled(NavLink).attrs({ activeClassName })`
 `;
 
 const Logout = styled.a`
-   display: block;
-    font-size: 13px;
-    color: ${({ theme }) => theme.colors.white};
-    text-decoration: none;
-    padding: 10px;
-    text-align: left;
-    transition: all 0.3s ease;
+  display: block;
+  font-size: 13px;
+  color: ${({ theme }) => theme.colors.white};
+  text-decoration: none;
+  padding: 10px;
+  text-align: left;
+  transition: all 0.3s ease;
 
-    :hover {
-      background-color: ${({ theme }) => theme.colors.red};
-    }
+  :hover {
+    background-color: ${({ theme }) => theme.colors.red};
+  }
   border-top: 1px solid ${({ theme }) => theme.colors.red};
   :hover {
     background-color: ${({ theme }) => theme.colors.red};

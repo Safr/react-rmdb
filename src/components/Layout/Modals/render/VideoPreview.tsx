@@ -4,18 +4,18 @@ import styled from 'styled-components';
 import { URL_YOUTUBE } from 'lib/constants/searchConfig';
 // ASSETS
 import { media } from 'lib/styles';
-// TYPES
+
 interface Props {
-  trailerLink: string
-};
+  trailerLink: string;
+}
 // EXPORTED COMPONENT
 const VideoPreview: React.FC<Props> = ({ trailerLink }) => {
-  return(
-  <Content>
-    <iframe src={URL_YOUTUBE + trailerLink} allowFullScreen />
-  </Content>
-);
-  };
+  return (
+    <Content>
+      <iframe src={URL_YOUTUBE + trailerLink} title="trailer" allowFullScreen />
+    </Content>
+  );
+};
 
 export default VideoPreview;
 

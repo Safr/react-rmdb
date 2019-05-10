@@ -95,7 +95,7 @@ const effects = {
         [selectedMovie]: selectedMovie,
       });
     await dispatch(
-      actions.setFavoritedIdsSuccess([...favoritedIds, selectedMovie]),
+      actions.setFavoritedIdsSuccess([...favoritedIds, String(selectedMovie)]),
     );
     await dispatch(effects.getAllFavoritedMoviesFromList());
     await toast.success('The new movie has been added to favorites');
@@ -118,7 +118,7 @@ const effects = {
 
     dispatch(
       actions.setFavoritedIdsSuccess(
-        favoritedIds.filter(id => id !== selectedMovie),
+        favoritedIds.filter(id => id !== String(selectedMovie)),
       ),
     );
     await dispatch(effects.getAllFavoritedMoviesFromList());

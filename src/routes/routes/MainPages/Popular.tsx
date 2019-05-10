@@ -16,8 +16,7 @@ import Spinner from 'components/UI/Spinner';
 
 const { useEffect } = React;
 
-// TYPES
-export interface Props {
+interface Props {
   fetchPopularMovies: (page: number) => Promise<void>;
   movies: IMovies;
   page: number;
@@ -31,7 +30,6 @@ const PopularPages: React.FC<Props> = ({
   page,
   ...rest
 }) => {
-
   useEffect(() => {
     fetchPopularMovies(page);
   }, [fetchPopularMovies, page]);

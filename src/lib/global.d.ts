@@ -73,7 +73,7 @@ declare interface IFavoritesState {
 
 declare interface IWatchLaterState {
   watchLaterMovies: any | IMovie[];
-  watchLaterIds: any | string[];
+  watchLaterIds: any | number[];
   error: boolean;
 }
 

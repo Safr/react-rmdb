@@ -17,9 +17,7 @@ interface Props {
 const { useEffect, useState } = React;
 
 // EXPORTED COMPONENT
-const ModalRenderer: React.FC<
-  Props
-> = (rest: Props) => {
+const ModalRenderer: React.FC<Props> = (rest: Props) => {
   const { open } = rest;
   const [isOpen, set] = useState(open);
   useEffect(() => set(open), [open]);

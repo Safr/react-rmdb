@@ -1,5 +1,5 @@
- import styled from 'styled-components';
- import { media } from 'lib/styles';
+import styled from 'styled-components';
+import { media } from 'lib/styles';
 
 export const Content = styled.div`
   position: relative;

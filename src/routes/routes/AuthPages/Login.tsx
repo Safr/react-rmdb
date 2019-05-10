@@ -117,7 +117,6 @@ const Login: React.FC<Props> = ({
         <SocialWrapper>
           <button
             type="button"
-            className="login-social"
             onClick={() => authWithSocialNetwork(githubProvider)}
           >
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
@@ -129,7 +128,6 @@ const Login: React.FC<Props> = ({
           </button>
           <button
             type="button"
-            className="login-social"
             onClick={() => authWithSocialNetwork(googleAuthProvider)}
           >
             <svg
@@ -139,7 +137,12 @@ const Login: React.FC<Props> = ({
               xmlns="http://www.w3.org/2000/svg"
             >
               <g fill="none">
-                <rect fill={primaryTheme.colors.white} width="40" height="40" rx="2" />
+                <rect
+                  fill={primaryTheme.colors.white}
+                  width="40"
+                  height="40"
+                  rx="2"
+                />
                 <path
                   d="M28.64 20.2c0-.63-.06-1.25-.16-1.84H20v3.48h4.84c-.2 1.13-.84 2.08-1.8 2.72v2.26h2.92c1.7-1.57 2.68-3.87 2.68-6.62z"
                   fill={primaryTheme.colors.blue}
@@ -289,22 +292,21 @@ const SocialWrapper = styled.div`
 `;
 
 const Input = styled.input`
-    box-sizing: border-box;
-    width: 100%;
-    padding: 10px 15px;
-    margin-bottom: 5px;
-    font-size: 16px;
-    border: 1px solid transparent;
-    box-shadow: none;
-    border-radius: 4px;
-    &.error {
-      border-color: ${({ theme }) => theme.colors.red};
-      &:focus {
-        box-shadow: 3px 3px 10px
-            ${({ theme }) => theme.colors.red},
-            0 0 0 1px ${({ theme }) => theme.colors.red};
-      }
+  box-sizing: border-box;
+  width: 100%;
+  padding: 10px 15px;
+  margin-bottom: 5px;
+  font-size: 16px;
+  border: 1px solid transparent;
+  box-shadow: none;
+  border-radius: 4px;
+  &.error {
+    border-color: ${({ theme }) => theme.colors.red};
+    &:focus {
+      box-shadow: 3px 3px 10px ${({ theme }) => theme.colors.red},
+        0 0 0 1px ${({ theme }) => theme.colors.red};
     }
+  }
 `;
 
 const Button = styled.button`
@@ -320,9 +322,9 @@ const Button = styled.button`
   text-transform: uppercase;
   cursor: pointer;
 
-    :hover {
-      opacity: 0.8;
-    }
+  :hover {
+    opacity: 0.8;
+  }
 `;
 
 const FormItem = styled.div`

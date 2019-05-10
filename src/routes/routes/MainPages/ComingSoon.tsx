@@ -16,8 +16,7 @@ import Spinner from 'components/UI/Spinner';
 
 const { useEffect } = React;
 
-// TYPES
-export interface Props {
+interface Props {
   fetchSoonMovies: (page: number) => Promise<void>;
   movies: any;
   page: number;

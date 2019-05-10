@@ -4,7 +4,6 @@ import { Route, RouteProps } from 'react-router-dom';
 import { ErrorScreen, LoadingScreen } from 'components/Layout/Screens';
 import { MainLayout } from 'components/Layout/Layouts';
 
-// // TYPES
 type Props = {
   component: React.ComponentType<any>;
   rest?: any;

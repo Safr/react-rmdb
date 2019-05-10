@@ -10,8 +10,7 @@ import {
 import { Content } from 'components/UI/Page';
 import List from 'components/List';
 
-// TYPES
-export interface Props {
+interface Props {
   getAllFavoritedMoviesFromList: () => Promise<void>;
   favoritedMovies: IMovie[];
 }

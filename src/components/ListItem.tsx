@@ -46,6 +46,7 @@ const ListItem: React.FC<Props> = props => {
     isAuthenticated && favoritedIds && favoritedIds.includes(String(id));
   const isWatchLater =
     isAuthenticated && watchLaterIds && watchLaterIds.includes(String(id));
+  console.log('isWatchLater', isWatchLater);
   return (
     <Wrapper>
       <VoteBadge voteAverage={vote_average} right="-20px" top="15px" />
@@ -69,9 +70,7 @@ const ListItem: React.FC<Props> = props => {
               favorited={isFavorited || favorited}
               isWatchLater={isWatchLater || watchLater}
             />
-              <ImageLink
-              to={`/movie/${id}-${removeSpacesFromString(title)}`}
-            >
+            <ImageLink to={`/movie/${id}-${removeSpacesFromString(title)}`}>
               <img
                 src={`https://image.tmdb.org/t/p/w185_and_h278_bestv2${poster_path}`}
                 alt={title}
@@ -98,10 +97,7 @@ const ListItem: React.FC<Props> = props => {
               isWatchLater={isWatchLater || watchLater}
             />
             <ImageLink to={`/movie/${id}-${removeSpacesFromString(title)}`}>
-            <img
-                src={NoImage}
-                alt={title}
-              />
+              <img src={NoImage} alt={title} />
             </ImageLink>
           </>
         )}

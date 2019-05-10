@@ -23,16 +23,18 @@ interface Props {
 
 const renderPlay = (isAuthenticated, openModal, closeModal, trailer) => {
   if (isAuthenticated) {
-     return (
-       // eslint-disable-next-line
+    return (
+      // eslint-disable-next-line
        <LinkInstead onClick={() => openModal({
             type: 'video',
             args: { closeModal, trailerLink: trailer.key },
-          })}>
-         <span>Watch Trailer</span>
-      <MdPlayArrow color={primaryTheme.colors.white} size="40px" />
-       </LinkInstead>
-     )
+          })
+        }
+      >
+        <span>Watch Trailer</span>
+        <MdPlayArrow color={primaryTheme.colors.white} size="40px" />
+      </LinkInstead>
+    );
   }
   return (
     <StyledLink to="/login">
@@ -42,29 +44,36 @@ const renderPlay = (isAuthenticated, openModal, closeModal, trailer) => {
   );
 };
 
-const MovieInfo: React.FC<Props> = ({ isAuthenticated, movie, openModal, closeModal }) => {
+const MovieInfo: React.FC<Props> = ({
+  isAuthenticated,
+  movie,
+  openModal,
+  closeModal,
+}) => {
   const { isOpen, toggleShowMore } = useShowMore(false);
   return (
     <Wrapper>
       {movie.poster_path ? (
         <img
-        src={`https://image.tmdb.org/t/p/w300${movie.poster_path}`}
-        alt=""
-      />
-      )
-    : (
-      <img
-      src={NoImage}
-      alt=""
-      />
-    )}
+          src={`https://image.tmdb.org/t/p/w300${movie.poster_path}`}
+          alt=""
+        />
+      ) : (
+        <img src={NoImage} alt="" />
+      )}
       <Content>
         <h1>{movie.title}</h1>
-        {movie.videos.results.length > 0 &&
+        {movie.videos &&
+          movie.videos.results.length > 0 &&
           movie.videos.results[0] &&
-          renderPlay(isAuthenticated, openModal, closeModal, movie.videos.results[0])}
-        <h2 className="movie-overview-title">Overview</h2>
-        <p className="movie-overview">{movie.overview}</p>
+          renderPlay(
+            isAuthenticated,
+            openModal,
+            closeModal,
+            movie.videos.results[0],
+          )}
+        <h2>Overview</h2>
+        <p>{movie.overview}</p>
 
         <Rating>
           <h2>IMDB RATING</h2>

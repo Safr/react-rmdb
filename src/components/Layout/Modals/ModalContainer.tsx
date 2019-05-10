@@ -30,7 +30,6 @@ const ModalContainer: React.FC<Props & Partial<DefaultProps>> = ({
   children,
   style,
 }) => (
-
   <CloseBackground onClick={() => closeModal()}>
     <Container style={{ ...style }}>
       <ModalDialog maxWidth={maxWidth}>
