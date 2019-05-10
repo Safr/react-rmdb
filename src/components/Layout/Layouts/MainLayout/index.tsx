@@ -4,13 +4,15 @@ import styled from 'styled-components';
 // import { Location } from 'history';
 // STYLES
 import { media } from 'lib/styles';
+// HELPERS
+import ScrollToTop from 'lib/components/ScrollToTop';
 // HOCS
 import { withSidebar } from 'components/HOC';
 // COMPONENTS
+import Modal from 'components/Layout/Modals';
 import Toast from './Toaster';
 import Header from './Header';
-import Sidebar from './Sidebar'
-import Modal from 'components/Layout/Modals';
+import Sidebar from './Sidebar';
 import MobileMenu from './MobileMenu';
 import Footer from './Footer';
 
@@ -29,17 +31,21 @@ const MainLayout: React.FC<Props & RouteProps> = ({
   ...rest
 }) => {
   return (
-    <Content>
-      <Header {...sidebarProps} {...rest} />
-      <Grid>
-        <Sidebar {...sidebarProps} {...rest} />
-        <MobileMenu {...sidebarProps} />
-        <InnerContent>{React.cloneElement(children, { ...rest })}</InnerContent>
-      </Grid>
-      <Footer />
-      <Modal />
-      <Toast />
-    </Content>
+    <ScrollToTop>
+      <Content>
+        <Header {...sidebarProps} {...rest} />
+        <Grid>
+          <Sidebar {...sidebarProps} {...rest} />
+          <MobileMenu {...sidebarProps} />
+          <InnerContent>
+            {React.cloneElement(children, { ...rest })}
+          </InnerContent>
+        </Grid>
+        <Footer />
+        <Modal />
+        <Toast />
+      </Content>
+    </ScrollToTop>
   );
 };
 

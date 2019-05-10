@@ -1,7 +1,6 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
-// import { RouteComponentProps } from 'react-router-dom';
-// import {  match } from 'react-router-dom';
+import { RouteComponentProps } from 'react-router-dom';
 import { compose } from 'redux';
 import styled from 'styled-components';
 // DUCKS
@@ -19,18 +18,16 @@ import Spinner from 'components/UI/Spinner';
 
 // interface TParams { id?: string };
 
-interface Props {
+type Props = RouteComponentProps & {
   isLoading: boolean;
-  //  match: RouteComponentProps<TParams>;
-  // match: match<TParams>;
-  match: any;
-  movie: any;
+  match: { params: { id: number } };
+  movie: IMovie;
   isAuthenticated: boolean;
   closeModal: () => void;
   openModal: () => void;
   clearMovie: () => void;
   fetchMovie: (id: number) => Promise<void>;
-}
+};
 
 const { useEffect } = React;
 

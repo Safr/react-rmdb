@@ -11,17 +11,19 @@ import { actions as watchLaterActions } from 'redux/ducks/watchLater.duck';
 // COMPONENTS
 import App from './App';
 
+const rootEl = document.getElementById('root');
+
 const renderApp = (Application: React.ComponentType<any>) => {
-  ReactDOM.render(<Application />, document.getElementById('root'));
+  ReactDOM.render(<Application />, rootEl as HTMLDivElement);
 };
 
 renderApp(App);
 
-firebaseApp.auth().onAuthStateChanged((user: any) => {
+firebaseApp.auth().onAuthStateChanged(async (user: any) => {
   if (user) {
     store.dispatch(authActions.setUserSuccess(user));
     const userUid = user.uid;
-    firebaseApp
+    await firebaseApp
       .database()
       .ref(`${userUid}/favorites`)
       .once('value')
@@ -33,7 +35,7 @@ firebaseApp.auth().onAuthStateChanged((user: any) => {
           );
         }
       });
-    firebaseApp
+    await firebaseApp
       .database()
       .ref(`${userUid}/watch-later`)
       .once('value')
@@ -41,7 +43,9 @@ firebaseApp.auth().onAuthStateChanged((user: any) => {
         const watchLaterIds = snapshot.val();
         if (watchLaterIds) {
           store.dispatch(
-            watchLaterActions.setWatchLaterIdsSuccess(Object.keys(watchLaterIds)),
+            watchLaterActions.setWatchLaterIdsSuccess(
+              Object.keys(watchLaterIds),
+            ),
           );
         }
       });

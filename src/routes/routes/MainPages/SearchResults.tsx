@@ -17,7 +17,6 @@ import List from 'components/List';
 import Spinner from 'components/UI/Spinner';
 
 interface Props {
-  match: any;
   movie: any;
   location: Location;
   isLoading: boolean;

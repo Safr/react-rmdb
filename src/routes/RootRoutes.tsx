@@ -1,7 +1,6 @@
 import * as React from 'react';
 import { Switch, Redirect, Route } from 'react-router-dom';
 // COMPONENTS
-// eslint-disable-next-line import/no-unresolved
 import { MainRoute } from 'components/Layout/RouteTemplates';
 
 import {
@@ -16,7 +15,6 @@ import {
   Favorites,
   WatchLater,
   SearchResults,
-  // eslint-disable-next-line import/no-unresolved
 } from './routes';
 
 // EXPORTED ROUTES
@@ -30,7 +28,6 @@ const Routes = () => (
     <MainRoute exact path="/favorites" component={Favorites} />
     <MainRoute exact path="/watch-later" component={WatchLater} />
     <MainRoute exact path="/search" component={SearchResults} />
-    {/* <Redirect exact from="/" to="/dashboard" /> */}
     <MainRoute exact path="/movie/:id-:title" component={Movie} />
     <Route path="/404" component={NotFound} />
     <Redirect to="/404" />
