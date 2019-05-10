@@ -4,11 +4,11 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 Builds the app for production to the `build` folder.
 
-![](https://github.com/Safr/react-rmdb/master/public/images/Screenshot_1.png)
-![](https://github.com/Safr/react-rmdb/master/public/images/Screenshot_2.png)
-![](https://github.com/Safr/react-rmdb/master/public/images/Screenshot_3.png)
-![](https://github.com/Safr/react-rmdb/master/public/images/Screenshot_4.png)
-![](https://github.com/Safr/react-rmdb/master/public/images/Screenshot_5.png)
+![](https://github.com/Safr/react-rmdb/blob/master/public/images/Screenshot_1.png)
+![](https://github.com/Safr/react-rmdb/blob/master/public/images/Screenshot_2.png)
+![](https://github.com/Safr/react-rmdb/blob/master/public/images/Screenshot_3.png)
+![](https://github.com/Safr/react-rmdb/blob/master/public/images/Screenshot_4.png)
+![](https://github.com/Safr/react-rmdb/blob/master/public/images/Screenshot_5.png)
 
 ## The project was build using the following technologies:
 * React
