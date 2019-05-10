@@ -90,6 +90,7 @@ export default Filters;
 const AppFilters = styled.div`
   color: ${({ theme }) => theme.colors.white}
   padding: 15px;
+  padding-bottom: 0;
 
   ul {
     padding: 0;
@@ -293,7 +294,7 @@ const AppFilters = styled.div`
 const FiltersListItem = styled.li`
   font-size: 14px;
   padding: 6px 0;
-  margin-bottom: 19px;
+  margin-bottom: 10px;
 `;
 
 const FilterLabel = styled.label`

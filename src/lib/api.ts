@@ -20,5 +20,4 @@ export default {
     const TERM = name.replace(/\s/g, '+');
     return request('get',`${PATH_BASE}${PATH_SEARCH}${PATH_MOVIE}?api_key=${API_KEY}&query=${TERM}&${PATH_PAGE}${page}`);
   },
-  getOrderBook: pair => request('get', `/order_book/?limit=50&pair=${pair}`),
 };

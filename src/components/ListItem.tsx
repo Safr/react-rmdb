@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 // HELPERS
 import { removeSpacesFromString } from 'lib/helpers';
 // ASSETS
-import NoImage from 'assets/images/no_image.jpg';
+import NoImage from 'assets/no_image.jpg';
 // COMPONENTS
 import MovieActions from 'components/Movie/MovieActions';
 import VoteBadge from 'components/UI/VoteBadge';
@@ -46,7 +46,6 @@ const ListItem: React.FC<Props> = props => {
     isAuthenticated && favoritedIds && favoritedIds.includes(String(id));
   const isWatchLater =
     isAuthenticated && watchLaterIds && watchLaterIds.includes(String(id));
-  console.log('isWatchLater', isWatchLater);
   return (
     <Wrapper>
       <VoteBadge voteAverage={vote_average} right="-20px" top="15px" />

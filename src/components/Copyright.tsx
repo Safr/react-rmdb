@@ -3,7 +3,7 @@ import styled from 'styled-components';
 // STYLES
 import { media } from 'lib/styles';
 // ASSETS
-import logo from 'assets/images/tmdb_logo.png';
+import logo from 'assets/tmdb_logo.png';
 
 const Copyright = () => (
   <Wrapper>
@@ -46,7 +46,7 @@ const Wrapper = styled.div`
   display: grid;
   grid-auto-flow: row;
   grid-gap: 10px;
-  padding: 0 15px 15px 15px;
+  padding: 15px;
      svg {
         width: 40px;
      }

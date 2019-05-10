@@ -1,4 +1,3 @@
-// import { Location } from 'history';
 
 declare module 'react-toastify' {
   const content: any 

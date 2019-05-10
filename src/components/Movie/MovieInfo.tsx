@@ -5,7 +5,7 @@ import styled from 'styled-components';
 // STYLES
 import { media, primaryTheme } from 'lib/styles';
 // ASSETS
-import NoImage from 'assets/images/no_image.jpg';
+import NoImage from 'assets/no_image.jpg';
 // HOOKS
 import { useShowMore } from 'lib/hooks';
 // COMPONENTS

@@ -24,6 +24,7 @@ export const GlobalStyle = createGlobalStyle`
     font-weight: 400;
     font-size: 16px;
     font-family: 'Oswald', sans-serif;
+    line-height: 1.2;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
   }
