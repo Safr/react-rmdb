@@ -4,12 +4,6 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 Builds the app for production to the `build` folder.
 
-![](https://github.com/Safr/react-rmdb/blob/master/public/images/Screenshot_1.png)
-![](https://github.com/Safr/react-rmdb/blob/master/public/images/Screenshot_2.png)
-![](https://github.com/Safr/react-rmdb/blob/master/public/images/Screenshot_3.png)
-![](https://github.com/Safr/react-rmdb/blob/master/public/images/Screenshot_4.png)
-![](https://github.com/Safr/react-rmdb/blob/master/public/images/Screenshot_5.png)
-
 ## The project was build using the following technologies:
 * React
 * Redux & Redux thunk
@@ -45,3 +39,8 @@ Launches the test runner in the interactive watch mode.<br>
 See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
 
 ### `npm run build`
+
+![](https://github.com/Safr/react-rmdb/blob/master/public/images/Screenshot_1.png)
+![](https://github.com/Safr/react-rmdb/blob/master/public/images/Screenshot_2.png)
+![](https://github.com/Safr/react-rmdb/blob/master/public/images/Screenshot_3.png)
+![](https://github.com/Safr/react-rmdb/blob/master/public/images/Screenshot_4.png)
