@@ -7,10 +7,10 @@ import { media, primaryTheme } from 'lib/styles';
 
 interface Props {
   isAuthenticated: boolean;
-  onFavoriteSelect?: any;
-  onFavoriteDeselect?: any;
-  onWatchLaterSelect?: any;
-  onWatchLaterDeselect?: any;
+  onFavoriteSelect?: () => void;
+  onFavoriteDeselect?: () => void;
+  onWatchLaterSelect?: () => void;
+  onWatchLaterDeselect?: () => void;
   favorited: boolean;
   isWatchLater: boolean;
 }

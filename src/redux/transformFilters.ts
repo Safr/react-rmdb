@@ -1,12 +1,7 @@
 import { createWhitelistFilter } from 'redux-persist-transform-filter';
 
-// export default [createWhitelistFilter('orders', ['orders'])];
-export default [createWhitelistFilter('')];
+export default [createWhitelistFilter('movies', ['movies'])];
 
-// export const blacklist = ['modals'];
-
-// export const whitelist = ['navigation'];
-
-export const blacklist = ['auth'];
+export const blacklist = ['auth', 'modals'];
 
 export const whitelist = ['navigation'];

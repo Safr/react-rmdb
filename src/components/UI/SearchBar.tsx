@@ -17,7 +17,6 @@ const SearchBar: React.FC<Props> = ({ searchByKeyword }) => {
       enableReinitialize
       initialValues={{ movieName: '' }}
       onSubmit={(values: MyFormValues, { setSubmitting, setFieldValue }) => {
-        console.log('values', values);
         setSubmitting(false);
         searchByKeyword(values.movieName);
         setFieldValue('movieName', '');
@@ -54,11 +53,10 @@ const Wrapper = styled(Form)`
     top: 50%;
     left: 50px;
     transform: translate(-50%, -50%);
-    /* width: 20px; */
     height: auto;
 
     path {
-      fill: #fff;
+      fill: ${({ theme }) => theme.colors.white};
     }
   }
 `;

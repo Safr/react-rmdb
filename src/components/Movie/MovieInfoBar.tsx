@@ -3,7 +3,13 @@ import styled from 'styled-components';
 // HELPERS
 import { calcTime, convertMoney } from 'lib/helpers';
 
-const MovieInfoBar = ({ time, budget, revenue }) => (
+interface Props {
+  time: number;
+  budget: number;
+  revenue: number;
+}
+
+const MovieInfoBar: React.FC<Props> = ({ time = 0, budget = 0, revenue = 0 }) => (
   <Wrapper>
     <span>Running time: {calcTime(time)}</span>
     <span>Budget: {convertMoney(budget)}</span>

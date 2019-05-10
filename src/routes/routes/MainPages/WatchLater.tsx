@@ -1,19 +1,19 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
-import styled from 'styled-components';
 // DUCKS
 import {
   effects as watchLaterEffects,
   selectors as watchLaterSelectors,
 } from 'redux/ducks/watchLater.duck';
 // COMPONENTS
+import { Content } from 'components/UI/Page';
 import List from 'components/List';
 
 // TYPES
 export interface Props {
   getAllWatchLaterMoviesFromList: () => Promise<void>;
-  watchLaterMovies: any;
+  watchLaterMovies: IMovie[];
 }
 
 const { useEffect } = React;
@@ -43,9 +43,3 @@ export default compose(
   ),
   React.memo,
 )(WatchLater);
-
-const Content = styled.div`
-  max-width: 1200px;
-  padding: 30px 25px 40px 30px;
-  position: relative;
-`;

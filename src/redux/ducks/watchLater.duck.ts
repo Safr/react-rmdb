@@ -66,7 +66,6 @@ const effects = {
         .then(snapshot => {
           watchLaterList = snapshot.val();
         });
-      console.log('watchLaterList', watchLaterList);
       if (watchLaterList) {
         const moviesIdsArr = getObjectIds(watchLaterList);
         const promises = moviesIdsArr.map(item => {

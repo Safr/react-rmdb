@@ -55,7 +55,6 @@ const effects = {
     dispatch: Dispatch,
   ): Promise<void> => {
     let favoriteList;
-    //   const userUid = user.uid;
     // @ts-ignore
     const userUid: string = firebaseApp.auth().currentUser.uid;
 
@@ -67,7 +66,6 @@ const effects = {
         .then(snapshot => {
           favoriteList = snapshot.val();
         });
-      console.log('favoriteList', favoriteList);
       if (favoriteList) {
         const moviesIdsArr = getObjectIds(favoriteList);
         const promises = moviesIdsArr.map(item => {
@@ -86,10 +84,7 @@ const effects = {
     dispatch: Dispatch<any>,
     getState: () => IRootState,
   ): Promise<void> => {
-    // const userUid = user.uid;
     const { favoritedIds } = getState().favorites;
-    console.log('favoritedIds', favoritedIds);
-    console.log('selectedMovie', selectedMovie);
     // @ts-ignore
     const userUid: string = firebaseApp.auth().currentUser.uid;
     await firebaseApp

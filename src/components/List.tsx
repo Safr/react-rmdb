@@ -18,9 +18,9 @@ import ListItem from './ListItem';
 
 interface Props {
   isAuthenticated: boolean;
-  favoritedIds: any;
-  watchLaterIds: any;
-  list: any;
+  favoritedIds: string[];
+  watchLaterIds: string[];
+  list: IMovie[];
   addToFavoritesList: (selectedMovie: number) => Promise<void>;
   removeFromFavoritesList: (selectedMovie: number) => Promise<void>;
   addToWatchLaterList: (selectedMovie: number) => Promise<void>;

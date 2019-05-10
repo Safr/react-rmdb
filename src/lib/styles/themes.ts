@@ -9,6 +9,9 @@ export const primaryTheme = {
     platinumGrey: '#DADADA',
     darkGrey: '#ababab',
 
+    // GREEN
+    green: '#34A853',
+
     // RED
     red: '#e53b47',
     darkRed: '#cc343f',
@@ -21,6 +24,7 @@ export const primaryTheme = {
     yellow: '#f0a70d',
 
     // BLACK
+    lightBlack: '#222b31;',
     black: '#191c1f',
 
   },

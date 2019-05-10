@@ -1,15 +1,15 @@
-// export const throttle = (fn, interval) => {
-//   let lastTime;
-//   return function throttled() {
-//       let timeSinceLastExecution = Date.now() - lastTime;
-//       if(!lastTime || (timeSinceLastExecution >= interval)) {
-//           fn.apply(this, arguments);
-//           lastTime = Date.now();
-//       }
-//   };
-// }
+export const throttle = (fn, interval) => {
+  let lastTime;
+  return function throttled() {
+      let timeSinceLastExecution = Date.now() - lastTime;
+      if(!lastTime || (timeSinceLastExecution >= interval)) {
+          fn.apply(this, arguments);
+          lastTime = Date.now();
+      }
+  };
+}
 
-export function throttle(fn, interval) {
+export function debounce(fn, interval: number) {
   let timer;
   return function debounced() {
       clearTimeout(timer);
@@ -21,7 +21,7 @@ export function throttle(fn, interval) {
   };
 }
 
-export const searchByValue = (array, string, searchField) => {
+export const searchByValue = (array: any[], string: string, searchField: string) => {
   if (string) {
     if (!searchField) {
       return array.filter(o =>
@@ -46,13 +46,13 @@ export const searchByValue = (array, string, searchField) => {
 export const handleErrors = (responseData: string | object): boolean => typeof responseData === 'string';
 
 // Convert time to hours and minutes
-export const calcTime = (time) => {
+export const calcTime = (time: number) => {
   const hours = Math.floor(time / 60);
   const mins = time % 60;
   return `${hours}h ${mins}m`;
 }
 // Convert a number to money formatting
-export const convertMoney = (money) => {
+export const convertMoney = (money: number) => {
   var formatter = new Intl.NumberFormat('en-US', {
     style: 'currency',
     currency: 'USD',
@@ -61,7 +61,7 @@ export const convertMoney = (money) => {
   return formatter.format(money);
 };
 
-export const getQueryStrings = (searchURL) => {
+export const getQueryStrings = (searchURL: string) => {
   const query = new URLSearchParams(searchURL);
   const searchTerm = query.get('query');
   return searchTerm;
@@ -69,4 +69,4 @@ export const getQueryStrings = (searchURL) => {
 
 export const getObjectIds = obj => Object.keys(obj).map(key => obj[key]);
 
-export const removeSpacesFromString = (title) => title.replace(/\W+/g, '-').toLowerCase()
+export const removeSpacesFromString = (title: string) => title.replace(/\W+/g, '-').toLowerCase()

@@ -28,12 +28,12 @@ const Wrapper = styled.div`
     width: 60px;
     height: auto;
     & > * :hover {
-      fill: #01d277;
+      fill: ${({ theme }) => theme.colors.green};
     }
   }
 
   svg:hover {
-    fill: #01d277;
+    fill: ${({ theme }) => theme.colors.green};
   }
 
   p {

@@ -16,8 +16,6 @@ import { Content } from 'components/UI/Page';
 import MovieInfo from 'components/Movie/MovieInfo';
 import Spinner from 'components/UI/Spinner';
 
-// interface TParams { id?: string };
-
 type Props = RouteComponentProps & {
   isLoading: boolean;
   match: { params: { id: number } };
@@ -83,8 +81,6 @@ export default compose(
 
 const Wrapper = styled.div`
   display: grid;
-  /* grid-auto-flow: column;
-  grid-gap: 20px; */
 `;
 
 const Loading = styled.div`

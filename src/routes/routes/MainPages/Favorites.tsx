@@ -1,19 +1,19 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
-import styled from 'styled-components';
 // DUCKS
 import {
   effects as favoritesEffects,
   selectors as favoritesSelectors,
 } from 'redux/ducks/favorites.duck';
 // COMPONENTS
+import { Content } from 'components/UI/Page';
 import List from 'components/List';
 
 // TYPES
 export interface Props {
   getAllFavoritedMoviesFromList: () => Promise<void>;
-  favoritedMovies: any;
+  favoritedMovies: IMovie[];
 }
 
 const { useEffect } = React;
@@ -43,9 +43,3 @@ export default compose(
   ),
   React.memo,
 )(Favorites);
-
-const Content = styled.div`
-  max-width: 1200px;
-  padding: 30px 25px 40px 30px;
-  position: relative;
-`;

@@ -44,7 +44,6 @@ const renderPlay = (isAuthenticated, openModal, closeModal, trailer) => {
 
 const MovieInfo: React.FC<Props> = ({ isAuthenticated, movie, openModal, closeModal }) => {
   const { isOpen, toggleShowMore } = useShowMore(false);
-  console.log('poster', movie.poster_path);
   return (
     <Wrapper>
       {movie.poster_path ? (
@@ -86,9 +85,9 @@ const MovieInfo: React.FC<Props> = ({ isAuthenticated, movie, openModal, closeMo
         />
         {isOpen && (
           <MovieInfoBar
-            time={movie.runtime}
-            budget={movie.budget}
-            revenue={movie.revenue}
+            time={movie.runtime || 0}
+            budget={movie.budget || 0}
+            revenue={movie.revenue || 0}
           />
         )}
       </Content>

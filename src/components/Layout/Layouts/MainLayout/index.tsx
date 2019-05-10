@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { RouteProps } from 'react-router-dom';
 import styled from 'styled-components';
-// import { Location } from 'history';
+import { Location } from 'history';
 // STYLES
 import { media } from 'lib/styles';
 // HELPERS
@@ -60,32 +60,26 @@ const Content = styled.div`
 
   display: flex;
   min-height: 100vh;
-  /* min-height: calc(100vh - 160px); */
   flex-direction: column;
   position: relative;
-  background-color: #222b31;
+  background-color: ${({ theme }) => theme.colors.lightBlack};
   color: ${({ theme }) => theme.colors.white};
   height: 100%;
-  /* height: calc(100vh - 140px);
-  ${media.phone`
-    height: auto;
-  `}; */
 `;
 
 const Grid = styled.div`
   position: relative;
   flex: 1;
   display: grid;
-  // grid-template-columns: fit-content(100%) auto;
+   grid-template-columns: fit-content(100%) auto;
   margin-top: 70px;
-  // ${media.phone`
-  //   grid-template-columns: 1fr;
-  // `};
+   ${media.phone`
+     grid-template-columns: 1fr;
+  `};
 `;
 
 const InnerContent = styled.div`
   display: grid;
-  /* justify-content: center; */
   max-height: 100%;
   margin-left: 200px;
   overflow-y: initial;

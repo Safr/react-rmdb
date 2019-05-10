@@ -1,4 +1,3 @@
-// @flow
 import { useState } from 'react';
 
 export default interface IHook {
@@ -7,7 +6,7 @@ export default interface IHook {
   }
 
 export const useShowMore = (initialState: boolean = false): IHook => {
-  const [isOpen, setState] = useState(initialState);
+  const [isOpen, setState] = useState<boolean>(initialState);
   const toggleShowMore = () => setState(!isOpen);
 
   return {

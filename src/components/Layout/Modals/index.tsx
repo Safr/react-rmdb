@@ -1,12 +1,7 @@
-// @flow
 import * as React from 'react';
-// import { connect } from 'react-redux';
-// import { compose } from 'redux';
 import { useTransition, config } from 'react-spring';
 // HOCS
 import { withModalState } from 'components/HOC';
-// DUCKS
-// import { actions, selectors } from 'redux/ducks/modals.duck';
 // COMPONENTS
 import MainPortal from './MainPortal';
 import RenderModals from './renderModals';

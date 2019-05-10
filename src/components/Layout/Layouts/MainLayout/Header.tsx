@@ -30,7 +30,6 @@ interface Props {
   user?: any;
   searchByKeyword: () => void;
   location: Location;
-  // searchKeyword: string;
 }
 
 const { useEffect } = React;
@@ -41,7 +40,6 @@ const Header: React.FC<Props> = ({
   authLogout,
   location,
   openSidebar,
-  // searchKeyword,
   searchByKeyword,
   user,
 }) => {
@@ -67,7 +65,6 @@ const Header: React.FC<Props> = ({
         </Logo>
       )}
       <SearchBar searchByKeyword={searchByKeyword} />
-      {/* <SearchBar /> */}
       {isAuthenticated ? (
         <UserWrapper>
           {user.photoURL ? (

@@ -5,10 +5,6 @@ import { toast } from 'react-toastify';
 import { lensPath, view } from 'ramda';
 import {
   firebaseApp,
-  // facebookProvider,
-  // githubProvider,
-  // twitterProvider,
-  // googleProvider,
 } from 'lib/firebase';
 
 const initialState: IAuthState = {

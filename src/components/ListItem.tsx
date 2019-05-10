@@ -42,9 +42,6 @@ const ListItem: React.FC<Props> = props => {
     watchLater,
   } = props;
 
-  // console.log('id', id, title);
-  console.log(`/movie/${id}-${title}`);
-
   const isFavorited =
     isAuthenticated && favoritedIds && favoritedIds.includes(String(id));
   const isWatchLater =
@@ -119,7 +116,6 @@ export default ListItem;
 const Wrapper = styled.li`
   position: relative;
   width: 185px;
-  /* margin-right: 40px; */
   transition: opacity 0.3s ease;
 
   h3 {

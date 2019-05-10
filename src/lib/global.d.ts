@@ -11,6 +11,8 @@ declare interface IMovie {
   budget?: number;
   genre_ids: number[];
   id: number;
+  favorited?: boolean;
+  watchLater?: boolean;
   original_language: string;
   original_title: string;
   overview: string;

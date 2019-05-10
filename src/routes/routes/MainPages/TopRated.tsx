@@ -11,6 +11,7 @@ import {
   selectors as moviesSelectors,
 } from 'redux/ducks/movies.duck';
 // COMPONENTS
+import { Content } from 'components/UI/Page';
 import List from 'components/List';
 import Spinner from 'components/UI/Spinner';
 
@@ -19,7 +20,7 @@ const { useEffect } = React;
 // TYPES
 export interface Props {
   fetchTopRatedMovies: (page: number) => Promise<void>;
-  movies: any;
+  movies: IMovies;
   page: number;
   isLoading: boolean;
 }
@@ -58,12 +59,6 @@ export default compose(
   withAjaxLoadMore,
   React.memo,
 )(TopRatedPages);
-
-const Content = styled.div`
-  max-width: 1200px;
-  padding: 30px 25px 40px 30px;
-  position: relative;
-`;
 
 const Loading = styled.div`
   display: grid;

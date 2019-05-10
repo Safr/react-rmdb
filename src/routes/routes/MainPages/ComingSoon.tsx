@@ -9,8 +9,8 @@ import {
   effects as moviesEffects,
   selectors as moviesSelectors,
 } from 'redux/ducks/movies.duck';
-
 // COMPONENTS
+import { Content } from 'components/UI/Page';
 import List from 'components/List';
 import Spinner from 'components/UI/Spinner';
 
@@ -57,12 +57,6 @@ export default compose(
   withAjaxLoadMore,
   React.memo,
 )(ComingSoonPages);
-
-const Content = styled.div`
-  max-width: 1200px;
-  padding: 30px 25px 40px 30px;
-  position: relative;
-`;
 
 const Loading = styled.div`
   display: grid;

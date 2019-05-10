@@ -2,7 +2,6 @@ import * as React from 'react';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
 import styled from 'styled-components';
-// import { useSetGlobalEventHandler } from 'lib/hooks';
 // HOCS
 import { withAjaxLoadMore } from 'components/HOC';
 // DUCKS
@@ -11,17 +10,16 @@ import {
   selectors as moviesSelectors,
 } from 'redux/ducks/movies.duck';
 // COMPONENTS
+import { Content } from 'components/UI/Page';
 import List from 'components/List';
 import Spinner from 'components/UI/Spinner';
-
-// import { useLoadMore } from 'lib/hooks';
 
 const { useEffect } = React;
 
 // TYPES
 export interface Props {
   fetchPopularMovies: (page: number) => Promise<void>;
-  movies: any;
+  movies: IMovies;
   page: number;
   isLoading: boolean;
 }
@@ -33,7 +31,6 @@ const PopularPages: React.FC<Props> = ({
   page,
   ...rest
 }) => {
-  // const currentPage = movies ? movies.page : 1;
 
   useEffect(() => {
     fetchPopularMovies(page);
@@ -62,12 +59,6 @@ export default compose(
   withAjaxLoadMore,
   React.memo,
 )(PopularPages);
-
-const Content = styled.div`
-  max-width: 1200px;
-  padding: 30px 25px 40px 30px;
-  position: relative;
-`;
 
 const Loading = styled.div`
   display: grid;

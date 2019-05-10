@@ -1,9 +1,8 @@
 import * as React from 'react';
 import Dropdown from 'react-dropdown';
-// import 'react-dropdown/style.css';
 import styled from 'styled-components';
 // CONSTANTS
-import { SORT_BY, SORT_BY_ORDER } from 'lib/constants/SelectOptions';
+import { SORT_BY, SORT_BY_ORDER } from 'lib/constants/selectOptions';
 
 interface Props {
   filters: IFiltersState;

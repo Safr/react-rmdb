@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { throttle } from 'lib/helpers';
+import { debounce } from 'lib/helpers';
 
 type WithAjaxLoadMoreProps<T> = T & withAjaxLoadMoreInnerProps;
 
@@ -25,7 +25,7 @@ function withAjaxLoadMore<T extends InjectedProps>(
       currentPage: 1,
     };
 
-    handleScroll = throttle(() => {
+    handleScroll = debounce(() => {
       const { isLoading } = this.props;
       const scrollTop =
         (document.documentElement && document.documentElement.scrollTop) ||

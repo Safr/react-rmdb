@@ -19,6 +19,7 @@ import {
 } from 'redux/ducks/movies.duck';
 
 // COMPONENTS
+import { Content } from 'components/UI/Page';
 import List from 'components/List';
 import Sorting from 'components/Sorting';
 import Spinner from 'components/UI/Spinner';
@@ -29,7 +30,7 @@ const { useEffect } = React;
 export interface Props {
   fetchMovies: (page: number, filters: IFiltersState) => Promise<void>;
   updateFilters: (filters: IFiltersState) => void;
-  movies: any;
+  movies: IMovies;
   page: number;
   isLoading: boolean;
   filters: IFiltersState;
@@ -80,19 +81,6 @@ export default compose(
   React.memo,
 )(DiscoverPages);
 
-const Content = styled.div`
-  max-width: 1200px;
-  padding: 30px 25px 40px 30px;
-  position: relative;
-
-  h3 {
-    color: rgba(255, 255, 255, 0.5);
-    margin-top: 0;
-    font-weight: normal;
-    font-size: 22px;
-  }
-`;
-
 const SortingBox = styled.div`
   display: grid;
   grid-template-columns: 1fr auto;
@@ -102,6 +90,13 @@ const SortingBox = styled.div`
     grid-template-columns: 1fr;
     grid-row-gap
   `};
+
+  h3 {
+    color: rgba(255, 255, 255, 0.5);
+    margin-top: 0;
+    font-weight: normal;
+    font-size: 22px;
+  }
 `;
 
 const Loading = styled.div`

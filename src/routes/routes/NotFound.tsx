@@ -1,6 +1,6 @@
 import * as React from 'react';
-import styled from 'styled-components/macro';
 import { Link } from 'react-router-dom';
+import styled from 'styled-components';
 
 const NotFound = () => {
   return (
