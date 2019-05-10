@@ -68,3 +68,5 @@ export const getQueryStrings = (searchURL) => {
 }
 
 export const getObjectIds = obj => Object.keys(obj).map(key => obj[key]);
+
+export const removeSpacesFromString = (title) => title.replace(/\W+/g, '-').toLowerCase()

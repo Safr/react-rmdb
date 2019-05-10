@@ -46,8 +46,7 @@ const Wrapper = styled.div`
   display: grid;
   grid-auto-flow: row;
   grid-gap: 10px;
-  margin-top: 20px;
-  padding: 15px;
+  padding: 0 15px 15px 15px;
      svg {
         width: 40px;
      }

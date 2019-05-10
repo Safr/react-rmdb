@@ -1,6 +1,10 @@
 import * as React from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
+// HELPERS
+import { removeSpacesFromString } from 'lib/helpers';
+// ASSETS
+import NoImage from 'assets/images/no_image.jpg';
 // COMPONENTS
 import MovieActions from 'components/Movie/MovieActions';
 import VoteBadge from 'components/UI/VoteBadge';
@@ -38,6 +42,9 @@ const ListItem: React.FC<Props> = props => {
     watchLater,
   } = props;
 
+  // console.log('id', id, title);
+  console.log(`/movie/${id}-${title}`);
+
   const isFavorited =
     isAuthenticated && favoritedIds && favoritedIds.includes(String(id));
   const isWatchLater =
@@ -65,10 +72,8 @@ const ListItem: React.FC<Props> = props => {
               favorited={isFavorited || favorited}
               isWatchLater={isWatchLater || watchLater}
             />
-
-            <ImageLink
-              className="list__movie-image-link"
-              to={`/movie/${id}-${title}`}
+              <ImageLink
+              to={`/movie/${id}-${removeSpacesFromString(title)}`}
             >
               <img
                 src={`https://image.tmdb.org/t/p/w185_and_h278_bestv2${poster_path}`}
@@ -95,8 +100,11 @@ const ListItem: React.FC<Props> = props => {
               favorited={isFavorited || favorited}
               isWatchLater={isWatchLater || watchLater}
             />
-            <ImageLink to={`/movie/${id}`}>
-              <div className="list__movie-no_image_holder" />
+            <ImageLink to={`/movie/${id}-${removeSpacesFromString(title)}`}>
+            <img
+                src={NoImage}
+                alt={title}
+              />
             </ImageLink>
           </>
         )}
@@ -152,6 +160,8 @@ const ImageBox = styled.figure`
   }
 
   img {
+    height: 100%;
+    object-fit: cover;
     opacity: 1;
     transition: transform 0.5s cubic-bezier(0.15, 1, 0.33, 1);
 }

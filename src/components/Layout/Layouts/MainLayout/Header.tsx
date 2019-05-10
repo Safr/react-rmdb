@@ -74,7 +74,6 @@ const Header: React.FC<Props> = ({
             // eslint-disable-next-line
             <img
               onClick={toggleUserMenu}
-              className="user-wrapper-avatar"
               src={user.photoURL}
               alt={user.displayName}
               width="48"
@@ -84,7 +83,6 @@ const Header: React.FC<Props> = ({
             <>
               <svg
                 onClick={toggleUserMenu}
-                className="user-wrapper-avatar"
                 xmlns="http://www.w3.org/2000/svg"
                 width="48"
                 height="48"

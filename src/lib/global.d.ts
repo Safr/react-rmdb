@@ -1,4 +1,4 @@
-import { Location } from 'history';
+// import { Location } from 'history';
 
 declare module 'react-toastify' {
   const content: any 
@@ -8,6 +8,7 @@ declare module 'react-toastify' {
 }
 declare interface IMovie {
   backdrop_path: string;
+  budget?: number;
   genre_ids: number[];
   id: number;
   original_language: string;
@@ -16,8 +17,11 @@ declare interface IMovie {
   popularity: number;
   poster_path: string;
   release_date: number;
+  revenue?: number;
+  runtime?: number;
   title: string;
   video: boolean;
+  videos: any;
   vote_average: number;
   vote_count: number;
 }
@@ -43,7 +47,7 @@ declare interface IRatingRuntime {
  */
 
 declare interface IRouterState {
-  location: Location;
+  location: any;
   action: string;
 }
 
@@ -60,25 +64,25 @@ declare interface IModalsState {
 }
 
 declare interface IFavoritesState {
-  favoritedMovies: IMovie[];
-  favoritedIds: string[];
+  favoritedMovies: any | IMovie[];
+  favoritedIds: any | string[];
   error: boolean;
 }
 
 declare interface IWatchLaterState {
-  watchLaterMovies: IMovie[];
-  watchLaterIds: string[];
+  watchLaterMovies: any | IMovie[];
+  watchLaterIds: any | string[];
   error: boolean;
 }
 
 declare interface IMoviesState {
-  movies: IMovies;
-  movie: IMovie;
-  popularMovies: IMovies;
-  soonMovies: IMovies;
-  topRatedMovies: IMovies;
+  movies: any | IMovies;
+  movie: any | IMovie;
+  popularMovies: any | IMovies;
+  soonMovies: any | IMovies;
+  topRatedMovies: any | IMovies;
   favorites: any[],
-  watchLater: [] | null,
+  watchLater: any[] | null,
   loading: boolean,
   error: boolean,
 }
@@ -100,5 +104,4 @@ declare interface IRootState {
   modals: IModalsState;
   movies: IMoviesState;
   watchLater: IWatchLaterState;
-  user?: any;
 }

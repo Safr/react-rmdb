@@ -2,10 +2,15 @@ import * as React from 'react';
 import { NavLink } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
-import { MdClose, MdSubdirectoryArrowRight} from 'react-icons/md';
+import {
+  MdClose,
+  MdSubdirectoryArrowRight,
+  MdFavorite,
+  MdAccessTime,
+} from 'react-icons/md';
 import styled from 'styled-components';
 // STYLES
-import { media } from 'lib/styles';
+import { media, primaryTheme } from 'lib/styles';
 // DUCKS
 import {
   effects as authEffects,
@@ -50,7 +55,11 @@ const MobileMenu: React.FC<Props> = ({
       <Wrapper isOpen={isSidebarOpen} id="sidebar">
         <MediaHeader>
           <Logo>Safr</Logo>
-          <MdClose size="30px" color="#fff" onClick={closeSidebar} />
+          <MdClose
+            size="30px"
+            color={primaryTheme.colors.white}
+            onClick={closeSidebar}
+          />
         </MediaHeader>
         <SidebarMenu>
           <li className="sidebar-menu__item">
@@ -102,23 +111,36 @@ const MobileMenu: React.FC<Props> = ({
           </li>
         </SidebarMenu>
         <Login>
-         { !isAuthenticated ? (
+          {!isAuthenticated ? (
             <li>
-            <Link exact to="/login">
-            <MdSubdirectoryArrowRight color="#fff" />
-              Login
-            </Link>
-          </li>
-
-         ) : (
-          <li>
-            <Link exact to="#" onClick={authLogout}>
-          <MdSubdirectoryArrowRight color="#fff" />
-            Sign Out
-            </Link>
-          </li>
-         )}
-            
+              <Link exact to="/login">
+                <MdSubdirectoryArrowRight color={primaryTheme.colors.white} />
+                Login
+              </Link>
+            </li>
+          ) : (
+            <>
+              <li>
+                <Link exact to="/favorites">
+                  <MdFavorite color={primaryTheme.colors.white} />
+                  Favorites
+                </Link>
+              </li>
+              <li>
+                <Link exact to="/watch-later">
+                  <MdAccessTime color={primaryTheme.colors.white} />
+                  Watch Later
+                </Link>
+              </li>
+              <li>
+                {/* eslint-disable-next-line */}
+                <Link exact to="#" onClick={authLogout}>
+                  <MdSubdirectoryArrowRight color={primaryTheme.colors.white} />
+                  Sign Out
+                </Link>
+              </li>
+            </>
+          )}
         </Login>
 
         {currentPath === '/' && (
@@ -175,7 +197,7 @@ const Logo = styled.h1`
 const SidebarMenu = styled.ul`
   list-style-type: none;
   margin: 0;
-  padding: 10px 0;
+  padding: 8px 0;
   font-size: 14px;
 
   li {
@@ -189,7 +211,7 @@ const SidebarMenu = styled.ul`
         path {
           margin-right: 15px;
           transition: all 0.3s ease;
-          fill: #fff;
+          fill: ${({ theme }) => theme.colors.white};
         }
       }
     }
@@ -199,23 +221,23 @@ const SidebarMenu = styled.ul`
 const activeClassName = 'active';
 
 const Link = styled(NavLink).attrs({ activeClassName })`
-  color: #fff;
+  color: ${({ theme }) => theme.colors.white};
   text-decoration: none;
-  padding: 10px 15px;
+  padding: 8px 15px;
   display: block;
   transition: all 0.3s ease;
 
   :hover {
-    color: #ff424f;
+    color: ${({ theme }) => theme.colors.red};
 
     svg path {
-      fill: #ff424f;
+      fill: ${({ theme }) => theme.colors.red};
     }
   }
   &.${activeClassName} {
-    color: #ff424f;
+    color: ${({ theme }) => theme.colors.red};
     svg path {
-      fill: #ff424f;
+      fill: ${({ theme }) => theme.colors.red};
     }
   }
 `;
@@ -264,7 +286,7 @@ const ContainerBg = styled.div<MobileProps>`
 `;
 
 const Login = styled.ul`
-  padding: 15px 0;
+  padding: 8px 0;
   border-top: 1px solid ${({ theme }) => theme.colors.white};
   border-bottom: 1px solid ${({ theme }) => theme.colors.white};
 
@@ -272,8 +294,7 @@ const Login = styled.ul`
     a {
       display: grid;
       grid-template-columns: max-content max-content;
-    grid-gap: 15px;
+      grid-gap: 15px;
     }
   }
-
-  `;
+`;

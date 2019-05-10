@@ -92,27 +92,6 @@ const Sidebar: React.FC<Props> = ({
   );
 };
 
-// const mapStateToProps = (state: any) => ({
-//   filters: filtersSelectors.getFilters(state),
-// });
-
-// const mapDispatchToProps = (dispatch: Dispatch) => ({
-//   resetFilters: () => dispatch(filtersActions.resetFilters()),
-//   updateFilters: (filters: IFiltersState) =>
-//     dispatch(filtersEffects.updateFilters(filters)),
-// });
-
-// export default connect<any, any, void>(
-//   mapStateToProps,
-//   mapDispatchToProps,
-// )(Sidebar);
-
-// export default connect(
-//   state => ({
-//     filters: filtersSelectors.getFilters(state),
-//   }),
-//   { ...filtersActions, ...filtersEffects },
-// )(Sidebar);
 export default compose(
   connect(
     state => ({
@@ -125,7 +104,6 @@ export default compose(
 const Wrapper = styled.div`
   position: fixed;
   width: 200px;
-  /* height: calc(100vh - 140px); */
   height: 100%;
   background-color: ${({ theme }) => theme.colors.black};
 

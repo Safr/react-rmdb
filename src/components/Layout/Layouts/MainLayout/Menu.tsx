@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Link } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import styled from 'styled-components';
 
 interface Props {
@@ -32,6 +32,8 @@ const Menu: React.FC<Props> = ({ isOpen, userName, onClick }) => {
 };
 
 export default Menu;
+
+const activeClassName = 'active';
 
 const Wrapper = styled.div<MenuProps>`
   position: absolute;
@@ -74,9 +76,10 @@ const Ul = styled.ul`
   margin: 0;
   padding: 0;
   list-style-type: none;
+`;
 
-  li a {
-    display: block;
+const Link = styled(NavLink).attrs({ activeClassName })`
+   display: block;
     font-size: 13px;
     color: ${({ theme }) => theme.colors.white};
     text-decoration: none;
@@ -87,10 +90,27 @@ const Ul = styled.ul`
     :hover {
       background-color: ${({ theme }) => theme.colors.red};
     }
+
+    &.${activeClassName} {
+    color: ${({ theme }) => theme.colors.red};
+    svg path {
+      fill: ${({ theme }) => theme.colors.red};
+    }
   }
 `;
 
 const Logout = styled.a`
+   display: block;
+    font-size: 13px;
+    color: ${({ theme }) => theme.colors.white};
+    text-decoration: none;
+    padding: 10px;
+    text-align: left;
+    transition: all 0.3s ease;
+
+    :hover {
+      background-color: ${({ theme }) => theme.colors.red};
+    }
   border-top: 1px solid ${({ theme }) => theme.colors.red};
   :hover {
     background-color: ${({ theme }) => theme.colors.red};

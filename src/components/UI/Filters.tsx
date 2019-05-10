@@ -207,7 +207,7 @@ const AppFilters = styled.div`
     color: ${({ theme }) => theme.colors.white}
     cursor: pointer;
     outline: none;
-    padding: 6px 40px 15px 10px;
+    padding: 6px 40px 6px 10px;
     transition: all 200ms ease;
   }
 
@@ -293,7 +293,7 @@ const AppFilters = styled.div`
 const FiltersListItem = styled.li`
   font-size: 14px;
   padding: 6px 0;
-  margin-bottom: 10px;
+  margin-bottom: 19px;
 `;
 
 const FilterLabel = styled.label`

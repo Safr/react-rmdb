@@ -4,17 +4,18 @@ import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 // STYLES
 import { media, primaryTheme } from 'lib/styles';
+// ASSETS
+import NoImage from 'assets/images/no_image.jpg';
 // HOOKS
 import { useShowMore } from 'lib/hooks';
 // COMPONENTS
 import Meter from 'components/UI/Meter';
 import VoteBadge from 'components/UI/VoteBadge';
 import MovieInfoBar from 'components/Movie/MovieInfoBar';
-// import MovieActions from 'components/Movie/MovieActions';
 import ShowMore from 'components/UI/ShowMore';
 
 interface Props {
-  movie: any;
+  movie: IMovie;
   isAuthenticated: boolean;
   closeModal: () => void;
   openModal: () => void;
@@ -43,13 +44,21 @@ const renderPlay = (isAuthenticated, openModal, closeModal, trailer) => {
 
 const MovieInfo: React.FC<Props> = ({ isAuthenticated, movie, openModal, closeModal }) => {
   const { isOpen, toggleShowMore } = useShowMore(false);
+  console.log('poster', movie.poster_path);
   return (
     <Wrapper>
-      <img
-        className="movie-poster"
+      {movie.poster_path ? (
+        <img
         src={`https://image.tmdb.org/t/p/w300${movie.poster_path}`}
         alt=""
       />
+      )
+    : (
+      <img
+      src={NoImage}
+      alt=""
+      />
+    )}
       <Content>
         <h1>{movie.title}</h1>
         {movie.videos.results.length > 0 &&
