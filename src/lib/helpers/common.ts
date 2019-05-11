@@ -1,4 +1,4 @@
-export const throttle = (fn, interval) => {
+export const throttle = (fn, interval: number) => {
   let lastTime;
   return function throttled() {
       let timeSinceLastExecution = Date.now() - lastTime;
@@ -20,30 +20,6 @@ export function debounce(fn, interval: number) {
       }, interval);
   };
 }
-
-export const searchByValue = (array: any[], string: string, searchField: string) => {
-  if (string) {
-    if (!searchField) {
-      return array.filter(o =>
-        Object.keys(o).some(k =>
-          String(o[k])
-            .toLowerCase()
-            .includes(string.toLowerCase()),
-        ),
-      );
-    }
-
-    if (searchField) {
-      return array.filter(o =>
-        o[searchField].toLowerCase().includes(string.toLowerCase()),
-      );
-    }
-  }
-  return array;
-};
-
-
-export const handleErrors = (responseData: string | object): boolean => typeof responseData === 'string';
 
 // Convert time to hours and minutes
 export const calcTime = (time: number) => {
@@ -67,6 +43,6 @@ export const getQueryStrings = (searchURL: string) => {
   return searchTerm;
 }
 
-export const getObjectIds = obj => Object.keys(obj).map(key => obj[key]);
+export const getObjectIds = (obj: { [x: string]: any; }) => Object.keys(obj).map(key => obj[key]);
 
-export const removeSpacesFromString = (title: string) => title.replace(/\W+/g, '-').toLowerCase()
+export const replaceSpacesToHyphensFromString = (title: string) => title.replace(/\W+/g, '-').toLowerCase()

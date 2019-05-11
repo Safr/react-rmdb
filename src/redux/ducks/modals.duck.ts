@@ -7,7 +7,7 @@ const initialState: IModalsState = {
   args: null,
 };
 
-const actions = createActions<IModalsState>('OPEN_MODAL', 'CLOSE__MODAL');
+const actions = createActions<IModalsState>('OPEN_MODAL', 'CLOSE_MODAL');
 const reducer: Reducer<IModalsState, IModalsState> = handleActions<
   IModalsState,
   IModalsState

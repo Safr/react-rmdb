@@ -37,9 +37,9 @@
     "uuid": "^3.3.2"
   },
   "scripts": {
-    "start": "cross-env REACT_APP_API_URL=https://api.exmo.com/v1 react-scripts start",
+    "start": "cross-env react-scripts start",
     "build": "react-scripts build",
-    "test": "react-scripts test",
+    "test": "react-scripts test --colors",
     "eject": "react-scripts eject",
     "eslint-fix": "eslint . --fix",
     "eslint-check": "eslint --print-config . | eslint-config-prettier-check",
@@ -73,6 +73,7 @@
     "@types/webpack-env": "^1.13.9",
     "@typescript-eslint/eslint-plugin": "^1.6.0",
     "@typescript-eslint/parser": "^1.6.0",
+    "babel-core": "7.0.0-bridge.0",
     "babel-eslint": "9.0.0",
     "babel-jest": "23.6.0",
     "babel-plugin-module-resolver": "3.2.0",
@@ -97,5 +98,8 @@
     "stylelint-processor-styled-components": "^1.6.0",
     "ts-jest": "^24.0.2",
     "typescript-plugin-styled-components": "^1.4.2"
+  },
+  "jest": {
+    "snapshotSerializers": ["enzyme-to-json/serializer"]
   }
 }

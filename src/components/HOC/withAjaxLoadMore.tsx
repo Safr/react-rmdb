@@ -43,11 +43,11 @@ function withAjaxLoadMore<T extends InjectedProps>(
     }, 300);
 
     componentDidMount() {
-      window.addEventListener('scroll', this.handleScroll);
+      document.addEventListener('scroll', this.handleScroll);
     }
 
     componentWillUnmount() {
-      window.removeEventListener('scroll', this.handleScroll);
+      document.removeEventListener('scroll', this.handleScroll);
     }
 
     setPage = () => {

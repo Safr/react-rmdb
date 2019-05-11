@@ -2,7 +2,7 @@ import * as React from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 // HELPERS
-import { removeSpacesFromString } from 'lib/helpers';
+import { replaceSpacesToHyphensFromString } from 'lib/helpers';
 // ASSETS
 import NoImage from 'assets/no_image.jpg';
 // COMPONENTS
@@ -69,7 +69,9 @@ const ListItem: React.FC<Props> = props => {
               favorited={isFavorited || favorited}
               isWatchLater={isWatchLater || watchLater}
             />
-            <ImageLink to={`/movie/${id}-${removeSpacesFromString(title)}`}>
+            <ImageLink
+              to={`/movie/${id}-${replaceSpacesToHyphensFromString(title)}`}
+            >
               <img
                 src={`https://image.tmdb.org/t/p/w185_and_h278_bestv2${poster_path}`}
                 alt={title}
@@ -95,7 +97,9 @@ const ListItem: React.FC<Props> = props => {
               favorited={isFavorited || favorited}
               isWatchLater={isWatchLater || watchLater}
             />
-            <ImageLink to={`/movie/${id}-${removeSpacesFromString(title)}`}>
+            <ImageLink
+              to={`/movie/${id}-${replaceSpacesToHyphensFromString(title)}`}
+            >
               <img src={NoImage} alt={title} />
             </ImageLink>
           </>

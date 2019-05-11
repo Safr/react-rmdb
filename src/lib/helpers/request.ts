@@ -1,9 +1,9 @@
 import axios from 'axios';
-import { API_URL } from 'lib/constants/API';
+import { API_KEY } from 'lib/constants/searchConfig';
 
 export default async (method, url, options = {}, config = null) => {
   const instance = axios.create({
-    baseURL: API_URL,
+    baseURL: API_KEY,
     headers: {},
   });
 
