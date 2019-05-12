@@ -6,7 +6,7 @@
         "components/*": ["src/components/*"],
         "redux/*": ["src/redux/*"],
         "api/*": ["src/api"],
-        "routes/*": ["src/routes/*"],
+        "pages/*": ["src/pages/*"],
         "assets/*": ["src/assets/*"]
       }
     }

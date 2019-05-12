@@ -8,7 +8,7 @@ import configureStore from 'redux/store';
 // THEMES
 import { primaryTheme, GlobalStyle } from 'lib/styles';
 // ROUTES
-import Routes from 'routes/RootRoutes';
+import Routes from 'pages/RootRoutes';
 
 const { store, persistor, history } = configureStore();
 

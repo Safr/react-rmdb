@@ -25,7 +25,6 @@ const Content = styled.div`
   background: rgba(243, 255, 255, 0.4);
   > * {
     height: 40px;
-    width: 80px;
     position: absolute;
     z-index: 1001;
     top: 50%;

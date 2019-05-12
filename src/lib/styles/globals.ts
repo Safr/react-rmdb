@@ -14,10 +14,11 @@ export const GlobalStyle = createGlobalStyle`
   body,
   html {
     height: 100%;
-    min-width: 320px;
   }
 
   body {
+    width: 100%;
+    min-width: 320px;
     margin: 0;
     padding: 0;
     font-family: 'Montserrat', sans-serif;
