@@ -2,6 +2,7 @@
   "name": "react-rmdb",
   "version": "0.1.0",
   "private": true,
+  "homepage": "https://react-rmdb.firebaseapp.com/",
   "dependencies": {
     "@loadable/component": "^5.7.0",
     "axios": "^0.18.0",
@@ -39,6 +40,7 @@
   "scripts": {
     "start": "cross-env react-scripts start",
     "build": "react-scripts build",
+    "deploy": "gh-pages -d build",
     "test": "react-scripts test --colors",
     "eject": "react-scripts eject",
     "eslint-fix": "eslint . --fix",
@@ -100,6 +102,8 @@
     "typescript-plugin-styled-components": "^1.4.2"
   },
   "jest": {
-    "snapshotSerializers": ["enzyme-to-json/serializer"]
+    "snapshotSerializers": [
+      "enzyme-to-json/serializer"
+    ]
   }
 }
