@@ -4,6 +4,9 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 Builds the app for production to the `build` folder.
 
+## Demo
+[Live DEMO](https://react-rmdb.firebaseapp.com/)
+
 ## The project was build using the following technologies:
 * React
 * Redux & Redux thunk
