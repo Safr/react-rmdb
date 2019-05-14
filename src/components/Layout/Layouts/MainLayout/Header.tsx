@@ -144,7 +144,7 @@ const Wrapper = styled.header`
   justify-items: center;
   align-items: center
   background-color: ${({ theme }) => theme.colors.darkRed};
-  height: 70px;
+  height: 60px;
   > svg {
     width: 50px;
   }
