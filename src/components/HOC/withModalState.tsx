@@ -41,7 +41,7 @@ const withModalState = <P extends InjectedProps>(
       const body: HTMLBodyElement = document.querySelector(
         'body',
       ) as HTMLBodyElement;
-      body.style.overflow = 'hidden';
+      body.style.overflow = 'auto';
     }
   }, [open]);
 
