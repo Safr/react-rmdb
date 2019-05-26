@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="utf-8" />
-    <link rel="shortcut icon" href="%PUBLIC_URL%/images/favicon.png" />
+    <link rel="shortcut icon" href="%PUBLIC_URL%/favicon.ico" />
     <link rel="apple-touch-icon-precomposed" href="%PUBLIC_URL%/images/apple-touch-icon-precomposed.png">
     <meta name="description" content="ReactJS MovieDb Search - A responsive web app to search movie information via The Movie Database (TMDb) API. Built on Facebook's ReactJS framework.">
     <meta
@@ -19,7 +19,7 @@
       manifest.json provides metadata used when your web app is installed on a
       user's mobile device or desktop. See https://developers.google.com/web/fundamentals/web-app-manifest/
     -->
-    <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
+    <!-- <link rel="manifest" href="%PUBLIC_URL%/manifest.json" /> -->
     <link href="https://fonts.googleapis.com/css?family=Oswald:400,700" rel="stylesheet">
 
     <!--
@@ -52,34 +52,5 @@
       To begin the development, run `npm start` or `yarn start`.
       To create a production bundle, use `npm run build` or `yarn build`.
     -->
-    <script>
-      if ('serviceWorker' in navigator) {
-        window.addEventListener('load', function() {
-          navigator.serviceWorker.register('service-worker.js').then(function(registration) {
-            // Registration was successful
-            console.log('ServiceWorker registration successful with scope: ', registration.scope);
-          }, function(err) {
-            // registration failed :(
-            console.log('ServiceWorker registration failed: ', err);
-          }).catch(function(err) {
-            console.log(err)
-          });
-        });
-      } else {
-        console.log('service worker is not supported');
-      }
-
-      var deferredPrompt;
-
-      window.addEventListener('beforeinstallprompt', function (e) {
-        // Prevent Chrome 67 and earlier from automatically showing the prompt
-        e.preventDefault();
-        // Stash the event so it can be triggered later.
-        deferredPrompt = e;
-
-        showAddToHomeScreen();
-
-      });
-    </script>
   </body>
 </html>

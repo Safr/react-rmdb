@@ -45,6 +45,7 @@ const effects = {
     setErrors,
     setSubmitting,
   ) => async dispatch => {
+    const url = window.history.state.state;
     try {
       let data;
       const providers = await firebaseApp.auth().fetchProvidersForEmail(email);
@@ -62,7 +63,7 @@ const effects = {
         toast.success("You've been successfully authenticated"),
       ]);
 
-      return await dispatch(push('/'));
+      return await dispatch(push(url));
     } catch (error) {
       setSubmitting(false);
       if (error) {

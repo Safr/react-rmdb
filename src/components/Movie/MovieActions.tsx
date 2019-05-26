@@ -33,7 +33,7 @@ const renderFavHeart = (onFavoriteSelect, onFavoriteDeselect, isAuthenticated, f
     );
   }
   return (
-    <Link to="/login">
+    <Link to={{ pathname: '/login', state: window.location.pathname }}>
       <MdFavorite
         onClick={() => {}}
         color={favorited ? primaryTheme.colors.red: primaryTheme.colors.white}
@@ -61,7 +61,7 @@ const renderWatchLaterClock = (onWatchLaterSelect, onWatchLaterDeselect, isAuthe
   );
 }
   return (
-    <Link to="/login">
+    <Link to={{ pathname: '/login', state: window.location.pathname }}>
       <MdAccessTime color={primaryTheme.colors.white} size="40px" />
     </Link>
   );

@@ -37,7 +37,7 @@ const renderPlay = (isAuthenticated, openModal, closeModal, trailer) => {
     );
   }
   return (
-    <StyledLink to="/login">
+    <StyledLink to={{ pathname: '/login', state: window.location.pathname }}>
       <span>Watch Trailer</span>
       <MdPlayArrow color={primaryTheme.colors.white} size="40px" />
     </StyledLink>
