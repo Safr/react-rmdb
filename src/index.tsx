@@ -11,6 +11,8 @@ import { actions as watchLaterActions } from 'redux/ducks/watchLater.duck';
 // COMPONENTS
 import App from './App';
 
+import * as serviceWorker from './service-worker';
+
 const rootEl = document.getElementById('root');
 
 const renderApp = (Application: React.ComponentType<any>) => {
@@ -63,3 +65,8 @@ if (module.hot) {
     renderApp(NextApp);
   });
 }
+
+// If you want your app to work offline and load faster, you can change
+// unregister() to register() below. Note this comes with some pitfalls.
+// Learn more about service workers: http://bit.ly/CRA-PWA
+serviceWorker.unregister();
