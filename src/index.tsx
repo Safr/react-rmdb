@@ -10,6 +10,7 @@ import { actions as favoritesActions } from 'redux/ducks/favorites.duck';
 import { actions as watchLaterActions } from 'redux/ducks/watchLater.duck';
 // COMPONENTS
 import App from './App';
+import registerServiceWorker from './registerServiceWorker';
 
 const rootEl = document.getElementById('root');
 
@@ -63,3 +64,5 @@ if (module.hot) {
     renderApp(NextApp);
   });
 }
+
+registerServiceWorker();
