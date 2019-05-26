@@ -11,6 +11,8 @@ import { githubProvider, googleAuthProvider } from 'lib/firebase';
 import { validators } from 'lib/helpers';
 // DUCKS
 import { actions, effects, selectors } from 'redux/ducks/auth.duck';
+// COMPONENTS
+import { Content } from 'components/UI/Page';
 
 const initialValues = {
   email: '',
@@ -174,12 +176,6 @@ export default connect(
   { ...actions, ...effects },
 )(Login);
 
-const Content = styled.div`
-  max-width: 1200px;
-  padding: 30px 25px 40px 30px;
-  position: relative;
-`;
-
 const LoginWrapper = styled.div`
   position: relative;
   z-index: 1;
@@ -188,7 +184,7 @@ const LoginWrapper = styled.div`
   background-color: rgba(20, 22, 24, 0.5);
 
   ${media.phone`
-    margin-top: 20px;
+    margin-top: 0;
     margin-bottom: 0;
     background-color: transparent;
   `};
@@ -203,6 +199,7 @@ const LoginWrapper = styled.div`
     padding: 10px;
     margin: 0;
     ${media.phone`
+      padding: 0;
       background-color: transparent;
     `};
   }
@@ -226,7 +223,7 @@ const Divider = styled.div`
   text-transform: uppercase;
   text-align: center;
   font-size: 12px;
-  padding: 15px 0;
+  padding: 10px 0;
   opacity: 0.4;
 
   ::before,
@@ -311,7 +308,7 @@ const Input = styled.input`
 
 const Button = styled.button`
   display: block;
-  margin-top: 40px;
+  margin-top: 26px;
   width: 100%;
   padding: 20px;
   background-color: ${({ theme }) => theme.colors.red};

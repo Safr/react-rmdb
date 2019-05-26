@@ -7,6 +7,6 @@ export const Content = styled.div`
   padding: 30px 25px 40px 30px;
   ${media.phone`
    height: auto;
-    padding: 20px 15px 30px 15px;
+    padding: 17px 15px 17px 15px;
   `};
 `;
