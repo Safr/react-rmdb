@@ -74,14 +74,17 @@ const effects = {
       return new Promise(resolve => resolve(error));
     }
   },
-  authWithSocialNetwork: (provider: any) => async () => {
+  authWithSocialNetwork: (provider: any) => async dispatch => {
+    const url = window.history.state.state;
     firebaseApp
       .auth()
       .signInWithPopup(provider)
       .then(() => {
+        dispatch(push(url));
         toast.success("You've been successfully authenticated");
       })
       .catch(() => {
+        dispatch(push('/'));
         toast.error('There must be an error occured while logging in');
       });
   },
