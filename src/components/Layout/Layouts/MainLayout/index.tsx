@@ -71,9 +71,9 @@ const Grid = styled.div`
   position: relative;
   flex: 1;
   display: grid;
-   grid-template-columns: fit-content(100%) auto;
-  margin-top: 70px;
-   ${media.phone`
+  grid-template-columns: fit-content(100%) auto;
+  margin-top: 60px;
+  ${media.phone`
      grid-template-columns: 1fr;
   `};
 `;
